@@ -7,7 +7,7 @@ public class SavingsAccount {
 	private int lastAccountNr = 0;
 		
 		SavingsAccount() {
-			this.interest = 0.1;
+			this.interest = 0.111;
 			this.balance = 0;
 		}
 }
