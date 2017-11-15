@@ -1,1 +1,113 @@
-Inlämningsuppgifter i kursen objectorienterad programmering i java
+Inlämningsuppgifter i kursen objectorienterad programmering i java.
+Uppgift 1:
+Funktionalitet
+I banken ska man kunna:
+
+hämta en lista med bankens kunder
+lägga till en ny kund med ett unikt personnummer
+ändra en kunds namn (personnummer ska inte kunna ändras)
+ta bort en befintlig kund, eventuellt befintliga konton avslutas
+skapa sparkonton till en befintlig kund, ett unikt kontonummer genereras (första kontot får nummer 1001, nästa 1002 och så vidare)
+För en viss kund ska man kunna utföra följande:
+
+se information om vald kund inklusive alla konton
+sätta in pengar på ett konto
+ta ut pengar från kontot (men bara om saldot täcker uttagsbeloppet)
+avsluta konto
+Klassdesign
+SavingsAccount
+
+Börja med att implementera klassen SavingsAccount som ska hantera följande information: saldo, räntesats, kontotyp (Sparkonto) och kontonummer. Kontonummer ska vara unika för hela banken, inte bara för en enskild kund (se Big Java Late Objects på s. 400Preview the documentView in a new window för tips på lösning). Det första kontot som skapas får kontonummer 1001, nästa får kontonummer 1002 och så vidare. Kontonummer återanvänds inte, om ett konto tas bort så kommer inget nytt konto att få dess kontonummer.
+
+Man ska till exempel kunna utföra transaktioner (insättning/uttag), hämta kontonummer, beräkna ränta (saldo * räntesats/100) samt hämta presentationsinformation om kontot: (kontonummer saldo kontotyp räntesats).
+
+Customer
+
+Klassen Customer ska hantera följande information: kundens för- och efternamn, personnummer samt en lista med kundens alla konton. Om du känner att du vill lägga listan med konton i BankLogic istället är det okej men du ska vara medveten om att det blir en något mer komplicerad lösning.
+
+Man ska kunna ändra kundens namn samt hämta information om kunden (förnamn efternamn personnummer) samt hämta information om kundens konton (kontonummer saldo kontotyp räntesats)
+
+Dessutom ska man kunna hantera kundens konton, ifall du nu väljer att lägga listan med konton i klassen Customer.
+
+Customer ska aldrig returnera listan med kontoobjekt då det skulle innebära att den klass som hämtar listan då i teorin skulle kunna förändra listan och man förlorar därmed inkapsling. 
+
+BankLogic
+
+Klassen BankLogic ska innehålla en lista med alla inlagda kunder. Klassen ska innehålla ett antal publika metoder som hanterar kunder och dess konton. Du kommer troligtvis att skapa ett antal hjälpmetoder, privata metoder, men de publika metoderna finns definierade nedan.
+
+public ArrayList<String> getAllCustomers()
+
+Returnerar en ArrayList<String> som innehåller en presentation av bankens alla kunder på följande sätt: 
+[Karl Karlsson 8505221898, Pelle Persson 6911258876, Lotta Larsson 7505121231]
+Om vi tittar vad den ArrayList<String> som ska returnerar innehåller är det:
+
+index 0	index 1	index 2
+"Kalle Karlsson 8505221898"	"Pelle Persson 6911258876"	"Lotta Larsson 7505121231"
+public boolean createCustomer(String name, String surname, String pNo)
+
+Skapar upp en ny kund utifrån de inparametrar som skickas in till metoden. 
+Personnummer måste vara unikt, så om en kund redan finns med det personnumret så ska en ny kund inte skapas. 
+Returnerar true om kund skapades annars returneras false.
+public ArrayList<String> getCustomer(String pNo)
+
+Returnerar en ArrayList<String> som innehåller informationen om kunden inklusive dennes konton.
+Returnerar null om kunden inte fanns
+Första platsen i listan är reserverad för kundens namn och personnummer sedan följer informationen om kundens konton (kontonr saldo kontotyp räntesats)
+Exempel på hur det som returneras ska se ut:
+[Lotta Larsson 7505121231, 1004 0.0 Sparkonto 1.0, 1005 0.0 Sparkonto 1.0]
+index 0	index 1	index 2
+"Lotta Larsson 7505121231"	"1004 0.0 Sparkonto 1.0"	"1005 0.0 Sparkonto 1.0"
+public boolean changeCustomerName(String name, String surname, String pNo)
+
+Byter namn på vald kund, inparametern pNo anger vilken kund som ska få nytt namn.
+Returnerar true om namnet ändrades annars returnerar false (alltså om kunden inte fanns).
+public ArrayList<String> deleteCustomer(String pNo)
+
+Tar bort kund ur banken, alla kundens eventuella konton tas också bort och resultatet returneras.
+Returnerar null om ingen kund togs bort
+Listan som returneras ska innehålla information om kund på första platsen i ArrayListen (förnamn efternamn personnummer) sedan följer de konton som togs bort (kontonr saldo kontotyp räntesats ränta). Ränta beräknas som saldo*räntesats/100 (ränta behöver enbart beräknas vid borttagning av konton då banken i denna version inte stödjer årsskiften).
+Det som returneras ska se ut som följer:
+[Lotta Larsson 7505121231, 1004 0.0 Sparkonto 1.0 0.0, 1005 700.0 Sparkonto 1.0 7.0]
+index 0	index 1	index 2
+"Lotta Larsson 7505121231"	"1004 0.0 Sparkonto 1.0 0.0"	"1005 700.0 Sparkonto 1.0 7.0"
+public int createSavingsAccount(String pNo)
+
+Skapar ett konto till kund med personnummer pNo
+Kontonummer ska vara unika för hela banken, inte bara för en enskild kund (se Big Java Late Objects på s. 400Preview the documentView in a new window för tips på lösning).
+Returnerar kontonumret som det skapade kontot fick
+Alternativt returneras –1 om inget konto skapades
+public String getAccount(String pNo, int accountId)
+
+Returnerar en String som innehåller presentation av kontot med kontonnummer accountId som tillhör kunden pNo (kontonummer saldo, kontotyp räntesats).
+Returnerar null om konto inte finns eller om det inte tillhör kunden
+public boolean deposit(String pNo, int accountId, double amount)
+
+Gör en insättning på konto med kontonnummer accountId som tillhör kunden pNo.
+Returnerar true om det gick bra annars false
+public boolean withdraw(String pNo, int accountId, double amount)
+
+Gör ett uttag på konto med kontonnummer accountId som tillhör kunden pNo.
+Uttaget genomförs endast om saldot täcker uttaget (saldot får inte bli mindre än 0)
+Returnerar true om det gick bra annars false
+public String closeAccount(String pNr, int accountId)
+
+Avslutar ett konto med kontonnummer accountId som tillhör kunden pNo. När man avslutar ett konto skall räntan beräknas som saldo*ränta/100.
+OBS! Enda gången ränta läggs på är när kontot tas bort eftersom årsskiften inte hanteras i denna version av systemet.
+Presentation av kontot ska returneras inklusive räntan man får på pengarna (kontonummer saldo, kontotyp räntesats, ränta)
+Returnerar null om inget konto togs bort
+Betyg
+För godkänt (G) på denna inlämningsuppgift krävs att:
+
+Inga större fel finns i din lösning.
+Att lösningen följer de objektorienterade principerna.
+Alla källkodsfiler ska vara kommenterade för att underlätta för handledaren som ska sätta sig in i din lösning.
+Alla filer ska dessutom innehålla ditt förnamn, efternamn och ditt användarnamn.
+För väl godkänt (VG) på denna uppgift krävs dessutom:
+
+Att lösningen är genomtänkt och väl objektorienterad, tänk framför allt på:
+Inkapsling av data
+Relationerna mellan klasser
+En rapport där du motiverar dina val och reflekterar över din lösning så det framgår
+att du har en god förståelse av det du har gjort.
+Att din källkoden följer kodningsregler och standard för dokumentation och
+kommentering. 
