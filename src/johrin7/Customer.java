@@ -2,25 +2,29 @@ package johrin7;
 
 import java.util.ArrayList;
 
+import johrin7.SavingsAccount.BankAccountType;
+
 public class Customer {
 		String[] nameArray = new String[2];
 		private String personalNumber;
-		private ArrayList<SavingsAccount> accountList = new ArrayList();
+		private ArrayList<String> customerList = new ArrayList<>();
+		private ArrayList<SavingsAccount> accountList = new ArrayList<>();
 		public static  enum TypeOfTransaction {WITHDRAW, DEPOSIT};
 
-	public Customer(String foreName, String sureName,  String personalNumber) {
+	public Customer(String foreName, String surname,  String personalNumber) {
 		this.nameArray[0] = foreName;
-		this.nameArray[1] = sureName;
+		this.nameArray[1] = surname;
 		this.personalNumber = personalNumber;
+		this.customerList.add(this.nameArray[0] + " " + this.nameArray[1] + " " + this.personalNumber);
 	}
 	
 	public String[] getName() {
 		return this.nameArray;
 	}
 	
-	public boolean setName(String foreName, String sureName) {
+	public boolean setName(String foreName, String surname) {
 		this.nameArray[0] = foreName;
-		this.nameArray[1] = sureName;
+		this.nameArray[1] = surname;
 		return true;
 	}
 	
@@ -31,18 +35,30 @@ public class Customer {
 	
 	public boolean deleteAccount(int accountNumber) {
 		SavingsAccount savingsAccount = getAccount(accountNumber);
+		if(savingsAccount != null) {
 		this.accountList.remove(savingsAccount);
 		return true;
+		} return false;
 	}
 	
-	public boolean createAccount(Double interest, SavingsAccount.BankAccountType bankAccountType) {
+	public int createAccount() {
 		SavingsAccount savingsAccount = new SavingsAccount();
 		this.accountList.add(savingsAccount);
-		return true;
+		return savingsAccount.getAccountNumber();
+	}
+	
+	public int createAccount(Double interest, BankAccountType bankAccountType) {
+		SavingsAccount savingsAccount = new SavingsAccount(interest, bankAccountType);
+		this.accountList.add(savingsAccount);
+		return savingsAccount.getAccountNumber();
 	}
 	
 	public String getAccountInformation(int accountNumber ) {
-		return getAccount(accountNumber).getAccountInfo();
+		SavingsAccount savingsAccount = getAccount(accountNumber);
+		if(savingsAccount != null) {
+			return savingsAccount.getAccountInfo();
+		} else return "Bankkunden " + this.personalNumber + " har inget konto med kontonumret "
+			+ accountNumber + " knutet till sig";
 	}
 	
 	public boolean changeAccountBalance(int accountNumber, double amount, TypeOfTransaction typeOfTransaction) {
@@ -55,6 +71,15 @@ public class Customer {
 				return true;
 			} else return false;
 	}
+	
+	public ArrayList<String> getCustomer() {
+		if (accountList != null) {
+			for(SavingsAccount sa : accountList){
+				customerList.add(sa.getAccountNumber() + " " + sa.getBalance() + " " + sa.getAccountType());
+			} return customerList;
+		} else return customerList;
+	}
+
 	
 	
 	private SavingsAccount getAccount(int accountNumber) {
