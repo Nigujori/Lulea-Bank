@@ -29,4 +29,6 @@ public abstract class BankAccount {
 		public abstract String getAccountInfo();
 		
 		public abstract String getAccountType();
+		
+		public abstract double getInterest();
 }

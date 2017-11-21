@@ -8,7 +8,7 @@ public class SavingsAccount extends BankAccount {
 		
 		public SavingsAccount() {
 			super();
-			this.interest = 0.1;
+			this.interest = 0.01;
 			this.accountType = "Sparkonto";
 		}
 		
@@ -19,11 +19,15 @@ public class SavingsAccount extends BankAccount {
 		
 		public String getAccountInfo() {
 			String infoString = "Kontonummer: " + super.getAccountNumber() + "\n" + "Saldo: " +
-		super.getBalance() + "\n" + "Kontotyp: " + this.accountType + "\n" + "Räntesats: " + this.interest;
+		super.getBalance() + "\n" + "Kontotyp: " + this.accountType + "\n" + "Räntesats: " + this.interest * 100;
 			return infoString;
 		}
 		
 		public String getAccountType() {
 			return this.accountType;
+		}
+		
+		public double getInterest() {
+			return this.interest;
 		}
 }

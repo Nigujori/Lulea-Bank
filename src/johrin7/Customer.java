@@ -59,7 +59,7 @@ public class Customer {
 	}
 	
 	public boolean changeAccountBalance(int accountNumber, double amount, TypeOfTransaction typeOfTransaction) {
-			if( typeOfTransaction == TypeOfTransaction.WITHDRAW &&  getAccount(accountNumber) != null) {
+			if( typeOfTransaction == TypeOfTransaction.WITHDRAW &&  this.getAccount(accountNumber) != null) {
 				return getAccount(accountNumber).setBalance(amount *= -1);
 			} else if(getAccount(accountNumber) != null) {
 				return getAccount(accountNumber).setBalance(amount);
@@ -71,11 +71,16 @@ public class Customer {
 		customerList.add(this.nameArray[0] + " " + this.nameArray[1] + " " + this.personalNumber);
 		if (accountList != null) {
 			for(BankAccount ba : accountList){
-				customerList.add(ba.getAccountNumber() + " " + ba.getBalance() + " " + ba.getAccountType());
+				customerList.add(ba.getAccountNumber() + " " + ba.getBalance() + " " + ba.getAccountType() + " " + ba.getInterest()*100 );
 			} return customerList;
 		} else return customerList;
 	}
 
+	
+	public double getInterestAmount(int accountNr) {
+		BankAccount bankAccount = this.getAccount(accountNr);
+		return bankAccount.getBalance() * bankAccount.getInterest() ;
+	}
 	
 	
 	private BankAccount getAccount(int accountNumber) {
@@ -86,5 +91,6 @@ public class Customer {
 	        }
 		}
 		return bankAccount;
-	}	
+	}
+	
 }

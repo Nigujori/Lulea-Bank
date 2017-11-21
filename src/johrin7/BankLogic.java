@@ -3,7 +3,6 @@ package johrin7;
 import java.util.ArrayList;
 
 public class BankLogic {
-	private ArrayList<String> customerStrList = new ArrayList<>();
 	private ArrayList<Customer> customerObjectList = new ArrayList<>();
 	
 	//public BankLogic() {
@@ -19,6 +18,7 @@ public class BankLogic {
 	
 	
 	public ArrayList<String> getAllCustomers() {
+		ArrayList<String> customerStrList = new ArrayList<>();
 		if (customerObjectList != null) {
 			for(Customer c : customerObjectList){
 				customerStrList.add(c.getName()[0] + " " + c.nameArray[1] + " " + c.getPersonalNumber());
@@ -73,4 +73,35 @@ public class BankLogic {
     			}
     		} return false;
     	}
+    	
+	public boolean changeCustomerName(String name, String surname, String pNo) {
+		Customer customer;
+		if((customer = this.getCustomerObject(pNo)) != null) {
+			customer.setName(name, surname); 
+			return true;
+		} else return false;
+	}	
+	public ArrayList<String> deleteCustomer(String pNo){
+		Customer customer;
+		if((customer = this.getCustomerObject(pNo)) != null) {
+			ArrayList<String> tmp = customer.getCustomer();
+			String accountInfo;
+			for (int i = 1; i < tmp.size(); i++) {
+				accountInfo = tmp.get(i);
+				tmp.set(i, accountInfo  + " " + customer.getInterestAmount(Integer.parseInt(accountInfo.substring(0, accountInfo.indexOf(" ")))));
+			}
+			customerObjectList.remove(customer);
+			return tmp;
+		} else return null;
+	}
+	
+	public String closeAccount(String pNr, int accountId) {
+		Customer customer;
+		if((customer = this.getCustomerObject(pNr)) != null) {
+			String tmp = customer.getAccountInformation(accountId);
+			customer.deleteAccount(accountId);
+			return tmp;
+		} else return null;
+	}
+	
 }
