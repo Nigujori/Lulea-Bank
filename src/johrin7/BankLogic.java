@@ -17,15 +17,6 @@ public class BankLogic {
 		return true;
 	}
 	
-	public Customer getCustomerObject(String pNo) {
-		Customer customer = null;
-		for(Customer c : customerObjectList){
-	        if (c.getPersonalNumber().equals(pNo)) {
-	        		customer = c;
-	        }
-		}
-		return customer;
-	}
 	
 	public ArrayList<String> getAllCustomers() {
 		if (customerObjectList != null) {
@@ -37,16 +28,49 @@ public class BankLogic {
 	
 	public ArrayList<String> getCustomer(String pNo){
 		Customer customer;
-		if((customer = getCustomerObject(pNo)) != null) {
+		if((customer = this.getCustomerObject(pNo)) != null) {
 			return customer.getCustomer();
 		} else return null;
 	}
 	
 	public int createSavingsAccount(String pNo) {
 		Customer customer;
-		if ((customer = this.getCustomerObject(pNo))  != null) {
+		if ((customer = this.getCustomerObject(pNo)) != null) {
 			return customer.createAccount();
 		} else return -1;
-
 	}
+	
+	public boolean deposit(String pNo, int accountId, double amount) {
+		Customer customer;
+		if((customer = this.getCustomerObject(pNo)) != null && this.isAccountToCustomer(pNo, accountId)) {
+			customer.changeAccountBalance(accountId, amount, Customer.TypeOfTransaction.DEPOSIT); 
+			return true;
+		} else return false;
+	}
+	
+	public boolean withdraw(String pNo, int accountId, double amount) {
+		Customer customer;
+		if((customer = this.getCustomerObject(pNo)) != null && this.isAccountToCustomer(pNo, accountId)) {
+			customer.changeAccountBalance(accountId, amount, Customer.TypeOfTransaction.WITHDRAW); 
+			return true;
+		} else return false;
+	}
+	
+	private Customer getCustomerObject(String pNo) {
+		Customer customer = null;
+		for(Customer c : customerObjectList){
+	        if (c.getPersonalNumber().equals(pNo)) {
+	        		customer = c;
+	        }
+		}
+		return customer;
+	}
+	
+    	private boolean isAccountToCustomer(String pNo, int accountId) {
+    		for (String a : this.getCustomer(pNo)) {
+    			if(a.substring(0, a.indexOf(" ")).equals(Integer.toString(accountId))) {
+    			return true;
+    			}
+    		} return false;
+    	}
 }
