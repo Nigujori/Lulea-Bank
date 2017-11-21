@@ -60,7 +60,8 @@ public class Customer {
 	
 	public boolean changeAccountBalance(int accountNumber, double amount, TypeOfTransaction typeOfTransaction) {
 			if( typeOfTransaction == TypeOfTransaction.WITHDRAW &&  this.getAccount(accountNumber) != null) {
-				return getAccount(accountNumber).setBalance(amount *= -1);
+				//System.out.println( this.getAccount(accountNumber).setBalance(amount *= -1));
+				return this.getAccount(accountNumber).setBalance(amount *= -1);
 			} else if(getAccount(accountNumber) != null) {
 				return getAccount(accountNumber).setBalance(amount);
 			} else return false;

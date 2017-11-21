@@ -11,9 +11,11 @@ public class BankLogic {
 	//}
 	
 	public boolean createCustomer(String forename, String surname, String pNo) {
-		Customer newCustomer = new Customer(forename, surname, pNo);
-		customerObjectList.add(newCustomer);
-		return true;
+		if((this.getCustomerObject(pNo)) == null) {
+			Customer newCustomer = new Customer(forename, surname, pNo);
+			customerObjectList.add(newCustomer);
+			return true;
+		}else return false;
 	}
 	
 	
@@ -42,7 +44,7 @@ public class BankLogic {
 	
 	public boolean deposit(String pNo, int accountId, double amount) {
 		Customer customer;
-		if((customer = this.getCustomerObject(pNo)) != null && this.isAccountToCustomer(pNo, accountId)) {
+		if((customer = this.getCustomerObject(pNo)) != null && this.getAccount(pNo, accountId) != null) {
 			customer.changeAccountBalance(accountId, amount, Customer.TypeOfTransaction.DEPOSIT); 
 			return true;
 		} else return false;
@@ -50,9 +52,8 @@ public class BankLogic {
 	
 	public boolean withdraw(String pNo, int accountId, double amount) {
 		Customer customer;
-		if((customer = this.getCustomerObject(pNo)) != null && this.isAccountToCustomer(pNo, accountId)) {
-			customer.changeAccountBalance(accountId, amount, Customer.TypeOfTransaction.WITHDRAW); 
-			return true;
+		if((customer = this.getCustomerObject(pNo)) != null && this.getAccount(pNo, accountId) != null) {
+			return customer.changeAccountBalance(accountId, amount, Customer.TypeOfTransaction.WITHDRAW);
 		} else return false;
 	}
 	
@@ -65,14 +66,6 @@ public class BankLogic {
 		}
 		return customer;
 	}
-	
-    	private boolean isAccountToCustomer(String pNo, int accountId) {
-    		for (String a : this.getCustomer(pNo)) {
-    			if(a.substring(0, a.indexOf(" ")).equals(Integer.toString(accountId))) {
-    			return true;
-    			}
-    		} return false;
-    	}
     	
 	public boolean changeCustomerName(String name, String surname, String pNo) {
 		Customer customer;
@@ -103,5 +96,21 @@ public class BankLogic {
 			return tmp;
 		} else return null;
 	}
+	
+	public String getAccount(String pNo, int accountId) {
+		Customer customer;
+		if((customer = this.getCustomerObject(pNo)) != null && isAccountToCustomer(pNo, accountId) ) {
+			String tmp = customer.getAccountInformation(accountId);
+			return tmp;
+		} else return null;
+	}
+	
+	 	private boolean isAccountToCustomer(String pNo, int accountId) {
+	for (String a : this.getCustomer(pNo)) {
+		if(a.substring(0, a.indexOf(" ")).equals(Integer.toString(accountId))) {
+		return true;
+		}
+	} return false;
+}
 	
 }
