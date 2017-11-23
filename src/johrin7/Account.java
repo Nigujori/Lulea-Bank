@@ -3,7 +3,7 @@ package johrin7;
  * ärva från denna klass vilken man sedan kan skapa specifika typer av bankkonton. T.ex. ett sparkonto
  * @authorJohan Ringström användarnamn johrin7*/
 
-public abstract class BankAccount {
+public abstract class Account {
 	private double balance;
 	//Det sista skapade bankkontonummret. Används för att skapa individuella bankkonton. Är Statisk,
 	// det vill säga är alltid samma för alla objekt eftersom det är ett klassfält.
@@ -11,9 +11,9 @@ public abstract class BankAccount {
 	private int bankAccountNumber;
 		
 	/**Konstrukter som skapar ett default bankkonto-objekt.*/
-		public BankAccount() 
+		public Account() 
 		{
-			BankAccount.lastAccountNr++; 
+			Account.lastAccountNr++; 
 			this.balance = 0;
 			this.bankAccountNumber = lastAccountNr; 
 		}

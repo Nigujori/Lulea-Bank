@@ -1,10 +1,10 @@
 package johrin7;
 /**Klassen genom vilken man skapar customer-objekt som håller information om bankens kunder.
  * Den håller även infomation om kundens olika konton. Utan att skapa en bankkund kan bank-logik objektet inte 
- * skapa bankkonton. Eftersom SavingsAccount och eventuellt andra framtida kontotyper ärver av BankAccount klassen
- * kan man utnyttja polymorphism dynamic binding. Ett BankAccount objekt kan ta flera olika former och beroende på
+ * skapa bankkonton. Eftersom SavingsAccount och eventuellt andra framtida kontotyper ärver av Account klassen
+ * kan man utnyttja polymorphism dynamic binding. Ett Account objekt kan ta flera olika former och beroende på
  * vilken form den antagit bestäms bestäms vilken implementation som en viss metod kommer att ha. I detta fall
- * läggs alla kontoobjekt in i accountList som typen BankAccount men flera av dess metoder är abstrakta och
+ * läggs alla kontoobjekt in i accountList som typen Account men flera av dess metoder är abstrakta och
  * får sin implementation i dess subklasser.
  * @author Johan Ringström användarnamn johrin7. */
 
@@ -15,7 +15,7 @@ public class Customer {
 		String[] nameArray = new String[2];
 		private String personalNumber;
 		//En array lista med kundens konton.
-		private ArrayList<BankAccount> accountList = new ArrayList<>();
+		private ArrayList<Account> accountList = new ArrayList<>();
 		//Ett enum med två typer av transaktioner som möjliga värden.
 		public static  enum TypeOfTransaction {WITHDRAW, DEPOSIT};
 		
@@ -64,7 +64,7 @@ public class Customer {
 	 */
 	public boolean deleteAccount(int accountNumber) 
 	{
-		BankAccount bankAccount = this.getAccount(accountNumber);
+		Account bankAccount = this.getAccount(accountNumber);
 		//Om det finns ett konto med angivet kontonummer så tas detta bort och true retuneras annars false.
 		if(bankAccount != null) 
 		{
@@ -79,7 +79,7 @@ public class Customer {
 	 */
 	public int createAccount() 
 	{
-		BankAccount savingsAccount = new SavingsAccount();
+		Account savingsAccount = new SavingsAccount();
 		this.accountList.add(savingsAccount);
 		return savingsAccount.getAccountNumber();
 	}
@@ -101,7 +101,7 @@ public class Customer {
 	 */
 	public String getAccountInformation(int accountNumber ) 
 	{
-		BankAccount bankAccount = this.getAccount(accountNumber);
+		Account bankAccount = this.getAccount(accountNumber);
 		//Om bankkontot finns  retuneras informationen i form av en sträng annars retuneras ett felmeddelande.
 		if(bankAccount != null) 
 		{
@@ -144,7 +144,7 @@ public class Customer {
 		//och personnummer-strängen. Listan retuneras sedan annars retuneras listan med endast namn-strängen.
 		if (accountList != null) 
 		{
-			for(BankAccount ba : accountList)
+			for(Account ba : accountList)
 			{
 				customerList.add(ba.getAccountNumber() + " " + ba.getBalance() + " " + ba.getAccountType() + " " + ba.getInterest()*100 );
 			} 
@@ -159,7 +159,7 @@ public class Customer {
 	 */
 	public double getInterestAmount(int accountNr) 
 	{
-		BankAccount bankAccount;
+		Account bankAccount;
 		//Om kontot finns retuneras räntan annars retuneras -1.
 		 if((bankAccount = this.getAccount(accountNr)) != null) 
 		 {
@@ -170,13 +170,13 @@ public class Customer {
 	
 	/**Hjälp metod för att hitta ett specifikt konto.
 	 * @param accountNumber
-	 * @return ett BankAccount objekt.
+	 * @return ett Account objekt.
 	 */
-	private BankAccount getAccount(int accountNumber) 
+	private Account getAccount(int accountNumber) 
 	{
-		BankAccount bankAccount = null;
+		Account bankAccount = null;
 		//Om kontot finns i kundens kontolista retuneras detta konto annars retuneras null;
-		for(BankAccount ba : accountList)
+		for(Account ba : accountList)
 		{
 	        if (ba.getAccountNumber() == accountNumber) 
 	        {

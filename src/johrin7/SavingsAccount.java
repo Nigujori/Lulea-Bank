@@ -2,7 +2,7 @@ package johrin7;
 /** En specifik bankkonto typ som ärver av den abstrakta och mer allmänna bakkontoklassen
  * @author Johan Ringström användarnamn johrin7.*/
 
-public class SavingsAccount extends BankAccount {
+public class SavingsAccount extends Account {
 	
 	//Räntan anges inte i procentform.
 	private double interest;
