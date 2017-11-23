@@ -44,7 +44,7 @@ public class SavingsAccount extends BankAccount {
 			return this.interest;
 		}
 		/**Hämtar räntan.
-		 * @return räntan som en double.
+		 * @return räntan som en double.	
 		 */
 		public double getInterestAmount(){
 			return this.interest * this.getBalance();
