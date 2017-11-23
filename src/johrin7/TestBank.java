@@ -8,6 +8,8 @@
 
 package johrin7;
 
+/*Johan Ringström användarnamn johrin7*/
+
 import java.io.*;
 import java.util.ArrayList;
 
@@ -484,27 +486,5 @@ public class TestBank
 	{		
 		TestBank bankMenu = new TestBank();
 		bankMenu.test();	
-		//BankLogic bank = new BankLogic();
-		/*bank.createCustomer("Johan", "Ringström", "7504048252");
-		bank.createCustomer("Zara", "Kadiri", "8210010644");
-		
-		bank.createSavingsAccount("7504048252");
-		bank.createSavingsAccount("7504048252");
-		bank.createSavingsAccount("7504048252");
-		
-		bank.createSavingsAccount("8210010644");
-		for(String s : bank.getCustomer("7504048252")) {
-			System.out.println(s);
-		}
-		bank.deposit("7504048252", 1002, 500);
-		
-		bank.withdraw("7504048252", 1002, 499);
-		
-		for(String s : bank.getCustomer("7504048252")) {
-			System.out.println(s);
-		}
-		
-		System.out.println(bank.getAccount("7504048252", 1002));
-		*/
 	}
 }
