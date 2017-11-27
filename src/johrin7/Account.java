@@ -123,9 +123,17 @@ public abstract class Account {
 		
 		private void createTransaction(double transactionAmount, double balanceAfterTrans) 
 		{
-			System.out.println("test");
 			Transaction trans = new Transaction(transactionAmount, balanceAfterTrans);
 			transactionList.add(trans);
+		}
+		
+		public String getTransactions(int accountNumber) 
+		{
+			String transString = "";
+			for(Transaction trans : this.transactionList) {
+				transString += trans.toString() + " ";
+			}
+			return transString;
 		}
 		
 		

@@ -136,10 +136,4 @@ public class Customer {
 		}
 		return bankAccount;
 	}
-	
-	public String getTransaction(int accountNumber) 
-	{
-		Account account = this.getAccount(accountNumber);
-		return account.getTransactions().get(1).toString();
-	}
 }

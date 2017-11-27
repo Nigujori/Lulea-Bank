@@ -14,6 +14,14 @@ public class Transaction {
 		this.balance = balanceAfterTrans;
 	}
 	
+	public Date getDate() {
+		return this.date;
+	}
+	
+	public double getTransAmount() {
+		return this.transactionAmount;
+	}
+	
 	public String toString() {
 		return date.toString() + " " + transactionAmount + " " + balance;
 	}

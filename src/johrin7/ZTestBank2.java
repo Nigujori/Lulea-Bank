@@ -488,9 +488,7 @@ public class ZTestBank2
 		bank.deposit("7504048252", 1001, 200);
 		
 		//bank.getCustomer("7504048252");
-		System.out.println(bank.getCustomerObject("7504048252").getTransaction(1001).toString());
-		
-		
+		System.out.println(bank.getCustomerObject("7504048252").getAccount(1001).getTransactions());
 	}
 }
 
