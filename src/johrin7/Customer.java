@@ -15,9 +15,9 @@ public class Customer {
 		String[] nameArray = new String[2];
 		private String personalNumber;
 		//En array lista med kundens konton.
+
 		private ArrayList<Account> accountList = new ArrayList<>();
 		//Ett enum med två typer av transaktioner som möjliga värden.
-		public static  enum TypeOfTransaction {WITHDRAW, DEPOSIT};
 		
 	/**Konstruktor för att skapa ett customer-objekt.	
 	 * @param foreName förnamn
@@ -94,43 +94,6 @@ public class Customer {
 		return 0;
 	}
 	
-	/**Hämtar information om kontot.
-	 * 
-	 * @param accountNumberbankkontonummer som en int.
-	 * @return en String med information om kontot. (Se getaccountInfo)
-	 */
-	public String getAccountInformation(int accountNumber ) 
-	{
-		Account bankAccount = this.getAccount(accountNumber);
-		//Om bankkontot finns  retuneras informationen i form av en sträng annars retuneras ett felmeddelande.
-		if(bankAccount != null) 
-		{
-			return bankAccount.getAccountInfo();
-		} 
-		else return "Bankkunden " + this.personalNumber + " har inget konto med kontonumret "
-			+ accountNumber + " knutet till sig";
-	}
-	/**Förändrar ett specifikt kontos saldo. 
-	 * @param accountNumber kontonummer som en int.
-	 * @param amount summan med vilket saldot ska förändras.
-	 * @param typeOfTransaction typ av transaktion, uttag eller insättning.
-	 * @return boolean.
-	 */
-	public boolean changeAccountBalance(int accountNumber, double amount, TypeOfTransaction typeOfTransaction) 
-	{
-			//Om transaktionen är ett uttag och kontot finns ändras saldot om det finns tillräckligt med 
-			//pengar. Retunerar true om uttaget medgavs annars false.
-			if( typeOfTransaction == TypeOfTransaction.WITHDRAW &&  this.getAccount(accountNumber) != null) 
-			{
-				return this.getAccount(accountNumber).setBalance(amount *= -1);
-			//Annars om kontot finns görs en insättning och true retuneraa annars retuneras false,
-			} 
-			else if(this.getAccount(accountNumber) != null) {
-				return getAccount(accountNumber).setBalance(amount);
-			} 
-			else return false;
-	}
-	
 	/**Hämtar ett specifik customers objects information.
 	 * @return en array list med information om kunden. [förnamn efternamn och personnumret, kontonummer saldo kontotyp räntesats(%) räntan, ...]
 	 */
@@ -154,26 +117,13 @@ public class Customer {
 		else return customerList;
 	}
 
-	/**Hämtar information om räntan. Retuner räntan i form av en double.
-	 * @param accountNr kontonumret som en int.
-	 * @return räntan som en double.
-	 */
-	public double getInterestAmount(int accountNr) 
-	{
-		Account bankAccount;
-		//Om kontot finns retuneras räntan annars retuneras -1.
-		 if((bankAccount = this.getAccount(accountNr)) != null) 
-		 {
-			 return bankAccount.getInterestAmount();
-		 }
-		 else return -1;
-	}
 	
-	/**Hjälp metod för att hitta ett specifikt konto.
+	/**Metod för att hitta ett specifikt konto.
 	 * @param accountNumber
 	 * @return ett Account objekt.
 	 */
-	private Account getAccount(int accountNumber) 
+	public Account getAccount(int accountNumber) 
+
 	{
 		Account bankAccount = null;
 		//Om kontot finns i kundens kontolista retuneras detta konto annars retuneras null;

@@ -22,11 +22,4 @@ public class SavingsAccount extends Account {
 			super.setInterest(interest);
 			super.setAccountType(accountType);
 		}
-		
-		/*@Override
-		public boolean setBalance(double amount) {
-				
-			return true;
-		}*/
-		
 }

@@ -5,6 +5,8 @@ package johrin7;
  *@author Johan Ringström användarnamn johrin7.*/
 import java.util.ArrayList;
 
+import johrin7.Account.TypeOfTransaction;
+
 public class BankLogic {
 	//Array-lista med customer-objekt.
 	private ArrayList<Customer> customerObjectList = new ArrayList<>();
@@ -84,8 +86,7 @@ public class BankLogic {
 		//Om det finns ett object med matchande personnummer och ett konto med matchande kontonummer
 		//görs en insättning på det kontot och retunerar true annars false.
 		if((customer = this.getCustomerObject(pNo)) != null && isAccountToCustomer(pNo, accountId)) {
-			customer.changeAccountBalance(accountId, amount, Customer.TypeOfTransaction.DEPOSIT); 
-			return true;
+			return  customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.DEPOSIT);
 		} else return false;
 	}
 	/**Gör ett uttag.
@@ -101,7 +102,7 @@ public class BankLogic {
 		//görs ett försök till uttag från kontot om det lyckas retuneras true annars false.
 		if((customer = this.getCustomerObject(pNo)) != null && isAccountToCustomer(pNo, accountId)) 
 		{
-			return customer.changeAccountBalance(accountId, amount, Customer.TypeOfTransaction.WITHDRAW);
+			return customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.WITHDRAW);
 		} 
 		else return false;
 	}
@@ -165,7 +166,7 @@ public class BankLogic {
 				accountInfo = tmp.get(i);
 				//Skapar en ny förängd sträng. Hämtar kontonummerinformationen som en substring 
 				//från accountInfo strängen, som sedan används för att hämta kontoinformationen.
-				tmp.set(i, customer.getAccountInformation(Integer.parseInt(accountInfo.substring(0, accountInfo.indexOf(" ")))));
+				tmp.set(i, customer.getAccount(Integer.parseInt(accountInfo.substring(0, accountInfo.indexOf(" ")))).getAccountInfo());  //   .getAccountInformation(;
 			}
 			//Tar bort objectet, eller rättare sagt tar bort referensen till objectet. När det inte finns någon reference
 			//till objektet, d.v.s. att det inte används, kommer det att bli garbage collected.
@@ -188,7 +189,7 @@ public class BankLogic {
 		//bort från denna kunds kontolista, annars retuneras null.
 		if((customer = this.getCustomerObject(pNr)) != null &&  isAccountToCustomer(pNr, accountId)) 
 		{
-			String tmp = customer.getAccountInformation(accountId);
+			String tmp = customer.getAccount(accountId).getAccountInfo();
 			customer.deleteAccount(accountId);
 			return tmp;
 		} 
@@ -207,9 +208,9 @@ public class BankLogic {
 		//hämtas information om detta konto som retuneras annars retuneras null;
 		if((customer = this.getCustomerObject(pNo)) != null && isAccountToCustomer(pNo, accountId) ) 
 		{
-			String tmp = customer.getAccountInformation(accountId);
+			String tmp = customer.getAccount(accountId).getAccountInfo();
 			//Retunerar en substring av den ursprungliga kontoinformationen. 
-			return customer.getAccountInformation(accountId).substring(0, tmp.lastIndexOf(" "));
+			return customer.getAccount(accountId).getAccountInfo().substring(0, tmp.lastIndexOf(" "));
 		} 
 		else return null;
 	}

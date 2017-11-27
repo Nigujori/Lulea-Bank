@@ -151,13 +151,13 @@ public class ZTestBank2
 		accountNumber  	= 1001;
 		amount 			= 500;
 		if(!testingWithdraw(personalNumber, accountNumber, amount))
-			System.err.println("Error: withdraw?("+personalNumber + "," + accountNumber + "," + amount+")");	
+			System.err.println("Error: withdraw("+personalNumber + "," + accountNumber + "," + amount+")");	
 
 		personalNumber 	= "8505221898";
 		accountNumber  	= 1001;
 		amount 			= 1;
 		if(testingWithdraw(personalNumber, accountNumber, amount))	// Should not work, not enough money
-			System.err.println("Error: withdraw?("+personalNumber + "," + accountNumber + "," + amount+")");
+			System.err.println("Error: withdraw("+personalNumber + "," + accountNumber + "," + amount+")");
 		
 		personalNumber 	= "8505221898";
 		accountNumber  	= 1001;
@@ -489,7 +489,7 @@ public class ZTestBank2
 		
 		//bank.getCustomer("7504048252");
 		System.out.println(bank.getCustomerObject("7504048252").getTransaction(1001).toString());
-		;
+		
 		
 	}
 }
