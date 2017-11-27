@@ -146,7 +146,8 @@ public class Customer {
 		{
 			for(Account ba : accountList)
 			{
-				customerList.add(ba.getAccountNumber() + " " + ba.getBalance() + " " + ba.getAccountType() + " " + ba.getInterest()*100 );
+				customerList.add(ba.getAccountNumber() + " " + ba.getBalance() + " " + ba.getAccountType() + " " 
+			+ ba.getInterest()*100);
 			} 
 			return customerList;
 		} 
@@ -184,5 +185,11 @@ public class Customer {
 	        }
 		}
 		return bankAccount;
+	}
+	
+	public String getTransaction(int accountNumber) 
+	{
+		Account account = this.getAccount(accountNumber);
+		return account.getTransactions().get(1).toString();
 	}
 }

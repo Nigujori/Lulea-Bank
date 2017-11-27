@@ -1,10 +1,17 @@
 package johrin7;
+
+import java.util.ArrayList;
+
 /** En abstrakt klass, som med andra ord inte kan skapa några objekt. Vill man skapa ett bankkonto-objekt måste en klass
  * ärva från denna klass vilken man sedan kan skapa specifika typer av bankkonton. T.ex. ett sparkonto
  * @authorJohan Ringström användarnamn johrin7*/
 
 public abstract class Account {
+	
+	private ArrayList<Transaction> transactionList = new ArrayList<>();
 	private double balance;
+	private double interest;
+	private String accountType;
 	//Det sista skapade bankkontonummret. Används för att skapa individuella bankkonton. Är Statisk,
 	// det vill säga är alltid samma för alla objekt eftersom det är ett klassfält.
 	private static int lastAccountNr = 1000;
@@ -29,6 +36,7 @@ public abstract class Account {
 			if((amount < 0 && this.balance >= (amount*-1)) || amount > 0) 
 			{
 				this.balance += amount;
+				this.createTransaction(amount, this.balance);
 				return true;
 			} 
 			else return false;
@@ -42,7 +50,7 @@ public abstract class Account {
 			return this.balance;
 		}
 		
-		/**Hämtar banknumret
+		/**Hämtar banknumret.
 		 * @return banknummret i form av en int.
 		 */
 		public int getAccountNumber() 
@@ -50,29 +58,67 @@ public abstract class Account {
 			return this.bankAccountNumber;
 		}
 		
-		/**Hämtar bankkontoinformation.
-		 * @return en sträng som representerar bankkontot.(accountNumber saldot).
+		/**Hämter kontoinformationen
+		 * @return en text-sträng. "Kontonummer saldo kontotyp räntesats(%) ränta"
 		 */
 		public String getAccountInfo() {
-			 String infoString = this.getAccountNumber() + " " +  this.getBalance();
-			 return infoString;
+			String infoString = this.getAccountNumber() + " " +  this.getBalance() + " " + this.accountType + " " + this.interest * 100
+					+ " " + this.getInterestAmount();
+			return infoString;
 		}
 		
-		/**De abtrakta metodernas kropp(function) specificeras i de klasser som ärver denna klass.
-		 * Det vill säga de specifika kontotyperna som sparkonto eller lönekonto m.fl.	
-		 * @return en String.
+		/**Hämtar kontotypen.
+		 * @return kontontypen som en sträng.
 		 */
-		public abstract String getAccountType();
+		public String getAccountType() 
+		{
+			return this.accountType;
+		}
 		
-		/**De abtrakta metodernas kropp(function) specificeras i de klasser som ärver denna klass.
-		 * Det vill säga de specifika kontotyperna som sparkonto eller lönekonto m.fl.	
-		 * @return en double.
+		/**Ändrar kontotypen.
+		 * @param accountType
+		 * @return
 		 */
-		public abstract double getInterest();
+		public String setAccountType(String accountType)
+		{
+			return this.accountType = accountType;
+		}
 		
-		/**De abtrakta metodernas kropp(function) specificeras i de klasser som ärver denna klass.
-		 * Det vill säga de specifika kontotyperna som sparkonto eller lönekonto m.fl.	
-		 * @return en double.
+		/**Hämtar räntesatsen.
+		 * @return räntesatsen som en double.
 		 */
-		public abstract double getInterestAmount();
+		public double getInterest() 
+		{
+			return this.interest;
+		}
+		
+		/**Ändrar räntesatsen.
+		 * @param interest räntesatsen inte i %.
+		 * @return ny räntesats i double.
+		 */
+		public double setInterest(double interest) 
+		{
+			return this.interest = interest;
+		}
+		
+		/**Hämtar räntan.
+		 * @return räntan som en double.	
+		 */
+		public double getInterestAmount(){
+			return this.interest * this.getBalance();
+		}
+		
+		public ArrayList<Transaction> getTransactions() 
+		{
+			return this.transactionList;
+		}
+		
+		private void createTransaction(double transactionAmount, double balanceAfterTrans) 
+		{
+			System.out.println("test");
+			Transaction trans = new Transaction(transactionAmount, balanceAfterTrans);
+			transactionList.add(trans);
+		}
+		
+		
 }

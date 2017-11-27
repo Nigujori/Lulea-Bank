@@ -110,7 +110,7 @@ public class BankLogic {
 	 * @param pNo personnumret som en String.
 	 * @return Ett Customer-objekt
 	 */
-	private Customer getCustomerObject(String pNo) 
+	public Customer getCustomerObject(String pNo) 
 	{
 		Customer customer = null;
 		//Går igenom customerObjectList och om det finns ett objekt med matchande personnummer läggs detta
