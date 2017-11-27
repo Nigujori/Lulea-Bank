@@ -21,36 +21,21 @@ public abstract class BankAccount {
 			this.bankAccountNumber = lastAccountNr; 
 		}
 		
-		/**Ändrar saldot.
-		 * @param amount ett negativt eller positivt värde att justera saldot med.
-		 * @return boolean
-		 */
-		/*public boolean setBalance(double amount) 
-		{
-			//Om summan är mindre än noll och saldot inte blir negativt efter en justering eller om summan är positivt
-			//då justeras saldot. Då retuneras true annars false.
-			if((amount < 0 && this.balance >= (amount*-1)) || amount > 0) 
-			{
-				this.balance += amount;
-				return true;
-			} 
-			else return false;
-		}*/
-		/**Förändrar ett specifikt kontos saldo. 
-		 * @param accountNumber kontonummer som en int.
+		
+		/**Förändrar kontots saldo. 
 		 * @param amount summan med vilket saldot ska förändras.
 		 * @param typeOfTransaction typ av transaktion, uttag eller insättning.
 		 * @return boolean.
 		 */
 		public boolean changeAccountBalance(double amount, TypeOfTransaction typeOfTransaction) 
 		{
-				//Om transaktionen är ett uttag och kontot finns ändras saldot om det finns tillräckligt med 
-				//pengar. Retunerar true om uttaget medgavs annars false.
+				//Om transaktionen är ett uttag och det finns tillräckligt med 
+				//pengar på kontot. Retunerar true om uttaget medgavs annars false.
 				if(typeOfTransaction == TypeOfTransaction.WITHDRAW && this.balance >= amount ) 
 				{
 					this.balance -= amount;
-					return  true;//this.getAccount(accountNumber).setBalance(amount *= -1);
-				//Annars om kontot finns görs en insättning och true retuneraa annars retuneras false,
+					return  true;
+				//Annars om det är en insättning görs en insättning och true retuneras.
 				} 
 				else if (typeOfTransaction == TypeOfTransaction.DEPOSIT) {
 					this.balance += amount;

@@ -86,7 +86,7 @@ public class BankLogic {
 		//Om det finns ett object med matchande personnummer och ett konto med matchande kontonummer
 		//görs en insättning på det kontot och retunerar true annars false.
 		if((customer = this.getCustomerObject(pNo)) != null && isAccountToCustomer(pNo, accountId)) {
-			return  customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.DEPOSIT);// .changeAccountBalance(accountId, amount, Customer.TypeOfTransaction.DEPOSIT); 
+			return  customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.DEPOSIT);
 		} else return false;
 	}
 	/**Gör ett uttag.
@@ -102,7 +102,7 @@ public class BankLogic {
 		//görs ett försök till uttag från kontot om det lyckas retuneras true annars false.
 		if((customer = this.getCustomerObject(pNo)) != null && isAccountToCustomer(pNo, accountId)) 
 		{
-			return customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.WITHDRAW);//customer.changeAccountBalance(accountId, amount, Customer.TypeOfTransaction.WITHDRAW);
+			return customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.WITHDRAW);
 		} 
 		else return false;
 	}
