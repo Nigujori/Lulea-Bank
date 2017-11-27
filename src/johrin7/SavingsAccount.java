@@ -43,6 +43,7 @@ public class SavingsAccount extends BankAccount {
 		public double getInterest() {
 			return this.interest;
 		}
+		
 		/**Hämtar räntan.
 		 * @return räntan som en double.	
 		 */
