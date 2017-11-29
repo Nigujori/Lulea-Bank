@@ -10,6 +10,7 @@ import johrin7.Account.TypeOfTransaction;
 public class BankLogic {
 	//Array-lista med customer-objekt.
 	private ArrayList<Customer> customerObjectList = new ArrayList<>();
+	public static  enum TypeOfAccount {SAVINGSACCOUNT, CREDITACCOUNT};
 	
 	/**Skapar ett customer-objekt
 	 * @param forename
@@ -55,7 +56,7 @@ public class BankLogic {
 	{
 		Customer customer;
 		//Om det finns ett object med matchande personnummer(Samtidigt läggs detta objekt i customer variabeln.)
-		//retuneras en arrayList, som representerar detta object. Retunerar null om ingen matchnig finns
+		//retuneras en arrayList, som representerar detta object. Retunerar null om ingen matchnig finns.
 		if((customer = this.getCustomerObject(pNo)) != null) 
 		{
 			return customer.getCustomer();
@@ -63,18 +64,30 @@ public class BankLogic {
 		else return null;
 	}
 	
-	/**Skapar ett konto till en specifik kund.
+	/**Skapar ett sparkonto till en specifik kund.
 	 * @param pNo personnumret som en String.
 	 * @return kontonumret som en int.
 	 */
 	public int createSavingsAccount(String pNo) {
 		Customer customer;
 		//Om det finns ett object med matchande personnummer(Samtidigt läggs detta objekt i customer variabeln.)
-		//retuneras kontonumret i orm av en int, annars -1;
+		//retuneras kontonumret annars -1;
 		if ((customer = this.getCustomerObject(pNo)) != null) {
-			return customer.createAccount();
+			return customer.createAccount(TypeOfAccount.SAVINGSACCOUNT);
 		} else return -1;
 	}
+	/**Skapar ett kreditkonto till en specifik kund.
+	 * @param pNo personnumret som en String.
+	 * @return kontonumret som en int.
+	 */
+	public int createCreditAccount(String pNr) {
+		Customer customer;
+		//Om det finns ett object med matchande personnummer(Samtidigt läggs detta objekt i customer variabeln.)
+		//retuneras kontonumret annars -1;
+		if ((customer = this.getCustomerObject(pNr)) != null) {
+			return customer.createAccount(TypeOfAccount.CREDITACCOUNT);
+		} else return -1;
+	 	}
 	/**Gör en insättning
 	 * @param pNo personnumret som en String.
 	 * @param accountId kontonumret som en int.
@@ -106,26 +119,6 @@ public class BankLogic {
 		} 
 		else return false;
 	}
-	
-	/**En hjälp medtod för att hämta ett customer-objekt i customerObjectList.
-	 * @param pNo personnumret som en String.
-	 * @return Ett Customer-objekt
-	 */
-	public Customer getCustomerObject(String pNo) 
-	{
-		Customer customer = null;
-		//Går igenom customerObjectList och om det finns ett objekt med matchande personnummer läggs detta
-		//i customer variableln som retuneras. Om ingen matchning görs kommer objektet retuneras med ett värde av null.
-		for(Customer c : customerObjectList)
-		{
-	        if (c.getPersonalNumber().equals(pNo)) 
-	        {
-	        		customer = c;
-	        }
-		}
-		return customer;
-	}
-	
     	/**Ändrar en kunds namn.
     	 * @param name i form av en String.
     	 * @param surname i form av en String.
@@ -214,6 +207,20 @@ public class BankLogic {
 		} 
 		else return null;
 	}
+	/**Hämtar en String ArrayLista med alla transactioner knutet till ett visst konto.
+	 * @param pNr personnumret i form av en String.
+	 * @param accountId bankkontonumret som en int.
+	 * @return en String ArrayLista om kontot finns annars null;
+	 */
+	public ArrayList<String> getTransactions(String pNr, int accountId)
+	{
+		Customer customer;
+		if((customer = this.getCustomerObject(pNr)) != null && isAccountToCustomer(pNr, accountId))//(transaction = this.getCustomerObject(pNr).getAccount(accountId).getTransactions()) != null) 
+		{
+			return  customer.getAccount(accountId).getTransactions();
+		} 
+		else return null;
+	}
 	/**Hjälpmetod för att avgöra om ett visst konto finns för en viss person.
 	 * @param pNr personnumret som en String.
 	 * @param accountId kontonumret som en int.
@@ -232,6 +239,24 @@ public class BankLogic {
  		} 
  		return false;
  	}
+ 	/**En hjälp medtod för att hämta ett customer-objekt i customerObjectList.
+	 * @param pNo personnumret som en String.
+	 * @return Ett Customer-objekt
+	 */
+	public Customer getCustomerObject(String pNo) 
+	{
+		Customer customer = null;
+		//Går igenom customerObjectList och om det finns ett objekt med matchande personnummer läggs detta
+		//i customer variableln som retuneras. Om ingen matchning görs kommer objektet retuneras med ett värde av null.
+		for(Customer c : customerObjectList)
+		{
+	        if (c.getPersonalNumber().equals(pNo)) 
+	        {
+	        		customer = c;
+	        }
+		}
+		return customer;
+	}
 	
 }
 

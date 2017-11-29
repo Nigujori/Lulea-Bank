@@ -1,6 +1,8 @@
 package johrin7;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Date;
 
 /** En abstrakt klass, som med andra ord inte kan skapa några objekt. Vill man skapa ett bankkonto-objekt måste en klass
  * ärva från denna klass vilken man sedan kan skapa specifika typer av bankkonton. T.ex. ett sparkonto
@@ -10,12 +12,13 @@ public abstract class Account {
 	
 	private ArrayList<Transaction> transactionList = new ArrayList<>();
 	private double balance;
-	private double interest;
+
 	private String accountType;
 	//Det sista skapade bankkontonummret. Används för att skapa individuella bankkonton. Är Statisk,
 	// det vill säga är alltid samma för alla objekt eftersom det är ett klassfält.
 	private static int lastAccountNr = 1000;
-	private int bankAccountNumber;
+	private double creditLimit;
+	private final int bankAccountNumber;
 	public static  enum TypeOfTransaction {WITHDRAW, DEPOSIT};
 		
 	/**Konstrukter som skapar ett default bankkonto-objekt.*/
@@ -24,6 +27,7 @@ public abstract class Account {
 			Account.lastAccountNr++; 
 			this.balance = 0;
 			this.bankAccountNumber = lastAccountNr; 
+			this.creditLimit = 0;
 		}
 		
 		/**Förändrar kontots saldo. 
@@ -35,10 +39,10 @@ public abstract class Account {
 		{
 				//Om transaktionen är ett uttag och det finns tillräckligt med 
 				//pengar på kontot. Retunerar true om uttaget medgavs annars false.
-				if(typeOfTransaction == TypeOfTransaction.WITHDRAW && this.balance >= amount ) 
+				if(typeOfTransaction == TypeOfTransaction.WITHDRAW &&  this.balance + this.creditLimit >= amount ) 
 				{
 					this.balance -= amount;
-					this.createTransaction(amount, this.balance);
+					this.createTransaction(-amount, this.balance);
 					return  true;
 				//Annars om det är en insättning görs en insättning och true retuneras.
 				} 
@@ -70,8 +74,7 @@ public abstract class Account {
 		 * @return en text-sträng. "Kontonummer saldo kontotyp räntesats(%) ränta"
 		 */
 		public String getAccountInfo() {
-			String infoString = this.getAccountNumber() + " " +  this.getBalance() + " " + this.accountType + " " + this.interest * 100
-					+ " " + this.getInterestAmount();
+			String infoString = this.getAccountNumber() + " " +  this.getBalance() + " " + this.accountType;
 			return infoString;
 		}
 		
@@ -91,50 +94,63 @@ public abstract class Account {
 		{
 			return this.accountType = accountType;
 		}
-		
-		/**Hämtar räntesatsen.
-		 * @return räntesatsen som en double.
-		 */
-		public double getInterest() 
-		{
-			return this.interest;
-		}
-		
-		/**Ändrar räntesatsen.
-		 * @param interest räntesatsen inte i %.
-		 * @return ny räntesats i double.
-		 */
-		public double setInterest(double interest) 
-		{
-			return this.interest = interest;
-		}
-		
-		/**Hämtar räntan.
-		 * @return räntan som en double.	
-		 */
-		public double getInterestAmount(){
-			return this.interest * this.getBalance();
-		}
-		
-		public ArrayList<Transaction> getTransactions() 
-		{
-			return this.transactionList;
-		}
-		
+
 		private void createTransaction(double transactionAmount, double balanceAfterTrans) 
 		{
 			Transaction trans = new Transaction(transactionAmount, balanceAfterTrans);
 			transactionList.add(trans);
 		}
 		
-		public String getTransactions(int accountNumber) 
+		public ArrayList<String> getTransactions() 
 		{
-			String transString = "";
+			ArrayList<String> transactions = new ArrayList<>();
 			for(Transaction trans : this.transactionList) {
-				transString += trans.toString() + " ";
+				transactions.add(trans.toString());
 			}
-			return transString;
+			return transactions;
+		}
+		
+		public Transaction getTransaction(int transactionNr)
+		{
+			for(Transaction t : this.transactionList)
+			{
+				if(t.getTransactionNr() == transactionNr) 
+				{
+					return t;
+				} 
+			} return null;
+		}
+		
+		public Transaction getLastTransaction(TypeOfTransaction typeOfTransaction)
+		{
+			if (this.transactionList.isEmpty())
+			{
+				return null;
+			} 
+			else 
+			{
+				for(int i = this.transactionList.size()-1; i > 0; i-- )
+				{
+					if(this.transactionList.get(i).transType == typeOfTransaction) 
+					{
+						return this.transactionList.get(i);
+					} 
+				} return null;
+			}
+			
+			
 		}
 		
 		
+		public double setCreditLimit(double creditLimit)
+		{
+			this.creditLimit = creditLimit; 
+			return this.creditLimit;
+		}
+		
+		public abstract double getInterest(); 
+		
+		public abstract double setInterest(double interest); 
+		
+		public abstract double getInterestAmount();
 }

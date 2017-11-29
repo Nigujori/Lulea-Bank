@@ -9,6 +9,9 @@ package johrin7;
  * @author Johan Ringström användarnamn johrin7. */
 
 import java.util.ArrayList;
+
+import johrin7.BankLogic.TypeOfAccount;
+
  
 public class Customer {
 		//En array med förnamnet i första indexet och efternamn i det andra.
@@ -74,24 +77,27 @@ public class Customer {
 		return false;
 	}
 	
-	/**Skapar ett sparkonto för åt en specifik kund och lääger detta till accountList.
-	 * @return bankkontonummer som en int.
-	 */
-	public int createAccount() 
-	{
-		Account savingsAccount = new SavingsAccount();
-		this.accountList.add(savingsAccount);
-		return savingsAccount.getAccountNumber();
-	}
-	
-	/**Ej klar! Kommer att behövas om mer än en typ av konto ska kunna skapas.
-	 * @param interest som en double inte i procent.
+	/**Skapar en specifik typ av konto.
 	 * @param accountType kontotyp som en String.
 	 * @return bankkontonummer som en int.
 	 */
-	public int createAccount(Double interest, String accountType) 
-	{
-		return 0;
+	public int createAccount(TypeOfAccount accountType) 
+	{ 
+		Account account;
+		String accountTypeStr =accountType.toString();
+		switch (accountTypeStr) {
+		case "SAVINGSACCOUNT": {
+			account = new SavingsAccount();
+			break;
+		}
+		case "CREDITACCOUNT": {
+			account = new CreditAccount();
+			break;
+		}
+		default : return -1;
+		}
+		this.accountList.add(account);
+		return account.getAccountNumber();
 	}
 	
 	/**Hämtar ett specifik customers objects information.
@@ -109,8 +115,8 @@ public class Customer {
 		{
 			for(Account ba : accountList)
 			{
-				customerList.add(ba.getAccountNumber() + " " + ba.getBalance() + " " + ba.getAccountType() + " " 
-			+ ba.getInterest()*100);
+				String tmp = ba.getAccountInfo();
+				customerList.add(ba.getAccountInfo().substring(0, tmp.lastIndexOf(" ")));
 			} 
 			return customerList;
 		} 
@@ -123,7 +129,6 @@ public class Customer {
 	 * @return ett Account objekt.
 	 */
 	public Account getAccount(int accountNumber) 
-
 	{
 		Account bankAccount = null;
 		//Om kontot finns i kundens kontolista retuneras detta konto annars retuneras null;
