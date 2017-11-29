@@ -7,47 +7,41 @@ import johrin7.Account.TypeOfTransaction;
 
 public class CreditAccount extends Account{
 	
-	private final String accountType = "Kreditkonto";
 	private double interest;
-	private double  creditLimit = 5000;
 	
-	public CreditAccount() 
-	{
-		super();
-		super.setAccountType(accountType);
-		super.setCreditLimit(creditLimit);
-		this.interest = 0.005;
-	}
-	/**Konstruktor med vilken du kan specificera vilken ränta som kontot ska ha.
+	
+	/**Konstruktor som ger superklassens metod det den vill ha.
 	 */
-	public CreditAccount(Double interest, double creditLimit)
+	public CreditAccount()
 	{
-		super();
-		super.setAccountType(accountType);
-		super.setCreditLimit(creditLimit);
+		super("Kreditkonto", 5000);
 		this.interest = 0.005;
 	}
 	
+	/**Konstruktor som ger superklassens metod det den vill ha samt en möjlig het att bestämma räntan.
+	 */
+	public CreditAccount(double interest)
+	{
+		super("Kreditkonto", 5000);
+		this.interest = interest;
+	}
+	/**Utökar superklassens metod med kreditfunktions-beteendet där räntan på, de av bankkundens
+	 * lånade pengar sätts högre än på de av densamme utlånade pengarna. 
+	 * @param amount, summan med vilket saldot ska färändras i form av en double.
+	 * @param typeOfTransaction vilken typ av transaktion som ska göras i form av en TypeOfTransaction.
+	 */
 	@Override
 	public boolean changeAccountBalance(double amount, TypeOfTransaction typeOfTransaction) 
-	{
-		if((super.getBalance() < 0)) 
-		{
-			this.setInterest(0.07);
-		}
-		else this.setInterest(0.005);
-		
+	{	
+		//Transaktionen görs och utfallet läggs i en variabel.
 		boolean bool = super.changeAccountBalance(amount, typeOfTransaction);
+		//Om saldot är på minus efter transaktionen förändras räntesatsen till 7%,
+		//annars till 0.5%;
 		if(super.getBalance() < 0) 
 		{
 			this.setInterest(0.07);
-		}
+		} else this.setInterest(0.005);
 		return bool;
-	}
-	
-	public double getCreditLimit()
-	{
-		return this.creditLimit;
 	}
 	
 	/**Hämtar räntesatsen.
@@ -72,7 +66,9 @@ public class CreditAccount extends Account{
 		public double getInterestAmount(){
 			return this.interest * super.getBalance();
 		}
-		
+		/**Lägger till konto information till den som redan kan hämtas med hjälp av getAccountInfo-metoden
+		 * i superklassen.Här används Math.round-metoden för att avrunda beloppen. 
+		 */
 		@Override
 		public String getAccountInfo()
 		{

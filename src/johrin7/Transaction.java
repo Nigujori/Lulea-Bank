@@ -47,17 +47,22 @@ public class Transaction {
 	{
 		return this.transactionAmount;
 	}
-	
+	/**Hämtar transaktionsnumret.
+	 * @return transaktionsnumret som en int.
+	 */
 	public int getTransactionNr()
 	{
 		return this.transactionNumber;
 	}
-	
+	/**Hämtar transactions typen.
+	 * @return transactionstypen som en String.
+	 */
 	public String getTransactionType()
 	{
 		return this.transType.toString().toLowerCase();
 	}
-	
+	/**Hämtar transaction information som en String.
+	 */
 	public String toString() {
 		return dateFormat.format(date) + " " + transactionAmount + " " + balance;
 	}

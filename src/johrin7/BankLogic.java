@@ -215,7 +215,9 @@ public class BankLogic {
 	public ArrayList<String> getTransactions(String pNr, int accountId)
 	{
 		Customer customer;
-		if((customer = this.getCustomerObject(pNr)) != null && isAccountToCustomer(pNr, accountId))//(transaction = this.getCustomerObject(pNr).getAccount(accountId).getTransactions()) != null) 
+		//Om det finns ett object med matchande personnummer som har ett bankkonto med matchande id
+		//hämtas information om detta konto som retuneras annars retuneras null;
+		if((customer = this.getCustomerObject(pNr)) != null && isAccountToCustomer(pNr, accountId))
 		{
 			return  customer.getAccount(accountId).getTransactions();
 		} 
