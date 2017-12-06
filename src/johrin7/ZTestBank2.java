@@ -10,7 +10,10 @@ package johrin7;
 import java.io.*;
 import java.util.ArrayList;
 
+import javax.swing.JFrame;
+
 import johrin7.BankLogic;
+import johrin7.views.CustomerSearchAndDisplayView;
 
 public class ZTestBank2
 {
@@ -427,11 +430,19 @@ public class ZTestBank2
 
 	public static void main(String[] args) throws FileNotFoundException
 	{		
-		ZTestBank2 bankMenu = new ZTestBank2();
-		bankMenu.test();	
+		//ZTestBank2 bankMenu = new ZTestBank2();
+		//bankMenu.test();	
+		BankModelInterface bank = new BankLogic();
+		BankControllerInterface bankController = new BankController(bank);
+		bank.createCustomer("Johan", "Ringström", "7504048252");
+		bank.createCustomer("Zara", "Kadiri", "8210010644");
+		bank.createSavingsAccount("7504048252");
+		bank.createCustomer("Nils", "Eriksson", "8210011212");
+		
 	}
 }
 
+	
 		
 	/*	BankLogic bank = new BankLogic();
 		bank.createCustomer("Johan", "Ringström", "7504048252");

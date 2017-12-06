@@ -9,7 +9,6 @@ import java.util.Date;
  * @authorJohan Ringström användarnamn johrin7*/
 
 public abstract class Account {
-	
 	private ArrayList<Transaction> transactionList = new ArrayList<>();
 	private double balance;
 
