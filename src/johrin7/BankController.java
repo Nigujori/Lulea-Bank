@@ -8,19 +8,19 @@ import johrin7.views.CustomerSearchAndDisplayView;
 
 public class BankController implements BankControllerInterface {
 	BankModelInterface bankModel;
-	JFrame view;
+	CustomerSearchAndDisplayView view;
 	
 	public BankController(BankModelInterface bankModel) {
 		this.bankModel = bankModel;
 		view = new CustomerSearchAndDisplayView(this, bankModel);
-		view.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		view.setVisible(true);
+		view.createView();
+		view.updateBank(true);
+		
 	}
 
 	@Override
 	public boolean createCustomer(String forename, String surname, String pNo) {
-		// TODO Auto-generated method stub
-		return false;
+		return bankModel.createCustomer(forename, surname, pNo);
 	}
 
 	@Override
@@ -55,8 +55,7 @@ public class BankController implements BankControllerInterface {
 
 	@Override
 	public ArrayList<String> deleteCustomer(String pNo) {
-		// TODO Auto-generated method stub
-		return null;
+		return bankModel.deleteCustomer(pNo);
 	}
 
 	@Override

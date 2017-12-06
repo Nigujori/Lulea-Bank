@@ -1,5 +1,5 @@
 package johrin7;
 
 public interface BankObserver {
-	public void updateBank();
+	public void updateBank(Boolean bool);
 }

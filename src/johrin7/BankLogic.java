@@ -13,6 +13,7 @@ public class BankLogic implements BankModelInterface {
 	
 	//Array-lista med customer-objekt.
 	private ArrayList<Client> customerObjectList = new ArrayList<>();
+	private ArrayList<BankObserver> bankObservers = new ArrayList<>();
 	public static  enum TypeOfAccount {SAVINGSACCOUNT, CREDITACCOUNT};
 	
 	/**Skapar ett customer-objekt
@@ -30,9 +31,10 @@ public class BankLogic implements BankModelInterface {
 			Client newCustomer = new Customer(forename, surname, pNo);
 			customerObjectList.add(newCustomer);
 			//view.update(this.getAllCustomers());
+			this.notifyBankObservers(true);
 			return true;
 		}
-		else return false;
+		else this.notifyBankObservers(false); return false;
 	}
 	
 	/**Hämtar alla kunder. (Jag valde att göra en ny lista för varje anrop till metoden, 
@@ -168,9 +170,10 @@ public class BankLogic implements BankModelInterface {
 			//Tar bort objectet, eller rättare sagt tar bort referensen till objectet. När det inte finns någon reference
 			//till objektet, d.v.s. att det inte används, kommer det att bli garbage collected.
 			customerObjectList.remove(customer);
+			this.notifyBankObservers(true);
 			return tmp;
 		} 
-		else return null;
+		else this.notifyBankObservers(false); return null;
 	}
 	
 	/**Avslutar et konto.
@@ -267,8 +270,11 @@ public class BankLogic implements BankModelInterface {
 
 	@Override
 	public void registerObserver(BankObserver bo) {
-		// TODO Auto-generated method stub
-		
+			this.bankObservers.add(bo);
+	}
+	
+	public void notifyBankObservers(Boolean bool) {
+			bankObservers.forEach(o -> o.updateBank(bool));	
 	}
 	
 }

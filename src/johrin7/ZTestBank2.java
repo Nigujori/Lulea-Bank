@@ -433,12 +433,11 @@ public class ZTestBank2
 		//ZTestBank2 bankMenu = new ZTestBank2();
 		//bankMenu.test();	
 		BankModelInterface bank = new BankLogic();
-		BankControllerInterface bankController = new BankController(bank);
 		bank.createCustomer("Johan", "Ringström", "7504048252");
 		bank.createCustomer("Zara", "Kadiri", "8210010644");
 		bank.createSavingsAccount("7504048252");
 		bank.createCustomer("Nils", "Eriksson", "8210011212");
-		
+		BankControllerInterface bankController = new BankController(bank);
 	}
 }
 
