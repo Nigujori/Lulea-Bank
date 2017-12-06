@@ -43,7 +43,7 @@ public class BankLogic {
 		//Går igenom customerObjectList och lägger namnen och personnumren i customerStrList. Retunerar sedan denna lista.
 			for(Customer c : customerObjectList)
 			{
-				customerStrList.add(c.getName()[0] + " " + c.nameArray[1] + " " + c.getPersonalNumber());
+				customerStrList.add(c.getName()[0] + " " + c.getName()[1] + " " + c.getPersonalNumber());
 			} 
 			return customerStrList;
 	}
@@ -73,7 +73,7 @@ public class BankLogic {
 		//Om det finns ett object med matchande personnummer(Samtidigt läggs detta objekt i customer variabeln.)
 		//retuneras kontonumret annars -1;
 		if ((customer = this.getCustomerObject(pNo)) != null) {
-			return customer.createAccount(TypeOfAccount.SAVINGSACCOUNT);
+			return customer.openAcount(TypeOfAccount.SAVINGSACCOUNT);
 		} else return -1;
 	}
 	/**Skapar ett kreditkonto till en specifik kund.
@@ -85,7 +85,7 @@ public class BankLogic {
 		//Om det finns ett object med matchande personnummer(Samtidigt läggs detta objekt i customer variabeln.)
 		//retuneras kontonumret annars -1;
 		if ((customer = this.getCustomerObject(pNr)) != null) {
-			return customer.createAccount(TypeOfAccount.CREDITACCOUNT);
+			return customer.openAcount(TypeOfAccount.CREDITACCOUNT);
 		} else return -1;
 	 	}
 	/**Gör en insättning
