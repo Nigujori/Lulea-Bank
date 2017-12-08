@@ -2,6 +2,7 @@ package johrin7.views;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -44,9 +45,15 @@ public class DeleteCustomerView extends JFrame implements BankObserver{
 		personalNumberLabel = new JLabel("  Personnummer");
 		personalnumber = new JTextField();
 	}
+	
 	 private void createDeleteButton() {
 		 deleteButton = new JButton("Ta bort kund");
-		 deleteButton.addActionListener(e -> {bankController.deleteCustomer(personalnumber.getText());
+		 deleteButton.addActionListener(e -> {
+			 ArrayList<String> customer = bankController.deleteCustomer(personalnumber.getText());
+			 if(customer != null) {
+			 JOptionPane.showMessageDialog(null, "Kunden " + customer.toString()
+			 +" med " +  (customer.size() -1) + " kont/konton är borttagen");
+			 } 
 		});
 	 }
 	 

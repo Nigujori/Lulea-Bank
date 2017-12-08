@@ -1,8 +1,11 @@
 package johrin7.views;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -34,6 +37,8 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 	private BankModelInterface bankModel;
 	private JTable customerTable;
 	DefaultTableModel tableModel;
+	private int rows = 0;
+	private String personalNumber = "";
 	
 	public CustomerSearchAndDisplayView(BankControllerInterface bankController, BankModelInterface bankModel) {
 		this.bankController = bankController;
@@ -72,12 +77,17 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 		String header[] = new String[] { "Förnamn", "Efternamn", "personnummer"};
 		tableModel.setColumnIdentifiers(header);
 		 customerTable.setModel(tableModel);
-		 //customerTable.setEnabled(false);
-		 
 		 customerTable.setCellSelectionEnabled(true);  
 		 ListSelectionModel select= customerTable.getSelectionModel();  
 		 select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		 select.addListSelectionListener(e -> {JOptionPane.showMessageDialog(null, customerTable.getValueAt(customerTable.getSelectedRow(), 2));});
+		 select.addListSelectionListener(e -> { 
+			 if(!e.getValueIsAdjusting()) {
+				 if(customerTable.getSelectedRow() != -1) {
+					personalNumber =	 (String)customerTable.getValueAt(customerTable.getSelectedRow(), 2);
+				 	new CustomerView(bankController, bankModel, personalNumber);
+				 }
+			 }
+		 });
 	}
 	
 	private void createMenu() 
@@ -98,28 +108,31 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 	private void createPane() 
 	{
 		JPanel panelMain = new JPanel();
-		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
+		JPanel panel = new JPanel(new BorderLayout());
 		JPanel panelNorth = new JPanel(new BorderLayout());
 		panelNorth.add(searchField, BorderLayout.CENTER);
 		panelNorth.add(searchButton, BorderLayout.EAST);
 		panel.add(panelNorth, BorderLayout.NORTH);
-		JScrollPane scrollPane = new JScrollPane(customerTable);
+		JScrollPane scrollPane = new JScrollPane(customerTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
+                JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
+		scrollPane.setPreferredSize(new Dimension(500, 200));
 		scrollPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		panel.add(scrollPane, BorderLayout.WEST);
 		panelMain.add(panel);
-		add(panelMain);
-		
-		
+		add(panelMain);	
 	}
 
 	@Override
 	public void updateBank(Boolean bool) {
-			tableModel.setRowCount(0);
+			tableModel.setNumRows(0);
+			int i = 0;
+			if(bool) {
 			ArrayList<String> customerList= this.bankModel.getAllCustomers();
 			for(String customerStr : customerList) {
 				String[] splitStr = customerStr.split(" ");
 				tableModel.addRow(new Object[] { splitStr[0], splitStr[1], splitStr[2]});
-			} 
+				i++;
+			}
+		} 
 	}
 }

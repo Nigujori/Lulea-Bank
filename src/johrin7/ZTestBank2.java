@@ -437,6 +437,7 @@ public class ZTestBank2
 		bank.createCustomer("Zara", "Kadiri", "8210010644");
 		bank.createSavingsAccount("7504048252");
 		bank.createCustomer("Nils", "Eriksson", "8210011212");
+		bank.createCustomer("Hans", "Eriksson", "7f10011212");
 		BankControllerInterface bankController = new BankController(bank);
 	}
 }

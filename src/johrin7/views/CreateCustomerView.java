@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import johrin7.BankControllerInterface;
 import johrin7.BankModelInterface;
 import johrin7.BankObserver;
+import johrin7.Customer;
 
 public class CreateCustomerView extends JFrame implements BankObserver{
 	private static final int FRAME_WIDTH = 450;
@@ -71,7 +72,6 @@ public class CreateCustomerView extends JFrame implements BankObserver{
 			panelGrid.add(personalnumber);
 			panelMain.add(panelGrid, BorderLayout.CENTER);
 			panelMain.add(createButton, BorderLayout.SOUTH);
-			
 			add(panelMain);
 		}
 

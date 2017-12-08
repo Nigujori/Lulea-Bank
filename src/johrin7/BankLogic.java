@@ -26,15 +26,17 @@ public class BankLogic implements BankModelInterface {
 	{
 		//Om det inte finns något customer-objekt med samma personnummer så skapas ett som 
 		//läggs till customerObjectList. Retunerar därefter true annars false.
-		if((this.getCustomerObject(pNo)) == null) 
+		if((this.getCustomerObject(pNo)) == null && !pNo.isEmpty() && !forename.isEmpty() && !surname.isEmpty()) 
 		{
 			Client newCustomer = new Customer(forename, surname, pNo);
 			customerObjectList.add(newCustomer);
-			//view.update(this.getAllCustomers());
 			this.notifyBankObservers(true);
 			return true;
 		}
-		else this.notifyBankObservers(false); return false;
+		else {
+		this.notifyBankObservers(false); 
+		return false;
+		}
 	}
 	
 	/**Hämtar alla kunder. (Jag valde att göra en ny lista för varje anrop till metoden, 
@@ -134,13 +136,15 @@ public class BankLogic implements BankModelInterface {
 	public boolean changeCustomerName(String name, String surname, String pNo) 
 	{
 		Client customer;
+		System.out.println(pNo);
 		//Om det finns ett object med matchande personnummer ändras namnet.
-		if((customer = this.getCustomerObject(pNo)) != null) 
+		if((customer = this.getCustomerObject(pNo)) != null  && !pNo.isEmpty() && !name.isEmpty() && !surname.isEmpty()) 
 		{
 			customer.setName(name, surname); 
+			this.notifyBankObservers(true);
 			return true;
 		} 
-		else return false;
+		else this.notifyBankObservers(false); return false;
 	}	
 	
 	/**Tar bort en kund i registret.
@@ -271,10 +275,12 @@ public class BankLogic implements BankModelInterface {
 	@Override
 	public void registerObserver(BankObserver bo) {
 			this.bankObservers.add(bo);
+			System.out.println("Observer ref " + bankObservers.size());
 	}
 	
 	public void notifyBankObservers(Boolean bool) {
 			bankObservers.forEach(o -> o.updateBank(bool));	
+			System.out.println("Observer norify " + bankObservers.size());
 	}
 	
 }

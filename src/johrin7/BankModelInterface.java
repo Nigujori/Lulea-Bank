@@ -17,4 +17,5 @@ public interface BankModelInterface {
 	public String getAccount(String pNo, int accountId);
 	public ArrayList<String> getTransactions(String pNr, int accountId);
 	public void registerObserver(BankObserver bo);
+	public void notifyBankObservers(Boolean bool);
 }

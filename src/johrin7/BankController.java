@@ -49,8 +49,7 @@ public class BankController implements BankControllerInterface {
 
 	@Override
 	public boolean changeCustomerName(String name, String surname, String pNo) {
-		// TODO Auto-generated method stub
-		return false;
+		return bankModel.changeCustomerName(name, surname, pNo);
 	}
 
 	@Override
