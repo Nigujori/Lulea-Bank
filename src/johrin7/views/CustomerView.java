@@ -59,7 +59,7 @@ public class CustomerView extends JFrame implements BankObserver{
 	public void createView() {
 		createTextFields();
 		createChangeButton();
-		//createTable();
+		createTable();
 		createMenu();
 		createPane();
 		setSize(FRAME_WIDTH, FRAME_HIGHT);
@@ -81,24 +81,24 @@ public class CustomerView extends JFrame implements BankObserver{
 	}
 	 private void createChangeButton() {
 		 changeCustomerButton = new JButton("Ändra kund information");
-		 changeCustomerButton.setPreferredSize(new Dimension(100, 25));
+		 changeCustomerButton.setPreferredSize(new Dimension(450, 25));
 		 changeCustomerButton.addActionListener(e -> {
 			 bankController.changeCustomerName(forname.getText(),
 				 surname.getText(), personalnumber.getText());
 		});
 	 }
 	
-	/*private void createTable() {
+	private void createTable() {
 		customerTable= new JTable();
-		tableModel = new DefaultTableModel(0, 5);
-		String header[] = new String[] { "Kontonummer", "Saldo", "Kontotyp", "Ränta", "Räntesats"};
+		tableModel = new DefaultTableModel(0, 4);
+		String header[] = new String[] { "Kontonummer", "Saldo", "Kontotyp", "Räntesats"};
 		tableModel.setColumnIdentifiers(header);
 		 customerTable.setModel(tableModel);
 		 customerTable.setCellSelectionEnabled(true);  
 		 ListSelectionModel select= customerTable.getSelectionModel();  
 		 select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		 select.addListSelectionListener(e -> {JOptionPane.showMessageDialog(null, customerTable.getValueAt(customerTable.getSelectedRow(), 2));});
-	}*/
+	}
 	
 	private void createMenu() 
 	{
@@ -107,7 +107,10 @@ public class CustomerView extends JFrame implements BankObserver{
 		JMenu options = new JMenu("Options");
 		menuBar.add(options);
 		JMenuItem createItem = new JMenuItem("Lägg till bankkonto");
-		//createItem.addActionListener(e -> new CreateCustomerView(bankController, bankModel));
+		createItem.addActionListener(e -> {
+			CreateAccountView accountView = new CreateAccountView(bankController, bankModel);
+			accountView.setPersonalNumber(personalNumberStr);
+		});
 
 		JMenuItem deletItem = new JMenuItem("Ta bort bankkonto");
 		//deletItem.addActionListener(e -> new DeleteCustomerView(bankController, bankModel));
@@ -151,18 +154,21 @@ public class CustomerView extends JFrame implements BankObserver{
 
 	@Override
 	public void updateBank(Boolean bool) {
-			//tableModel.setRowCount(0);
+		ArrayList<String> customer = this.bankModel.getCustomer(this.personalNumberStr);;
+			if(!bool) JOptionPane.showMessageDialog(null, "Var vänlig och fyll i alla fält");
 			if(personalnumber.getText().equals("")) {
-			ArrayList<String> customer = this.bankModel.getCustomer(this.personalNumberStr);
-			String[] customerInfo = customer.get(0).split(" ");
-			this.forname.setText(customerInfo[0]);
-			this.surname.setText(customerInfo[1]);
-			this.personalnumber.setText(customerInfo[2]);
-			/*for(String customerStr : customer) {
-				String[] splitStr = customerStr.split(" ");
-				tableModel.addRow(new Object[] { splitStr[0], splitStr[1], splitStr[2]});
-			} */
-		}
+				String[] customerInfo = customer.get(0).split(" ");
+				this.forname.setText(customerInfo[0]);
+				this.surname.setText(customerInfo[1]);
+				this.personalnumber.setText(customerInfo[2]);
+			}
+			tableModel.setNumRows(0);
+			System.out.println("Antal konton " + (customer.size()-1));
+			for(int i = 1; i < customer.size(); i++) {
+				String[] splitStr = customer.get(i).split(" ");
+				tableModel.addRow(new Object[] { splitStr[0], splitStr[1], splitStr[2], splitStr[3]});
+			} 
+		
 	}
 }
 

@@ -434,10 +434,20 @@ public class ZTestBank2
 		//bankMenu.test();	
 		BankModelInterface bank = new BankLogic();
 		bank.createCustomer("Johan", "Ringström", "7504048252");
-		bank.createCustomer("Zara", "Kadiri", "8210010644");
 		bank.createSavingsAccount("7504048252");
+		bank.createCreditAccount("7504048252");
+		bank.createSavingsAccount("7504048252"); 
+		
+		bank.createCustomer("Zara", "Kadiri", "8210010644");
+		bank.createSavingsAccount("8210010644");
+		bank.createCreditAccount("8210010644");
+		bank.createSavingsAccount("8210010644");
+		
 		bank.createCustomer("Nils", "Eriksson", "8210011212");
-		bank.createCustomer("Hans", "Eriksson", "7f10011212");
+		bank.createCustomer("Hans", "Eriksson", "7510011212");
+		bank.createSavingsAccount("8210011212");
+		bank.createCreditAccount("8210011212");
+		bank.createSavingsAccount("8210011212");
 		BankControllerInterface bankController = new BankController(bank);
 	}
 }

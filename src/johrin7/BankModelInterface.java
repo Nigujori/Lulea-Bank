@@ -2,13 +2,16 @@ package johrin7;
 
 import java.util.ArrayList;
 
+import johrin7.BankLogic.TypeOfAccount;
+
 
 public interface BankModelInterface {
 	public boolean createCustomer(String forename, String surname, String pNo);
 	public ArrayList<String> getAllCustomers(); 
 	public ArrayList<String> getCustomer(String pNo);
 	public int createSavingsAccount(String pNo);
-	public int createCreditAccount(String pNr);
+	public int createCreditAccount(String pNo);
+	public int createAccount(String pNo, TypeOfAccount typeOfAccount);
 	public boolean deposit(String pNo, int accountId, double amount);
 	public boolean withdraw(String pNo, int accountId, double amount);
 	public boolean changeCustomerName(String name, String surname, String pNo);

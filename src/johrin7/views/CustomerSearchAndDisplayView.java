@@ -124,14 +124,12 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 
 	@Override
 	public void updateBank(Boolean bool) {
-			tableModel.setNumRows(0);
-			int i = 0;
 			if(bool) {
+			tableModel.setNumRows(0);
 			ArrayList<String> customerList= this.bankModel.getAllCustomers();
 			for(String customerStr : customerList) {
 				String[] splitStr = customerStr.split(" ");
 				tableModel.addRow(new Object[] { splitStr[0], splitStr[1], splitStr[2]});
-				i++;
 			}
 		} 
 	}

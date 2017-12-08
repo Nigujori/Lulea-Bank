@@ -10,7 +10,6 @@ import johrin7.views.CustomerSearchAndDisplayView;
 
 public class BankLogic implements BankModelInterface {
 	
-	
 	//Array-lista med customer-objekt.
 	private ArrayList<Client> customerObjectList = new ArrayList<>();
 	private ArrayList<BankObserver> bankObservers = new ArrayList<>();
@@ -96,6 +95,19 @@ public class BankLogic implements BankModelInterface {
 			return customer.openAcount(TypeOfAccount.CREDITACCOUNT);
 		} else return -1;
 	 	}
+	
+	public int createAccount(String pNr, TypeOfAccount typeOfAccount) {
+		Client customer;
+		if ((customer = this.getCustomerObject(pNr)) != null) {
+			int accountNumber =customer.openAcount(typeOfAccount);
+			notifyBankObservers(true);
+			return accountNumber;
+		} else
+			{
+				notifyBankObservers(false);
+				return -1;
+			}
+	 }
 	/**Gör en insättning
 	 * @param pNo personnumret som en String.
 	 * @param accountId kontonumret som en int.

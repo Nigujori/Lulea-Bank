@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
+import johrin7.BankLogic.TypeOfAccount;
 import johrin7.views.CustomerSearchAndDisplayView;
 
 public class BankController implements BankControllerInterface {
@@ -24,15 +25,8 @@ public class BankController implements BankControllerInterface {
 	}
 
 	@Override
-	public int createSavingsAccount(String pNo) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int createCreditAccount(String pNr) {
-		// TODO Auto-generated method stub
-		return 0;
+	public int createAccount(String pNr, TypeOfAccount typeOfAccount) {
+		return bankModel.createAccount(pNr, typeOfAccount);
 	}
 
 	@Override
@@ -62,5 +56,4 @@ public class BankController implements BankControllerInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }

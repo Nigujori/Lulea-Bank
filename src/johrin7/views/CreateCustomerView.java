@@ -38,7 +38,7 @@ public class CreateCustomerView extends JFrame implements BankObserver{
 	
 	public void createView() {
 		createTextFields();
-		createButtonCreate();
+		createCustomerButton();
 		createPane();
 		setSize(FRAME_WIDTH, FRAME_HIGHT);
 		setTitle("ToraUma Bank Create Customer");
@@ -53,7 +53,7 @@ public class CreateCustomerView extends JFrame implements BankObserver{
 		personalNumberLabel = new JLabel("  Personnummer");
 		personalnumber = new JTextField();
 	}
-	 private void createButtonCreate() {
+	 private void createCustomerButton() {
 		 createButton = new JButton("Skapa kund");
 		 createButton.addActionListener(e -> {bankController.createCustomer(forname.getText(),
 				 surname.getText(), personalnumber.getText());
