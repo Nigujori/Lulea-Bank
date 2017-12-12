@@ -1,11 +1,11 @@
-package johrin7;
+package johrin7.Model;
 /**Denna klass rymmer bankens logik. Den skapar och ter bort kunder och håller ett register med customers-objekt.
  *Det är genom dessa customers-objekt som Banklogic-klassen får möjlighet att ta del av kundernas uppgifter och deras 
  *konton.  
  *@author Johan Ringström användarnamn johrin7.*/
 import java.util.ArrayList;
 
-import johrin7.Account.TypeOfTransaction;
+import johrin7.Model.Account.TypeOfTransaction;
 import johrin7.views.CustomerSearchAndDisplayView;
 
 public class BankLogic implements BankModelInterface {

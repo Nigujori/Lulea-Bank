@@ -9,10 +9,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import johrin7.BankControllerInterface;
+import johrin7.Controller.BankControllerInterface;
 
+@SuppressWarnings("serial")
 public class WithDrawView extends JFrame implements OptionView {
-	private static final int FRAME_WIDTH = 450;
+	private static final int FRAME_WIDTH = 550;
 	private static final int FRAME_HIGHT = 100;
 	
 	private JLabel accountNumberLabel;
@@ -75,5 +76,6 @@ public class WithDrawView extends JFrame implements OptionView {
 			panelGrid.add(withDraw);
 			panelGrid.add(withDrawButton);
 			add(panelGrid);
+			this.setLocation(0, 575);
 		}
 }

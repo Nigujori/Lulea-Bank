@@ -1,6 +1,5 @@
 package johrin7.views;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
@@ -19,10 +18,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import johrin7.BankControllerInterface;
-import johrin7.BankModelInterface;
-import johrin7.BankObserver;
+import johrin7.Controller.BankControllerInterface;
+import johrin7.Model.BankObserver;
 
+@SuppressWarnings("serial")
 public class AccountView extends JFrame implements BankObserver, TableView {
 	private static final int FRAME_WIDTH = 550;
 	private static final int FRAME_HIGHT = 550;
@@ -50,7 +49,6 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 	private DefaultTableModel tableModel;
 	
 	private BankControllerInterface bankController;
-	private BankModelInterface bankModel;
 	private int accountNumberInt;
 	private String personalNumberStr;
 	private JButton deletButton;
@@ -58,14 +56,14 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 	ArrayList<String> customer;
 	ArrayList<OptionView> optionViews = new ArrayList<>();
 	
-	public AccountView(BankControllerInterface bankController, BankModelInterface bankModel, int accountNumber, String personalNumber) {
+	public AccountView(BankControllerInterface bankController, int accountNumber, String personalNumber) {
 		this.accountNumberInt = accountNumber;
 		this.personalNumberStr = personalNumber;
 		this.bankController = bankController;
-		this.bankModel = bankModel;
+
 		createView();
 		this.updateBank(true);
-		bankModel.registerObserver(this);
+		bankController.registerObserver(this);
 	}
 	
 	public void createView() {
@@ -155,6 +153,8 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 		setJMenuBar(menuBar);
 		JMenu options = new JMenu("Options");
 		menuBar.add(options);
+		JMenu file = new JMenu("File");
+		menuBar.add(file);
 		JMenuItem createItem = new JMenuItem("Uttag");
 		createItem.addActionListener(e -> {
 			
@@ -167,8 +167,19 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 			DepositView optionView = new DepositView(bankController, accountNumber.getText(), personalNumber.getText());
 			this.optionViews.add(optionView);
 			});
+		
+		JMenuItem saveTransactionsItem = new JMenuItem("Spara transaktioner");
+		deletItem.addActionListener(e -> {
+			});
+		
+		JMenuItem getTransactionsItem = new JMenuItem("Hämta transaktioner");
+		deletItem.addActionListener(e -> {
+			});
 		options.add(createItem);
 		options.add(deletItem);
+		file.add(saveTransactionsItem);
+		file.add(getTransactionsItem);
+		
 	}
 	
 	private void createPane() 
@@ -213,58 +224,59 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 		panelMain.add(panelIntrest);
 		panelMain.add(panelCreditLimit);
 		panelMain.add(scrollPane);
-		
 		panelMain.add(deletButton);
 		add(panelMain);
-	}
-	
-	public void closeOptionViews() {
-		if(this.optionViews.size() != 0) {
-		for(OptionView op : this.optionViews) 
-		{
-			if(op instanceof DepositView) 
-			{
-				((DepositView) op).dispose();
-			} 
-			if(op instanceof WithDrawView) 
-			{
-				((WithDrawView) op).dispose();
-			}
-		}
-		}
-	}
+	}	
 
 	@Override
-	public void updateBank(Boolean bool) {
-		account = this.bankModel.getAccount(this.personalNumberStr, this.accountNumberInt);
+	public void updateBank(Boolean bool) 
+	{
+		account = this.bankController.getAccount(this.personalNumberStr, this.accountNumberInt);
 		if(account != null) 
 		{
-			ArrayList<String> transactions = bankModel.getTransactions(this.personalNumberStr, this.accountNumberInt);
-			customer = this.bankModel.getCustomer(this.personalNumberStr);
+			ArrayList<String> transactions = bankController.getTransactions(this.personalNumberStr, this.accountNumberInt);
+			customer = this.bankController.getCustomer(this.personalNumberStr);
 			String[] customerInfo = customer.get(0).split(" ");
 			String[] accountInfo = account.split(" ");
 			
 			if(personalNumber.getText().equals("")) 
-		{
-			this.forname.setText(customerInfo[0]);
-			this.surname.setText(customerInfo[1]);
-			this.personalNumber.setText(customerInfo[2]);
-			
-			this.accountNumber.setText(accountInfo[0]);
-			this.balance.setText(accountInfo[1]);
-			this.accountType.setText(accountInfo[2]);
-			this.intrest.setText(accountInfo[3]);
-			this.creditLimit.setText(""+this.bankModel.getCreditLimit(this.personalNumberStr, this.accountNumberInt));
-		}
-		if(bool) 
-		{
-			this.balance.setText(accountInfo[1]);
-			tableModel.setNumRows(0);
-			for(int i = 0; i < transactions.size(); i++) {
-				String[] transInfo = transactions.get(i).toString().split(" ");
-				tableModel.addRow(new Object[] { transInfo[0], transInfo[2], transInfo[3]});
-			} 
-		}
-		}
+			{	
+				this.forname.setText(customerInfo[0]);
+				this.surname.setText(customerInfo[1]);
+				this.personalNumber.setText(customerInfo[2]);
+				
+				this.accountNumber.setText(accountInfo[0]);
+				this.balance.setText(accountInfo[1]);
+				this.accountType.setText(accountInfo[2]);
+				this.intrest.setText(accountInfo[3]);
+				this.creditLimit.setText(""+this.bankController.getCreditLimit(this.personalNumberStr, this.accountNumberInt));
+			}
+			if(bool) 
+			{
+				this.balance.setText(accountInfo[1]);
+				tableModel.setNumRows(0);
+				for(int i = 0; i < transactions.size(); i++) 
+				{
+					String[] transInfo = transactions.get(i).toString().split(" ");
+					tableModel.addRow(new Object[] { transInfo[0], transInfo[2], transInfo[3]});
+				} 
+			}
+		} else dispose();
 	}
+	@Override
+	public void closeOptionViews() {
+		if(this.optionViews.size() != 0) {
+			for(OptionView op : this.optionViews) 
+			{
+				if(op instanceof DepositView) 
+				{
+					((DepositView) op).dispose();
+				} 
+				if(op instanceof WithDrawView) 
+				{
+					((WithDrawView) op).dispose();
+				}
+			}
+			}
+		}
 }

@@ -1,4 +1,4 @@
-package johrin7;
+package johrin7.Model;
 
 import java.util.ArrayList;
 import java.util.Date;

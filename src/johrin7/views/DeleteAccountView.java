@@ -1,7 +1,6 @@
 package johrin7.views;
 
 import java.awt.GridLayout;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,12 +9,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import johrin7.BankControllerInterface;
-import johrin7.BankModelInterface;
-import johrin7.BankObserver;
+import johrin7.Controller.BankControllerInterface;
 
+@SuppressWarnings("serial")
 public class DeleteAccountView extends JFrame implements OptionView {
-	private static final int FRAME_WIDTH = 450;
+	private static final int FRAME_WIDTH = 550;
 	private static final int FRAME_HIGHT = 100;
 	
 	private JLabel personalNumberLabel;
@@ -84,6 +82,7 @@ public class DeleteAccountView extends JFrame implements OptionView {
 			panelGrid.add(accountnumber);
 			panelGrid.add(deleteButton);
 			add(panelGrid);
+			this.setLocation(FRAME_WIDTH + 3, 475);
 		}
 	 
 	 public void setPersonalNumber(String personalnumber) {

@@ -1,9 +1,7 @@
 package johrin7.views;
 
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -11,12 +9,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import johrin7.BankControllerInterface;
-import johrin7.BankModelInterface;
-import johrin7.BankObserver;
+import johrin7.Controller.BankControllerInterface;
 
+@SuppressWarnings("serial")
 public class DeleteCustomerView extends JFrame implements OptionView {
-	private static final int FRAME_WIDTH = 450;
+	private static final int FRAME_WIDTH = 550;
 	private static final int FRAME_HIGHT = 100;
 	
 	private JLabel personalNumberLabel;
@@ -25,8 +22,7 @@ public class DeleteCustomerView extends JFrame implements OptionView {
 	private BankControllerInterface bankController;
 	CustomerSearchAndDisplayView customerSearchAndDisplayView;
 	
-	public DeleteCustomerView(BankControllerInterface bankController, CustomerSearchAndDisplayView customerSearchAndDisplayView) {
-		this.customerSearchAndDisplayView = customerSearchAndDisplayView;
+	public DeleteCustomerView(BankControllerInterface bankController) {
 		this.bankController = bankController;
 		createView();
 	}
@@ -48,8 +44,6 @@ public class DeleteCustomerView extends JFrame implements OptionView {
 	 private void createDeleteButton() {
 		 deleteButton = new JButton("Ta bort kund");
 		 deleteButton.addActionListener(e -> {
-			 customerSearchAndDisplayView.closeTableView(this.personalnumber.getText());
-			 customerSearchAndDisplayView.unRegisterObserver(this.personalnumber.getText());
 			 ArrayList<String> customer = bankController.deleteCustomer(personalnumber.getText());
 			 if(customer != null) 
 			 { 	
@@ -71,6 +65,7 @@ public class DeleteCustomerView extends JFrame implements OptionView {
 			panelGrid.add(personalnumber);
 			panelGrid.add(deleteButton);
 			add(panelGrid);
+			this.setLocation(0, 475);
 		}
 		
 

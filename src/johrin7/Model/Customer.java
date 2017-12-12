@@ -1,4 +1,4 @@
-package johrin7;
+package johrin7.Model;
 /**Klassen genom vilken man skapar customer-objekt som håller information om bankens kunder.
  * Den håller även infomation om kundens olika konton. Utan att skapa en bankkund kan bank-logik objektet inte 
  * skapa bankkonton. Eftersom SavingsAccount och eventuellt andra framtida kontotyper ärver av Account klassen
@@ -10,7 +10,7 @@ package johrin7;
 
 import java.util.ArrayList;
 
-import johrin7.BankLogic.TypeOfAccount;
+import johrin7.Model.BankLogic.TypeOfAccount;
 
  
 public class Customer extends Client{

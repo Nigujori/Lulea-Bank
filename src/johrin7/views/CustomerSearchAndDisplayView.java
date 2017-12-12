@@ -2,57 +2,52 @@ package johrin7.views;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
+import javax.swing.RowFilter;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
+import javax.swing.table.TableRowSorter;
 
-import johrin7.BankControllerInterface;
-import johrin7.BankModelInterface;
-import johrin7.BankObserver;
+import johrin7.Controller.BankControllerInterface;
+import johrin7.Model.BankObserver;
 
+@SuppressWarnings("serial")
 public class CustomerSearchAndDisplayView extends JFrame implements BankObserver, TableView{
 	
 	private static final int FRAME_WIDTH = 550;
-	private static final int FRAME_HIGHT = 300;
+	private static final int FRAME_HIGHT = 450;
 	private static final String DEFAULT_SERARCH_WORD = "Sök efter kund";
 	
 	private JTextField searchField;
 	private JButton searchButton;
-	private String searchWord;
 	private BankControllerInterface bankController;
-	private BankModelInterface bankModel;
 	private JTable customerTable;
 	DefaultTableModel tableModel;
-	private int rows = 0;
 	private String personalNumber = "";
+	TableRowSorter<TableModel> rowFinder;
 	ArrayList<OptionView> optionViews = new ArrayList<>();
 	ArrayList<CustomerView > tableViews = new ArrayList<>();
 	
-	public CustomerSearchAndDisplayView(BankControllerInterface bankController, BankModelInterface bankModel) {
+	public CustomerSearchAndDisplayView(BankControllerInterface bankController) {
 		this.bankController = bankController;
-		this.bankModel = bankModel;
-		bankModel.registerObserver(this);
+		bankController.registerObserver(this);
 		
 	}
 	
 	public void createView() {
-		searchWord = DEFAULT_SERARCH_WORD;
 		createTable();
 		createTextField();
 		createButton();
@@ -71,8 +66,15 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 	
 	private void createButton() {
 		searchButton = new JButton("Search");
-		searchButton.addActionListener(e -> {;
-			});
+		searchButton.addActionListener(e -> { String searchText = searchField.getText();
+        if (searchText.length() == 0) {
+            rowFinder.setRowFilter(null);
+          } else if(searchText.matches(("[0-9]{1,13}(\\.[0-9]*)?")))
+          {
+            rowFinder.setRowFilter(RowFilter.regexFilter(searchText, 2));
+
+          } else rowFinder.setRowFilter(RowFilter.regexFilter(searchText, 1));
+		});
 	}
 	
 	private void createTable() {
@@ -82,18 +84,24 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 		tableModel.setColumnIdentifiers(header);
 		 customerTable.setModel(tableModel);
 		 customerTable.setCellSelectionEnabled(true);  
+		 rowFinder = new TableRowSorter<>(customerTable.getModel());
+		 customerTable.setRowSorter(rowFinder);
 		 ListSelectionModel select= customerTable.getSelectionModel();  
 		 select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		 select.addListSelectionListener(e -> { 
 			 if(!e.getValueIsAdjusting()) {
 				 if(customerTable.getSelectedRow() != -1) {
 					personalNumber =	 (String)customerTable.getValueAt(customerTable.getSelectedRow(), 2);
-				 	CustomerView customerView = new CustomerView(bankController, bankModel, personalNumber);
+				 	CustomerView customerView = new CustomerView(bankController, personalNumber);
 				 	tableViews.add(customerView);
 				 	customerView.addWindowListener(new WindowAdapter() {
 			            @Override
 			            public void windowClosing(WindowEvent e) {
 			                customerView.closeOptionViews();
+			            }
+			            @Override
+			            public void windowClosed(WindowEvent e) {
+			                customerView.dispose();
 			            }
 			        });
 				 }
@@ -107,15 +115,27 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 		setJMenuBar(menuBar);
 		JMenu options = new JMenu("Options");
 		menuBar.add(options);
+		JMenu file = new JMenu("File");
+		menuBar.add(file);
 		JMenuItem createItem = new JMenuItem("Create customer");
 		createItem.addActionListener(e -> {
 			new CreateCustomerView(bankController);
 		});
 
 		JMenuItem deletItem = new JMenuItem("Delete customer");
-		deletItem.addActionListener(e -> new DeleteCustomerView(bankController, this));
+		deletItem.addActionListener(e -> new DeleteCustomerView(bankController));
+		
+		JMenuItem saveAllCustomerItem = new JMenuItem("Spara kunder till fil");
+		createItem.addActionListener(e -> {
+		});
+		
+		JMenuItem getAllCustomersItem = new JMenuItem("Hämta kunder från");
+		createItem.addActionListener(e -> {
+		});
 		options.add(createItem);
 		options.add(deletItem);
+		file.add(saveAllCustomerItem);
+		file.add(getAllCustomersItem);
 	}
 	
 	private void createPane() 
@@ -128,7 +148,7 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 		panel.add(panelNorth, BorderLayout.NORTH);
 		JScrollPane scrollPane = new JScrollPane(customerTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setPreferredSize(new Dimension(500, 200));
+		scrollPane.setPreferredSize(new Dimension(500, 350));
 		scrollPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		panel.add(scrollPane, BorderLayout.WEST);
 		panelMain.add(panel);
@@ -139,27 +159,13 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 	public void updateBank(Boolean bool) {
 			if(bool) {
 			tableModel.setNumRows(0);
-			ArrayList<String> customerList= this.bankModel.getAllCustomers();
+			ArrayList<String> customerList= this.bankController.getAllCustomers();
 			for(String customerStr : customerList) {
 				String[] splitStr = customerStr.split(" ");
 				tableModel.addRow(new Object[] { splitStr[0], splitStr[1], splitStr[2]});
 			}
 		} 
 	}
-	
-	public void closeTableView(String personalNumber) 
-	{
-		if(this.tableViews.size() != 0) 
-		{
-			for(CustomerView cs : this.tableViews) 
-			{
-				if(cs.getPersonalNumber().equals(personalNumber))
-				{
-					cs.dispose();
-				} 
-			}
-		}
-	}	
 
 	@Override
 	public void closeOptionViews() {
@@ -176,20 +182,5 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 				}
 			}
 		}
-	}
-	
-	public void unRegisterObserver(String personalNumber) {
-		{
-			if(this.tableViews.size() != 0) 
-			{
-				for(CustomerView cs : this.tableViews) 
-				{
-					if(cs.getPersonalNumber().equals(personalNumber))
-					{
-						bankModel.unRegisterObserver(cs);;
-					} 
-				}
-			}
-		}	
 	}
 }

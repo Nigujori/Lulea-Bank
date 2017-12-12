@@ -1,8 +1,8 @@
-package johrin7;
+package johrin7.Model;
 
 import java.util.ArrayList;
 
-import johrin7.BankLogic.TypeOfAccount;
+import johrin7.Model.BankLogic.TypeOfAccount;
 
 public abstract class Client {
 	//En array med förnamnet i första indexet och efternamn i det andra.

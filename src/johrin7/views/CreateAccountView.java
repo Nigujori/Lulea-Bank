@@ -11,12 +11,13 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import johrin7.BankControllerInterface;
-import johrin7.BankLogic.TypeOfAccount;
+import johrin7.Controller.BankControllerInterface;
+import johrin7.Model.BankLogic.TypeOfAccount;
 
 
+@SuppressWarnings("serial")
 public class CreateAccountView extends JFrame implements OptionView {
-	private static final int FRAME_WIDTH = 450;
+	private static final int FRAME_WIDTH = 550;
 	private static final int FRAME_HIGHT = 100;
 	
 	private JComboBox<TypeOfAccount> comboBoxAccountTypes;
@@ -70,6 +71,7 @@ public class CreateAccountView extends JFrame implements OptionView {
 			panelMain.add(comboBoxAccountTypes, BorderLayout.CENTER);
 			panelMain.add(createButton, BorderLayout.SOUTH);
 			add(panelMain);
+			this.setLocation(FRAME_WIDTH + 3, 475);
 		}
 	 
 	 public void setPersonalNumber(String pNr) {

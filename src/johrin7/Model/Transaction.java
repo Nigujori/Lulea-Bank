@@ -1,10 +1,10 @@
-package johrin7;
+package johrin7.Model;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-import johrin7.Account.TypeOfTransaction;
+import johrin7.Model.Account.TypeOfTransaction;
 
 public class Transaction {
 	//

@@ -1,10 +1,12 @@
-package johrin7;
+package johrin7.Controller;
 
 import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import johrin7.BankLogic.TypeOfAccount;
+import johrin7.Model.BankModelInterface;
+import johrin7.Model.BankObserver;
+import johrin7.Model.BankLogic.TypeOfAccount;
 import johrin7.views.CustomerSearchAndDisplayView;
 
 public class BankController implements BankControllerInterface {
@@ -13,7 +15,7 @@ public class BankController implements BankControllerInterface {
 	
 	public BankController(BankModelInterface bankModel) {
 		this.bankModel = bankModel;
-		view = new CustomerSearchAndDisplayView(this, bankModel);
+		view = new CustomerSearchAndDisplayView(this);
 		view.createView();
 		view.updateBank(true);
 		
@@ -24,10 +26,6 @@ public class BankController implements BankControllerInterface {
 		return bankModel.createCustomer(forename, surname, pNo);
 	}
 
-	@Override
-	public int createAccount(String pNr, TypeOfAccount typeOfAccount) {
-		return bankModel.createAccount(pNr, typeOfAccount);
-	}
 
 	@Override
 	public boolean deposit(String pNo, int accountId, double amount) {
@@ -50,7 +48,51 @@ public class BankController implements BankControllerInterface {
 	}
 
 	@Override
+	public int createAccount(String pNo, TypeOfAccount typeOfAccount) {
+		return bankModel.createAccount(pNo, typeOfAccount);
+	}
+
+	@Override
 	public String closeAccount(String pNr, int accountId) {
 		return bankModel.closeAccount(pNr, accountId);
 	}
+
+	@Override
+	public ArrayList<String> getAllCustomers() {
+		return bankModel.getAllCustomers();
+	}
+
+	@Override
+	public ArrayList<String> getCustomer(String pNo) {
+		return bankModel.getCustomer(pNo);
+	}
+
+
+	@Override
+	public String getAccount(String pNo, int accountId) {
+		return bankModel.getAccount(pNo, accountId);
+	}
+
+	@Override
+	public ArrayList<String> getTransactions(String pNr, int accountId) {
+		return bankModel.getTransactions(pNr, accountId);
+	}
+
+	@Override
+	public double getCreditLimit(String pNr, int accountNr) {
+		return bankModel.getCreditLimit(pNr, accountNr);
+	}
+
+	@Override
+	public void registerObserver(BankObserver bo) {
+		bankModel.registerObserver(bo);
+		
+	}
+
+	@Override
+	public void notifyBankObservers(Boolean bool) {
+		bankModel.notifyBankObservers(bool);
+		
+	}
+
 }

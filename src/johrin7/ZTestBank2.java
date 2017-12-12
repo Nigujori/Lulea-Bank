@@ -12,7 +12,10 @@ import java.util.ArrayList;
 
 import javax.swing.JFrame;
 
-import johrin7.BankLogic;
+import johrin7.Controller.BankController;
+import johrin7.Controller.BankControllerInterface;
+import johrin7.Model.BankLogic;
+import johrin7.Model.BankModelInterface;
 import johrin7.views.CustomerSearchAndDisplayView;
 
 public class ZTestBank2

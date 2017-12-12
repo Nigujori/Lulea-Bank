@@ -2,7 +2,6 @@ package johrin7.views;
 
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-import java.nio.ByteOrder;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -10,13 +9,12 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import johrin7.BankControllerInterface;
-import johrin7.BankModelInterface;
-import johrin7.BankObserver;
-import johrin7.Customer;
 
+import johrin7.Controller.BankControllerInterface;
+
+@SuppressWarnings("serial")
 public class CreateCustomerView extends JFrame implements OptionView{
-	private static final int FRAME_WIDTH = 450;
+	private static final int FRAME_WIDTH = 550;
 	private static final int FRAME_HIGHT = 100;
 	
 	private JLabel fornameLabel;
@@ -72,5 +70,6 @@ public class CreateCustomerView extends JFrame implements OptionView{
 			panelMain.add(panelGrid, BorderLayout.CENTER);
 			panelMain.add(createButton, BorderLayout.SOUTH);
 			add(panelMain);
+			this.setLocation(0, 475);
 		}
 }

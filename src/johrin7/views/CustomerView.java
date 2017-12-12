@@ -1,9 +1,6 @@
 package johrin7.views;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
@@ -13,7 +10,6 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -22,11 +18,10 @@ import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-import johrin7.BankControllerInterface;
-import johrin7.BankModelInterface;
-import johrin7.BankObserver;
-import johrin7.Customer;
+import johrin7.Controller.BankControllerInterface;
+import johrin7.Model.BankObserver;
 
+@SuppressWarnings("serial")
 public class CustomerView extends JFrame implements BankObserver, TableView{
 	
 	private static final int FRAME_WIDTH = 550;
@@ -43,20 +38,19 @@ public class CustomerView extends JFrame implements BankObserver, TableView{
 	private JTextField personalnumber;
 	private JButton changeCustomerButton;
 	private BankControllerInterface bankController;
-	private BankModelInterface bankModel;
 	private JTable customerTable;
 	private DefaultTableModel tableModel;
 	private String personalNumberStr;
 	private String accountNumberStr;
 	ArrayList<OptionView> optionViews = new ArrayList<>();
+	ArrayList<AccountView > tableViews = new ArrayList<>();
 	
-	public CustomerView(BankControllerInterface bankController, BankModelInterface bankModel, String personalnumber) {
+	public CustomerView(BankControllerInterface bankController, String personalnumber) {
 		this.personalNumberStr = personalnumber;
 		this.bankController = bankController;
-		this.bankModel = bankModel;
 		createView();
 		this.updateBank(true);
-		bankModel.registerObserver(this);
+		bankController.registerObserver(this);
 	
 	}
 	
@@ -105,7 +99,8 @@ public class CustomerView extends JFrame implements BankObserver, TableView{
 			 if(!e.getValueIsAdjusting()) {
 				 if(customerTable.getSelectedRow() != -1) {
 					accountNumberStr = (String)customerTable.getValueAt(customerTable.getSelectedRow(), 0);
-					AccountView accountView = new AccountView(bankController, bankModel, Integer.parseInt(accountNumberStr), this.personalNumberStr);
+					AccountView accountView = new AccountView(bankController, Integer.parseInt(accountNumberStr), this.personalNumberStr);
+					tableViews.add(accountView);
 					accountView.addWindowListener(new WindowAdapter() {
 			            @Override
 			            public void windowClosed(WindowEvent e) {
@@ -113,7 +108,6 @@ public class CustomerView extends JFrame implements BankObserver, TableView{
 			            }
 			            @Override
 			            public void windowClosing(WindowEvent e) {
-			            		System.out.println("in->");
 			            		accountView.dispose();
 			            }
 			        });
@@ -172,11 +166,13 @@ public class CustomerView extends JFrame implements BankObserver, TableView{
 		panelMain.add(panelChangeButton);
 		panelMain.add(scrollPane);
 		add(panelMain);
+		this.setLocation(FRAME_WIDTH + 3, 0);
 	}
 
 	@Override
 	public void updateBank(Boolean bool) {
-		ArrayList<String> customer = this.bankModel.getCustomer(this.personalNumberStr);
+		ArrayList<String> customer = this.bankController.getCustomer(this.personalNumberStr);
+		if(customer != null) {
 			if(personalnumber.getText().equals("")) {
 				String[] customerInfo = customer.get(0).split(" ");
 				this.forname.setText(customerInfo[0]);
@@ -188,8 +184,8 @@ public class CustomerView extends JFrame implements BankObserver, TableView{
 				String[] splitStr = customer.get(i).split(" ");
 				tableModel.addRow(new Object[] { splitStr[0], splitStr[1], splitStr[2], splitStr[3]});
 			} 
+		} else dispose();	
 	}
-
 
 	@Override
 	public void closeOptionViews() {
@@ -207,9 +203,5 @@ public class CustomerView extends JFrame implements BankObserver, TableView{
 		}
 		}
 	}
-	public String getPersonalNumber() {
-		return this.personalNumberStr;
-	}
-	
 }
 
