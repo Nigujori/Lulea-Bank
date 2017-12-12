@@ -15,7 +15,7 @@ import johrin7.BankControllerInterface;
 import johrin7.BankModelInterface;
 import johrin7.BankObserver;
 
-public class DeleteCustomerView extends JFrame implements BankObserver{
+public class DeleteCustomerView extends JFrame implements OptionView {
 	private static final int FRAME_WIDTH = 450;
 	private static final int FRAME_HIGHT = 100;
 	
@@ -23,13 +23,12 @@ public class DeleteCustomerView extends JFrame implements BankObserver{
 	private JTextField personalnumber;
 	private JButton deleteButton;
 	private BankControllerInterface bankController;
-	private BankModelInterface bankModel;
+	CustomerSearchAndDisplayView customerSearchAndDisplayView;
 	
-	public DeleteCustomerView(BankControllerInterface bankController, BankModelInterface bankModel) {
+	public DeleteCustomerView(BankControllerInterface bankController, CustomerSearchAndDisplayView customerSearchAndDisplayView) {
+		this.customerSearchAndDisplayView = customerSearchAndDisplayView;
 		this.bankController = bankController;
-		this.bankModel = bankModel;
 		createView();
-		bankModel.registerObserver(this);
 	}
 	
 	public void createView() {
@@ -41,7 +40,7 @@ public class DeleteCustomerView extends JFrame implements BankObserver{
 		setVisible(true);
 	}
 	
-	private void createTextFields() {		
+	public void createTextFields() {		
 		personalNumberLabel = new JLabel("  Personnummer");
 		personalnumber = new JTextField();
 	}
@@ -49,15 +48,22 @@ public class DeleteCustomerView extends JFrame implements BankObserver{
 	 private void createDeleteButton() {
 		 deleteButton = new JButton("Ta bort kund");
 		 deleteButton.addActionListener(e -> {
+			 customerSearchAndDisplayView.closeTableView(this.personalnumber.getText());
+			 customerSearchAndDisplayView.unRegisterObserver(this.personalnumber.getText());
 			 ArrayList<String> customer = bankController.deleteCustomer(personalnumber.getText());
-			 if(customer != null) {
-			 JOptionPane.showMessageDialog(null, "Kunden " + customer.toString()
-			 +" med " +  (customer.size() -1) + " kont/konton är borttagen");
-			 } 
+			 if(customer != null) 
+			 { 	
+				 String customerInfo = customer.remove(0);
+				 JOptionPane.showMessageDialog(null, "Kunden " + customerInfo + " är borttagen"
+			 +" med följande konto/konton:\n" + this.presentAccount(customer));
+			 } else 
+			 {
+				JOptionPane.showMessageDialog(null, "Det var inte möjligt att ta bort denna kund");
+			 }
 		});
 	 }
 	 
-	 private void createPane() 
+	 public void createPane() 
 		{
 
 			JPanel panelGrid = new JPanel(new GridLayout(3, 1));
@@ -66,10 +72,15 @@ public class DeleteCustomerView extends JFrame implements BankObserver{
 			panelGrid.add(deleteButton);
 			add(panelGrid);
 		}
-	 
-	 @Override
-		public void updateBank(Boolean bool) {
-			if(!bool) JOptionPane.showMessageDialog(null, "Det var inte möjligt att ta bort denna kund");
-		}
+		
 
+	 private String presentAccount(ArrayList<String> accountList) 
+	 {
+		 String accountStr = "";
+		 for(String account : accountList)
+		 {
+			 accountStr += account + "\n";
+		 }
+		 return accountStr;
+	 }
 }

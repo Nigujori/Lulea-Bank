@@ -15,7 +15,7 @@ import johrin7.BankModelInterface;
 import johrin7.BankObserver;
 import johrin7.Customer;
 
-public class CreateCustomerView extends JFrame implements BankObserver{
+public class CreateCustomerView extends JFrame implements OptionView{
 	private static final int FRAME_WIDTH = 450;
 	private static final int FRAME_HIGHT = 100;
 	
@@ -27,13 +27,10 @@ public class CreateCustomerView extends JFrame implements BankObserver{
 	private JTextField personalnumber;
 	private JButton createButton;
 	private BankControllerInterface bankController;
-	private BankModelInterface bankModel;
 	
-	public CreateCustomerView(BankControllerInterface bankController, BankModelInterface bankModel) {
+	public CreateCustomerView(BankControllerInterface bankController) {
 		this.bankController = bankController;
-		this.bankModel = bankModel;
 		createView();
-		bankModel.registerObserver(this);
 	}
 	
 	public void createView() {
@@ -45,7 +42,7 @@ public class CreateCustomerView extends JFrame implements BankObserver{
 		setVisible(true);
 	}
 	
-	private void createTextFields() {		
+	public void createTextFields() {		
 		fornameLabel = new JLabel("  Förnamn");
 		forname = new JTextField();
 		surnameLabel = new JLabel("  Efternamn");
@@ -55,12 +52,14 @@ public class CreateCustomerView extends JFrame implements BankObserver{
 	}
 	 private void createCustomerButton() {
 		 createButton = new JButton("Skapa kund");
-		 createButton.addActionListener(e -> {bankController.createCustomer(forname.getText(),
-				 surname.getText(), personalnumber.getText());
-		});
+		 createButton.addActionListener(e -> {
+			 boolean bool = bankController.createCustomer(forname.getText(), surname.getText(), personalnumber.getText());
+		 if(!bool) {
+			 JOptionPane.showMessageDialog(null, "De var inte möjligt att skapa denna kund.");
+		 }});
 	 }
 	 
-	 private void createPane() 
+	 public void createPane() 
 		{
 			JPanel panelMain = new JPanel(new BorderLayout());
 			JPanel panelGrid = new JPanel(new GridLayout(2, 3));
@@ -74,9 +73,4 @@ public class CreateCustomerView extends JFrame implements BankObserver{
 			panelMain.add(createButton, BorderLayout.SOUTH);
 			add(panelMain);
 		}
-
-	@Override
-	public void updateBank(Boolean bool) {
-		if(!bool) JOptionPane.showMessageDialog(null, "De var inte möjligt att skapa denna kund.");
-	}
 }

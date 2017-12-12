@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -25,7 +27,7 @@ import johrin7.BankModelInterface;
 import johrin7.BankObserver;
 import johrin7.Customer;
 
-public class CustomerView extends JFrame implements BankObserver{
+public class CustomerView extends JFrame implements BankObserver, TableView{
 	
 	private static final int FRAME_WIDTH = 550;
 	private static final int FRAME_HIGHT = 450;
@@ -45,6 +47,8 @@ public class CustomerView extends JFrame implements BankObserver{
 	private JTable customerTable;
 	private DefaultTableModel tableModel;
 	private String personalNumberStr;
+	private String accountNumberStr;
+	ArrayList<OptionView> optionViews = new ArrayList<>();
 	
 	public CustomerView(BankControllerInterface bankController, BankModelInterface bankModel, String personalnumber) {
 		this.personalNumberStr = personalnumber;
@@ -97,7 +101,25 @@ public class CustomerView extends JFrame implements BankObserver{
 		 customerTable.setCellSelectionEnabled(true);  
 		 ListSelectionModel select= customerTable.getSelectionModel();  
 		 select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		 select.addListSelectionListener(e -> {JOptionPane.showMessageDialog(null, customerTable.getValueAt(customerTable.getSelectedRow(), 2));});
+		 select.addListSelectionListener(e -> {
+			 if(!e.getValueIsAdjusting()) {
+				 if(customerTable.getSelectedRow() != -1) {
+					accountNumberStr = (String)customerTable.getValueAt(customerTable.getSelectedRow(), 0);
+					AccountView accountView = new AccountView(bankController, bankModel, Integer.parseInt(accountNumberStr), this.personalNumberStr);
+					accountView.addWindowListener(new WindowAdapter() {
+			            @Override
+			            public void windowClosed(WindowEvent e) {
+			                accountView.closeOptionViews();
+			            }
+			            @Override
+			            public void windowClosing(WindowEvent e) {
+			            		System.out.println("in->");
+			            		accountView.dispose();
+			            }
+			        });
+				 }
+			 }
+			});
 	}
 	
 	private void createMenu() 
@@ -108,12 +130,17 @@ public class CustomerView extends JFrame implements BankObserver{
 		menuBar.add(options);
 		JMenuItem createItem = new JMenuItem("Lägg till bankkonto");
 		createItem.addActionListener(e -> {
-			CreateAccountView accountView = new CreateAccountView(bankController, bankModel);
-			accountView.setPersonalNumber(personalNumberStr);
+			CreateAccountView createAccountView = new CreateAccountView(bankController);
+			createAccountView.setPersonalNumber(personalNumberStr);
+			this.optionViews.add(createAccountView);
 		});
 
 		JMenuItem deletItem = new JMenuItem("Ta bort bankkonto");
-		//deletItem.addActionListener(e -> new DeleteCustomerView(bankController, bankModel));
+		deletItem.addActionListener(e -> {
+			DeleteAccountView deleteAccountView = new DeleteAccountView(bankController);
+			deleteAccountView.setPersonalNumber(personalNumberStr);
+			this.optionViews.add(deleteAccountView);
+			});
 		options.add(createItem);
 		options.add(deletItem);
 	}
@@ -122,7 +149,6 @@ public class CustomerView extends JFrame implements BankObserver{
 	private void createPane() 
 	{
 		JPanel panelMain = new JPanel();
-		JPanel panelCustomer = new JPanel(new BorderLayout());
 		JPanel panelForname = new JPanel();
 		JPanel panelSurname = new JPanel();
 		JPanel panelPersonalnumber = new JPanel();
@@ -134,28 +160,23 @@ public class CustomerView extends JFrame implements BankObserver{
 		panelPersonalnumber.add(personalNumberLabel);
 		panelPersonalnumber.add(personalnumber);
 		panelChangeButton.add(changeCustomerButton);
-		panelCustomer.add(panelForname, BorderLayout.NORTH);
-		panelCustomer.add(panelSurname, BorderLayout.CENTER);
-		panelCustomer.add(panelPersonalnumber, BorderLayout.SOUTH);
 		
-		JPanel panelTable = new JPanel(new BorderLayout());
 		JScrollPane scrollPane = new JScrollPane(customerTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
 		scrollPane.setPreferredSize(new Dimension(500, 200));
 		scrollPane.setBorder(new EmptyBorder(10, 10, 10, 10));
-		panelTable.add(scrollPane, BorderLayout.CENTER);
 
-		panelMain.add(panelCustomer);
+		panelMain.add(panelForname);
+		panelMain.add(panelSurname);
+		panelMain.add(panelPersonalnumber);
 		panelMain.add(panelChangeButton);
-		panelMain.add(panelTable);
+		panelMain.add(scrollPane);
 		add(panelMain);
-		
 	}
 
 	@Override
 	public void updateBank(Boolean bool) {
-		ArrayList<String> customer = this.bankModel.getCustomer(this.personalNumberStr);;
-			if(!bool) JOptionPane.showMessageDialog(null, "Var vänlig och fyll i alla fält");
+		ArrayList<String> customer = this.bankModel.getCustomer(this.personalNumberStr);
 			if(personalnumber.getText().equals("")) {
 				String[] customerInfo = customer.get(0).split(" ");
 				this.forname.setText(customerInfo[0]);
@@ -163,12 +184,32 @@ public class CustomerView extends JFrame implements BankObserver{
 				this.personalnumber.setText(customerInfo[2]);
 			}
 			tableModel.setNumRows(0);
-			System.out.println("Antal konton " + (customer.size()-1));
 			for(int i = 1; i < customer.size(); i++) {
 				String[] splitStr = customer.get(i).split(" ");
 				tableModel.addRow(new Object[] { splitStr[0], splitStr[1], splitStr[2], splitStr[3]});
 			} 
-		
 	}
+
+
+	@Override
+	public void closeOptionViews() {
+		if(this.optionViews.size() != 0) {
+		for(OptionView op : this.optionViews) 
+		{
+			if(op instanceof CreateAccountView) 
+			{
+				((CreateAccountView) op).dispose();
+			} 
+			if(op instanceof DeleteAccountView) 
+			{
+				((DeleteAccountView) op).dispose();
+			}
+		}
+		}
+	}
+	public String getPersonalNumber() {
+		return this.personalNumberStr;
+	}
+	
 }
 

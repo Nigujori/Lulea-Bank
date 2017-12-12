@@ -19,6 +19,8 @@ public interface BankModelInterface {
 	public String closeAccount(String pNr, int accountId);
 	public String getAccount(String pNo, int accountId);
 	public ArrayList<String> getTransactions(String pNr, int accountId);
+	public double getCreditLimit(String pNr, int accountNr);
 	public void registerObserver(BankObserver bo);
+	public void unRegisterObserver(BankObserver bo);
 	public void notifyBankObservers(Boolean bool);
 }

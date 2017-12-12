@@ -4,6 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.lang.reflect.GenericArrayType;
 import java.util.ArrayList;
 import javax.swing.JButton;
@@ -24,7 +26,7 @@ import johrin7.BankControllerInterface;
 import johrin7.BankModelInterface;
 import johrin7.BankObserver;
 
-public class CustomerSearchAndDisplayView extends JFrame implements BankObserver{
+public class CustomerSearchAndDisplayView extends JFrame implements BankObserver, TableView{
 	
 	private static final int FRAME_WIDTH = 550;
 	private static final int FRAME_HIGHT = 300;
@@ -39,6 +41,8 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 	DefaultTableModel tableModel;
 	private int rows = 0;
 	private String personalNumber = "";
+	ArrayList<OptionView> optionViews = new ArrayList<>();
+	ArrayList<CustomerView > tableViews = new ArrayList<>();
 	
 	public CustomerSearchAndDisplayView(BankControllerInterface bankController, BankModelInterface bankModel) {
 		this.bankController = bankController;
@@ -84,7 +88,14 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 			 if(!e.getValueIsAdjusting()) {
 				 if(customerTable.getSelectedRow() != -1) {
 					personalNumber =	 (String)customerTable.getValueAt(customerTable.getSelectedRow(), 2);
-				 	new CustomerView(bankController, bankModel, personalNumber);
+				 	CustomerView customerView = new CustomerView(bankController, bankModel, personalNumber);
+				 	tableViews.add(customerView);
+				 	customerView.addWindowListener(new WindowAdapter() {
+			            @Override
+			            public void windowClosing(WindowEvent e) {
+			                customerView.closeOptionViews();
+			            }
+			        });
 				 }
 			 }
 		 });
@@ -97,10 +108,12 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 		JMenu options = new JMenu("Options");
 		menuBar.add(options);
 		JMenuItem createItem = new JMenuItem("Create customer");
-		createItem.addActionListener(e -> new CreateCustomerView(bankController, bankModel));
+		createItem.addActionListener(e -> {
+			new CreateCustomerView(bankController);
+		});
 
 		JMenuItem deletItem = new JMenuItem("Delete customer");
-		deletItem.addActionListener(e -> new DeleteCustomerView(bankController, bankModel));
+		deletItem.addActionListener(e -> new DeleteCustomerView(bankController, this));
 		options.add(createItem);
 		options.add(deletItem);
 	}
@@ -132,5 +145,51 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 				tableModel.addRow(new Object[] { splitStr[0], splitStr[1], splitStr[2]});
 			}
 		} 
+	}
+	
+	public void closeTableView(String personalNumber) 
+	{
+		if(this.tableViews.size() != 0) 
+		{
+			for(CustomerView cs : this.tableViews) 
+			{
+				if(cs.getPersonalNumber().equals(personalNumber))
+				{
+					cs.dispose();
+				} 
+			}
+		}
+	}	
+
+	@Override
+	public void closeOptionViews() {
+		if(this.optionViews.size() != 0) {
+			for(OptionView op : this.optionViews) 
+			{
+				if(op instanceof CreateCustomerView) 
+				{
+					((CreateCustomerView) op).dispose();
+				} 
+				if(op instanceof DeleteCustomerView) 
+				{
+					((DeleteCustomerView) op).dispose();
+				}
+			}
+		}
+	}
+	
+	public void unRegisterObserver(String personalNumber) {
+		{
+			if(this.tableViews.size() != 0) 
+			{
+				for(CustomerView cs : this.tableViews) 
+				{
+					if(cs.getPersonalNumber().equals(personalNumber))
+					{
+						bankModel.unRegisterObserver(cs);;
+					} 
+				}
+			}
+		}	
 	}
 }

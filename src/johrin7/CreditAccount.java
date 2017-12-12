@@ -73,7 +73,7 @@ public class CreditAccount extends Account{
 		public String getAccountInfo()
 		{
 			String infoString = super.getAccountInfo() + " " + (double)Math.round(this.interest * 100 * 100000d) / 100000
-					+ " " + (double)Math.round(this.getInterestAmount() * 100000d) / 100000;
+					+ " " + (double)Math.round(this.getInterestAmount() * 100000d) / 100000 ;
 			return infoString;
 		}	
 

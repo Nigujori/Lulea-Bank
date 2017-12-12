@@ -35,11 +35,11 @@ public class Customer extends Client{
 		Account account;
 		String accountTypeStr =accountType.toString();
 		switch (accountTypeStr) {
-		case "SAVINGSACCOUNT": {
+		case "SPARKONTO": {
 			account = new SavingsAccount();
 			break;
 		}
-		case "CREDITACCOUNT": {
+		case "KREDITKONTO": {
 			account = new CreditAccount();
 			break;
 		}

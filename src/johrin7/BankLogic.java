@@ -13,7 +13,7 @@ public class BankLogic implements BankModelInterface {
 	//Array-lista med customer-objekt.
 	private ArrayList<Client> customerObjectList = new ArrayList<>();
 	private ArrayList<BankObserver> bankObservers = new ArrayList<>();
-	public static  enum TypeOfAccount {SAVINGSACCOUNT, CREDITACCOUNT};
+	public static  enum TypeOfAccount {SPARKONTO, KREDITKONTO};
 	
 	/**Skapar ett customer-objekt
 	 * @param forename
@@ -80,7 +80,7 @@ public class BankLogic implements BankModelInterface {
 		//Om det finns ett object med matchande personnummer(Samtidigt läggs detta objekt i customer variabeln.)
 		//retuneras kontonumret annars -1;
 		if ((customer = this.getCustomerObject(pNo)) != null) {
-			return customer.openAcount(TypeOfAccount.SAVINGSACCOUNT);
+			return customer.openAcount(TypeOfAccount.SPARKONTO);
 		} else return -1;
 	}
 	/**Skapar ett kreditkonto till en specifik kund.
@@ -92,7 +92,7 @@ public class BankLogic implements BankModelInterface {
 		//Om det finns ett object med matchande personnummer(Samtidigt läggs detta objekt i customer variabeln.)
 		//retuneras kontonumret annars -1;
 		if ((customer = this.getCustomerObject(pNr)) != null) {
-			return customer.openAcount(TypeOfAccount.CREDITACCOUNT);
+			return customer.openAcount(TypeOfAccount.KREDITKONTO);
 		} else return -1;
 	 	}
 	
@@ -119,8 +119,13 @@ public class BankLogic implements BankModelInterface {
 		//Om det finns ett object med matchande personnummer och ett konto med matchande kontonummer
 		//görs en insättning på det kontot och retunerar true annars false.
 		if((customer = this.getCustomerObject(pNo)) != null && isAccountToCustomer(pNo, accountId)) {
-			return  customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.DEPOSIT);
-		} else return false;
+			Boolean bool = customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.DEPOSIT);
+			notifyBankObservers(bool);
+			return  bool;
+		} else { 
+			notifyBankObservers(false);
+			return false;
+			}
 	}
 	/**Gör ett uttag.
 	 * @param pNo personnumret som en String.
@@ -131,13 +136,20 @@ public class BankLogic implements BankModelInterface {
 	public boolean withdraw(String pNo, int accountId, double amount) 
 	{
 		Client customer;
+		Boolean bool = false;
 		//Om det finns ett object med matchande personnummer och ett konto med matchande kontonummer
 		//görs ett försök till uttag från kontot om det lyckas retuneras true annars false.
 		if((customer = this.getCustomerObject(pNo)) != null && isAccountToCustomer(pNo, accountId)) 
 		{
-			return customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.WITHDRAW);
+			bool = customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.WITHDRAW);
+			notifyBankObservers(bool);
+			return bool;
 		} 
-		else return false;
+		else 
+		{
+			notifyBankObservers(bool);
+			return false;
+		}
 	}
     	/**Ändrar en kunds namn.
     	 * @param name i form av en String.
@@ -207,9 +219,13 @@ public class BankLogic implements BankModelInterface {
 		{
 			String tmp = customer.getAccount(accountId).getAccountInfo();
 			customer.deleteAccount(accountId);
+			notifyBankObservers(true);
 			return tmp;
 		} 
-		else return null;
+		else {
+			notifyBankObservers(false);
+			return null;
+		}
 	}
 	
 	/**Hämtar en strängrepresentation av en kunds konto. 
@@ -283,12 +299,20 @@ public class BankLogic implements BankModelInterface {
 		}
 		return customer;
 	}
+	
+	public double getCreditLimit(String pNr, int accountNr) {
+		return getCustomerObject(pNr).getAccount(accountNr).getCreditLimit();
+	}
 
 	@Override
 	public void registerObserver(BankObserver bo) {
 			this.bankObservers.add(bo);
-			System.out.println("Observer ref " + bankObservers.size());
 	}
+	
+	public void unRegisterObserver(BankObserver bo) {
+		this.bankObservers.remove(bo);
+		System.out.println("Unregister");
+}
 	
 	public void notifyBankObservers(Boolean bool) {
 			bankObservers.forEach(o -> o.updateBank(bool));	

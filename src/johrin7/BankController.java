@@ -31,14 +31,12 @@ public class BankController implements BankControllerInterface {
 
 	@Override
 	public boolean deposit(String pNo, int accountId, double amount) {
-		// TODO Auto-generated method stub
-		return false;
+		return bankModel.deposit(pNo, accountId, amount);
 	}
 
 	@Override
 	public boolean withdraw(String pNo, int accountId, double amount) {
-		// TODO Auto-generated method stub
-		return false;
+		return bankModel.withdraw(pNo, accountId, amount);
 	}
 
 	@Override
@@ -53,7 +51,6 @@ public class BankController implements BankControllerInterface {
 
 	@Override
 	public String closeAccount(String pNr, int accountId) {
-		// TODO Auto-generated method stub
-		return null;
+		return bankModel.closeAccount(pNr, accountId);
 	}
 }

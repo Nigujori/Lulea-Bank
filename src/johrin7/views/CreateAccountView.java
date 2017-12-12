@@ -12,30 +12,23 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import johrin7.BankControllerInterface;
-import johrin7.BankLogic;
 import johrin7.BankLogic.TypeOfAccount;
-import johrin7.BankModelInterface;
-import johrin7.BankObserver;
 
-public class CreateAccountView extends JFrame implements BankObserver {
+
+public class CreateAccountView extends JFrame implements OptionView {
 	private static final int FRAME_WIDTH = 450;
 	private static final int FRAME_HIGHT = 100;
 	
 	private JComboBox<TypeOfAccount> comboBoxAccountTypes;
-	private JLabel accountTypeLabel;
-	private JTextField accountType;
 	private JLabel personalNumberLabel;
 	private JTextField personalnumber;
 	private JButton createButton;
 	private BankControllerInterface bankController;
-	private BankModelInterface bankModel;
 	private String accountTypeStr;
 	
-	public CreateAccountView(BankControllerInterface bankController, BankModelInterface bankModel) {
+	public CreateAccountView(BankControllerInterface bankController) {
 		this.bankController = bankController;
-		this.bankModel = bankModel;
 		createView();
-		bankModel.registerObserver(this);
 	}
 	
 	public void createView() {
@@ -43,13 +36,11 @@ public class CreateAccountView extends JFrame implements BankObserver {
 		createAccountButton();
 		createPane();
 		setSize(FRAME_WIDTH, FRAME_HIGHT);
-		setTitle("ToraUma Bank Create Customer");
+		setTitle("ToraUma Bank Create Account");
 		setVisible(true);
 	}
 	
-	private void createTextFields() {		
-		//accountTypeLabel = new JLabel("  Kontotyp");
-		//accountType = new JTextField();
+	public void createTextFields() {		
 		comboBoxAccountTypes = new JComboBox<>(TypeOfAccount.values());
 		comboBoxAccountTypes.addActionListener(e -> accountTypeStr = comboBoxAccountTypes.getSelectedItem().toString() );
 		personalNumberLabel = new JLabel("  Personnummer");
@@ -59,18 +50,17 @@ public class CreateAccountView extends JFrame implements BankObserver {
 	 private void createAccountButton() {
 		 createButton = new JButton("Skapa konto");
 		 createButton.addActionListener(e -> {
-			 //String accountTypeStr = accountType.getText();
-			 TypeOfAccount accountType = TypeOfAccount.valueOf(accountTypeStr.toUpperCase());
-			 System.out.println("Accounttype "+ accountType);
-			 System.out.println("Accounttypestr " +accountTypeStr);
-			 if(!accountTypeStr.equals("")) {
-				 System.out.println("Accounttype inif " +accountType);
-				 bankController.createAccount(personalnumber.getText(),  accountType);
-			 }
+			 if( accountTypeStr != null) {
+				 TypeOfAccount accountType = TypeOfAccount.valueOf(accountTypeStr.toUpperCase());
+					 bankController.createAccount(personalnumber.getText(),  accountType);
+				 } else 
+					 {
+						 JOptionPane.showMessageDialog(null, "Var snäll och välj en kontotyp");
+					 }
 		});
 	 }
 	 
-	 private void createPane() 
+	 public void createPane() 
 		{
 			JPanel panelMain = new JPanel(new BorderLayout());
 			JPanel panelGrid = new JPanel(new GridLayout(1, 2));
@@ -85,9 +75,4 @@ public class CreateAccountView extends JFrame implements BankObserver {
 	 public void setPersonalNumber(String pNr) {
 		 this.personalnumber.setText(pNr);
 	 }
-
-	@Override
-	public void updateBank(Boolean bool) {
-		if(!bool) JOptionPane.showMessageDialog(null, "De var inte möjligt att skapa detta konto.");
-	}
 }
