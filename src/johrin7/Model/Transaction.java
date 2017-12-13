@@ -5,7 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 import johrin7.Model.Account.TypeOfTransaction;
-
+/**Skapar transaktions objekt med datum för skapandet transaktionens värde samt kontots saldo efter transaktionen.
+ * @author Johan Ringström användarnamn johrin7.*/
 public class Transaction {
 	//
 	private final Date date;

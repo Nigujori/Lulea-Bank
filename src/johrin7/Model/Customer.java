@@ -1,22 +1,15 @@
 package johrin7.Model;
-/**Klassen genom vilken man skapar customer-objekt som håller information om bankens kunder.
- * Den håller även infomation om kundens olika konton. Utan att skapa en bankkund kan bank-logik objektet inte 
- * skapa bankkonton. Eftersom SavingsAccount och eventuellt andra framtida kontotyper ärver av Account klassen
- * kan man utnyttja polymorphism dynamic binding. Ett Account objekt kan ta flera olika former och beroende på
- * vilken form den antagit bestäms bestäms vilken implementation som en viss metod kommer att ha. I detta fall
- * läggs alla kontoobjekt in i accountList som typen Account men flera av dess metoder är abstrakta och
- * får sin implementation i dess subklasser.
+/**Klassen genom vilken man skapar customer-objekt. Den ärver av Client-klassen.
+ * Utan att skapa en bankkund kan bank-logik objektet inte skapa bankkonton. 
+ * Är en del av implementeringen av factory-mönstret(pattern) och är den konkreta
+ * implementeringen av Client-klassens abstrakta factory-metod. Läs mer om detta i Client-klassen.
  * @author Johan Ringström användarnamn johrin7. */
-
-import java.util.ArrayList;
 
 import johrin7.Model.BankLogic.TypeOfAccount;
 
  
-public class Customer extends Client{
-	
-	
-		
+public class Customer extends Client
+{
 	/**Konstruktor för att skapa ett customer-objekt.	
 	 * @param foreName förnamn
 	 * @param surname efternamn
@@ -26,9 +19,9 @@ public class Customer extends Client{
 	{
 		super(foreName, surname, personalNumber);
 	}
-	/**Skapar en specifik typ av konto.
-	 * @param accountType kontotyp som en String.
-	 * @return bankkontonummer som en int.
+	/**Skapar ett konto av en viss typ beroende på parameterns värde.
+	 * @param accountType kontotyp som ett enumvärde.
+	 * @return ett Account-objekt.
 	 */
 	public Account createAccount(TypeOfAccount accountType) 
 	{ 
@@ -47,6 +40,4 @@ public class Customer extends Client{
 		}
 		return account;
 	}
-	
-	
 }

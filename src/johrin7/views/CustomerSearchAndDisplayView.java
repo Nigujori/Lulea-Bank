@@ -22,7 +22,6 @@ import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 import johrin7.Controller.BankControllerInterface;
-import johrin7.Model.BankObserver;
 
 @SuppressWarnings("serial")
 public class CustomerSearchAndDisplayView extends JFrame implements BankObserver, TableView{
@@ -113,16 +112,19 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 	{
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		JMenu options = new JMenu("Options");
+		JMenu options = new JMenu("Hantera kunder");
 		menuBar.add(options);
-		JMenu file = new JMenu("File");
+		JMenu file = new JMenu("Fil");
 		menuBar.add(file);
-		JMenuItem createItem = new JMenuItem("Create customer");
+		JMenu help = new JMenu("Hjälp");
+		menuBar.add(help);
+		
+		JMenuItem createItem = new JMenuItem("Skapa kund");
 		createItem.addActionListener(e -> {
 			new CreateCustomerView(bankController);
 		});
 
-		JMenuItem deletItem = new JMenuItem("Delete customer");
+		JMenuItem deletItem = new JMenuItem("Radera kund");
 		deletItem.addActionListener(e -> new DeleteCustomerView(bankController));
 		
 		JMenuItem saveAllCustomerItem = new JMenuItem("Spara kunder till fil");
@@ -132,10 +134,16 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 		JMenuItem getAllCustomersItem = new JMenuItem("Hämta kunder från");
 		createItem.addActionListener(e -> {
 		});
+		
+		JMenuItem helpItem = new JMenuItem("Hjälp");
+		createItem.addActionListener(e -> {
+		});
+		
 		options.add(createItem);
 		options.add(deletItem);
 		file.add(saveAllCustomerItem);
 		file.add(getAllCustomersItem);
+		help.add(helpItem);
 	}
 	
 	private void createPane() 

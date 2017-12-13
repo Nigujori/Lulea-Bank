@@ -9,8 +9,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import johrin7.Controller.BankControllerInterface;
+
+/**
+ * @author Johan Ringström användarnamn johrin7.*/
 
 @SuppressWarnings("serial")
 public class CreateCustomerView extends JFrame implements OptionView{

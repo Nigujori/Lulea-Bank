@@ -3,9 +3,13 @@ package johrin7.Model;
 import java.util.ArrayList;
 
 import johrin7.Model.BankLogic.TypeOfAccount;
+import johrin7.views.BankObserver;
 
-
-public interface BankModelInterface {
+/**BankModelInterface.
+  *@author Johan Ringström användarnamn johrin7.
+  **/
+public interface BankModelInterface 
+{
 	public boolean createCustomer(String forename, String surname, String pNo);
 	public ArrayList<String> getAllCustomers(); 
 	public ArrayList<String> getCustomer(String pNo);

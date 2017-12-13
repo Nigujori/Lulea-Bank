@@ -4,13 +4,34 @@ import java.util.ArrayList;
 
 import johrin7.Model.BankLogic.TypeOfAccount;
 
-public abstract class Client {
+/**En abstrakt klass som jag skapade i ett led för att implementera factory-method-mönstret(Pattern).
+ * Klassen håller information om en bankkund och infomation om kundens olika konton.
+ * Eftersom jag ville skapa en struktur i koden som möjliggör för enkel förändring av applikationen,
+ * skapade jag en abstrakt klass som inte implementerade de objektskapande bitarna, i detta fall,
+ * skapandet av konton, utan låter subklasserna göra detta. På så sätt kan flera olika kundtyper läggas till
+ * enkelt, samtidigt som dessa kan implementera olika objektskapande logik om så behövs.
+ *
+ * Eftersom SavingsAccount och eventuellt andra framtida kontotyper ärver av Account klassen
+ * kan man utnyttja polymorphisme och dynamic binding. Ett Account-objekt kan ta flera olika former och beroende på
+ * vilken form den antagit bestäms vilken implementation som en viss metod kommer att ha. I detta fall
+ * läggs alla kontoobjekt in i accountList som typen Account men flera av dess metoder är abstrakta och
+ * får sin implementation i dess subklasser.
+ *@author Johan Ringström användarnamn johrin7.
+ **/
+
+public abstract class Client 
+{
 	//En array med förnamnet i första indexet och efternamn i det andra.
 	private String[] nameArray = new String[2];
 	private String personalNumber;
 	//En array lista med kundens konton.
 	private ArrayList<Account> accountList = new ArrayList<>();
 	
+	/**Konstruktor
+	 * @param foreName String
+	 * @param surname String
+	 * @param personalNumber String
+	 */
 	public Client(String foreName, String surname,  String personalNumber) 
 	{
 		this.nameArray[0] = foreName;
@@ -104,13 +125,21 @@ public abstract class Client {
 		}
 		return bankAccount;
 	}
-	
+	/**Factory-metoden som möjliggör för delegeringen av skapandet av kontoobjekt till sina subklasser. 
+	 * Lägger det skapande kontot i en arrayList. Använder sin egen abstrakta metod för skapandet av
+	 * kontoobjekten. 
+	 * @param accountType som en enumtypen TypeOfAccount.
+	 * @return kontonummer som en int.
+	 */
 	public int openAcount(TypeOfAccount accountType) {
 		Account account = createAccount(accountType);
 		this.accountList.add(account);
 		return account.getAccountNumber();
 	}
 	
-	
+	/**Abstrakt metod som har sin implementering i subklasserna.
+	 * @param accountType
+	 * @return ett Account-objekt.
+	 */
 	public abstract Account createAccount(TypeOfAccount accountType) ;
 }

@@ -2,7 +2,6 @@ package johrin7.views;
 
 import java.awt.Dimension;
 import java.util.ArrayList;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -17,9 +16,16 @@ import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
-
 import johrin7.Controller.BankControllerInterface;
-import johrin7.Model.BankObserver;
+
+/**Skapar en view som visar konto information och dess transaktioner. Implementerar BankObserver 
+ * och måste därför implementera updateBank() metoden som updaterar denna view om förändringar görs eller
+ * försöker göras i modellen. Håller en reference till BankController som är länken till modellen.
+ * Implementerar TableView interfacet och dess closeOptionView() metod som ser till att alla optionViews
+ * som skapats av ett specifikt AccountView-instans-objekt, vilken den sparar i ArrayListan optionViews,
+ * stängs om detta view-object stängs ner. 
+ * Håller alla optionView-object som skapats
+ * @author Johan Ringström användarnamn johrin7.*/
 
 @SuppressWarnings("serial")
 public class AccountView extends JFrame implements BankObserver, TableView {
@@ -47,26 +53,33 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 	private JTextField creditLimit;
 	private JTable customerTable;
 	private DefaultTableModel tableModel;
-	
 	private BankControllerInterface bankController;
 	private int accountNumberInt;
 	private String personalNumberStr;
 	private JButton deletButton;
-	String account;
-	ArrayList<String> customer;
-	ArrayList<OptionView> optionViews = new ArrayList<>();
+	private String account;
+	private ArrayList<String> customer;
+	private ArrayList<OptionView> optionViews = new ArrayList<>();
 	
-	public AccountView(BankControllerInterface bankController, int accountNumber, String personalNumber) {
+	/**Konstruktorn. Uppdaterar sig själv vid skapandet genom att anropa bankUpdateMetoden.
+	 * Registrerar sig som en observer av modellen.
+	 * @param bankController
+	 * @param accountNumber som en int.
+	 * @param personalNumber somen String.
+	 */
+	public AccountView(BankControllerInterface bankController, int accountNumber, String personalNumber) 
+	{
 		this.accountNumberInt = accountNumber;
 		this.personalNumberStr = personalNumber;
 		this.bankController = bankController;
-
 		createView();
 		this.updateBank(true);
 		bankController.registerObserver(this);
 	}
-	
-	public void createView() {
+	/**Skapar viewn med dess kontroller, fält och labels.
+	 */
+	public void createView() 
+	{
 		createAccuntInformationLabels();
 		createDeletButton();
 		createMenu();
@@ -77,7 +90,10 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 		setVisible(true);
 	}
 	
-	private void createAccuntInformationLabels() {		
+	/**Skapar fält och labels.
+	 */
+	private void createAccuntInformationLabels() 
+	{		
 		fornameLabel = new JLabel("Förnamn");
 		fornameLabel.setPreferredSize(new Dimension(LABEL_WIDTH, LABEL_HIGHT));
 		forname = new JTextField(TEXTFIELD_COLUMNS);
@@ -119,13 +135,20 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 		creditLimit.setEnabled(false);
 	}
 	
-	private void createDeletButton() {
+	/**Skaper en ta bort konto knappen med actionlistener och ett lambda uttryck som beskriver vad som ska hända
+	 * när knappen aktiveras.
+	 */
+	private void createDeletButton() 
+	{
 		deletButton = new JButton("Ta bort konto");
 		deletButton.addActionListener(e -> {
 				 int confirm = JOptionPane.showConfirmDialog(null, "Vill du ta bort " + accountType.getText() + " "  
 				 + accountNumber.getText()); 
+				 //Om svaret på dialogrutan är ja så avslutas ett konto annars händer inget.
 				 if(confirm == JOptionPane.YES_OPTION) {
 					 account = bankController.closeAccount(personalNumberStr, accountNumberInt);
+					 //Om avslutandet är framgångsrikt så presenteras en dialogruta med information om det avslutade kontot
+					 //och viewn stängs.
 					 if(!account.equals(null)) {
 						 String[] splitStrArray = account.split(" ");
 						 JOptionPane.showMessageDialog(null,  splitStrArray[2] + splitStrArray[0] + " med saldot " +  splitStrArray[1]
@@ -136,44 +159,53 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 		});
 	}
 	
-	private void createTable() {
+	/**Skapar en tabell som visar kontona som hör till kunden. 
+	 */
+	private void createTable() 
+	{
 		customerTable= new JTable();
 		tableModel = new DefaultTableModel(0, 3);
 		String header[] = new String[] { "Datum", "Summa", "Saldo efter transaktion"};
 		tableModel.setColumnIdentifiers(header);
 		 customerTable.setModel(tableModel);
 		 customerTable.setCellSelectionEnabled(true);  
-		 ListSelectionModel select= customerTable.getSelectionModel();  
+		 ListSelectionModel select = customerTable.getSelectionModel();  
 		 select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 	
+	/**Skapar en meny med dess val och actionListeners för dessa lambda uttryck som beskriver vad som ska hända
+	 * när menyvalet aktiveras.
+	 */
 	private void createMenu() 
 	{
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		JMenu options = new JMenu("Options");
+		JMenu options = new JMenu("Hantera saldo");
 		menuBar.add(options);
-		JMenu file = new JMenu("File");
+		JMenu file = new JMenu("Fil");
 		menuBar.add(file);
 		JMenuItem createItem = new JMenuItem("Uttag");
 		createItem.addActionListener(e -> {
-			
+			//Skapar en WithDrawView och lägger till det till ArrayListan optionViews.
 			WithDrawView optionView =new WithDrawView(bankController, accountNumber.getText(),  personalNumber.getText(), Double.parseDouble(creditLimit.getText()));
 			this.optionViews.add(optionView);
 		});
 
 		JMenuItem deletItem = new JMenuItem("Insättning");
 		deletItem.addActionListener(e -> {
+			//Skapar en DepositView och lägger till det till ArrayListan optionViews.
 			DepositView optionView = new DepositView(bankController, accountNumber.getText(), personalNumber.getText());
 			this.optionViews.add(optionView);
 			});
 		
 		JMenuItem saveTransactionsItem = new JMenuItem("Spara transaktioner");
 		deletItem.addActionListener(e -> {
+			//Ska implementeras i uppgift 4.
 			});
 		
 		JMenuItem getTransactionsItem = new JMenuItem("Hämta transaktioner");
 		deletItem.addActionListener(e -> {
+			//Ska implementeras i uppgift 4.
 			});
 		options.add(createItem);
 		options.add(deletItem);
@@ -182,6 +214,8 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 		
 	}
 	
+	/**Skapar de paneler som ska läggs till denna frame. Använder sig av FlowLayout.
+	 */
 	private void createPane() 
 	{
 		JPanel panelMain = new JPanel();
@@ -228,17 +262,22 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 		add(panelMain);
 	}	
 
+	/**Implementationen av udateBank() som ansvarar för uppdaterandet av viewn när modellen förändras. 
+	 */
 	@Override
 	public void updateBank(Boolean bool) 
 	{
 		account = this.bankController.getAccount(this.personalNumberStr, this.accountNumberInt);
+		//Om hämtningen av bankkonton lyckades hämtas de transaktioner som är gjorda och kund- samt
+		//kontoinformations strängarna splitras upp och varje del läggs i en, för respektive informations-
+		//sträng, String Array. Annars om t.e.x. viewns konto redan är borttaget så stängs fönstret ner.
 		if(account != null) 
 		{
 			ArrayList<String> transactions = bankController.getTransactions(this.personalNumberStr, this.accountNumberInt);
 			customer = this.bankController.getCustomer(this.personalNumberStr);
 			String[] customerInfo = customer.get(0).split(" ");
 			String[] accountInfo = account.split(" ");
-			
+			//Om informationsfälten är tomma så fylls de på med information från modellen.
 			if(personalNumber.getText().equals("")) 
 			{	
 				this.forname.setText(customerInfo[0]);
@@ -251,10 +290,14 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 				this.intrest.setText(accountInfo[3]);
 				this.creditLimit.setText(""+this.bankController.getCreditLimit(this.personalNumberStr, this.accountNumberInt));
 			}
+			//Om ett försök till förändring av modellen lyckades uppdateras saldot och tabellistan med 
+			//transaktioner.
 			if(bool) 
 			{
 				this.balance.setText(accountInfo[1]);
+				//Tabellens rad antal sätt till 0. (Alla rader tas bort)
 				tableModel.setNumRows(0);
+				//Tabellen får nya rader som fylls med värden från den förändrade modellen.
 				for(int i = 0; i < transactions.size(); i++) 
 				{
 					String[] transInfo = transactions.get(i).toString().split(" ");
@@ -263,8 +306,12 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 			}
 		} else dispose();
 	}
+	
+	/**Stänger ner de optionViews som ett specefikt objekt har skapat.
+	 */
 	@Override
-	public void closeOptionViews() {
+	public void closeOptionViews() 
+	{	//Om objektet skapat optionViews objekt så stängs dessa ner.
 		if(this.optionViews.size() != 0) {
 			for(OptionView op : this.optionViews) 
 			{
@@ -277,6 +324,6 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 					((WithDrawView) op).dispose();
 				}
 			}
-			}
 		}
+	}
 }

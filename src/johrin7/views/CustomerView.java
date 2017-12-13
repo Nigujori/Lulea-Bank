@@ -19,7 +19,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
 import johrin7.Controller.BankControllerInterface;
-import johrin7.Model.BankObserver;
 
 @SuppressWarnings("serial")
 public class CustomerView extends JFrame implements BankObserver, TableView{
@@ -120,16 +119,16 @@ public class CustomerView extends JFrame implements BankObserver, TableView{
 	{
 		JMenuBar menuBar = new JMenuBar();
 		setJMenuBar(menuBar);
-		JMenu options = new JMenu("Options");
+		JMenu options = new JMenu("Hantera konton");
 		menuBar.add(options);
-		JMenuItem createItem = new JMenuItem("Lägg till bankkonto");
+		JMenuItem createItem = new JMenuItem("Skapa bankkonto");
 		createItem.addActionListener(e -> {
 			CreateAccountView createAccountView = new CreateAccountView(bankController);
 			createAccountView.setPersonalNumber(personalNumberStr);
 			this.optionViews.add(createAccountView);
 		});
 
-		JMenuItem deletItem = new JMenuItem("Ta bort bankkonto");
+		JMenuItem deletItem = new JMenuItem("Radera bankkonto");
 		deletItem.addActionListener(e -> {
 			DeleteAccountView deleteAccountView = new DeleteAccountView(bankController);
 			deleteAccountView.setPersonalNumber(personalNumberStr);

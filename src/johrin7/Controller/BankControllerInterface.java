@@ -2,9 +2,13 @@ package johrin7.Controller;
 
 import java.util.ArrayList;
 
-import johrin7.Model.BankObserver;
 import johrin7.Model.BankLogic.TypeOfAccount;
+import johrin7.views.BankObserver;
 
+
+/**  BankControllerInterface. 
+ * @authorJohan Ringström användarnamn johrin7
+ * */
 public interface BankControllerInterface {
 	public ArrayList<String> getAllCustomers(); 
 	public ArrayList<String> getCustomer(String pNo);

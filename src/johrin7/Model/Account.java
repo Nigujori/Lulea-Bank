@@ -1,11 +1,10 @@
 package johrin7.Model;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
 
 /** En abstrakt klass, som med andra ord inte kan skapa några objekt. Vill man skapa ett bankkonto-objekt måste en klass
- * ärva från denna klass vilken man sedan kan skapa specifika typer av bankkonton. T.ex. ett sparkonto
+ * ärva från denna klass vilken man sedan kan skapa specifika typer av bankkonton. T.ex. ett sparkonto.
+ * Har en lista med de trasaktioner som gjorts till och från kontot. Skapar transaktionsobjekt. 
  * @authorJohan Ringström användarnamn johrin7*/
 
 public abstract class Account {
@@ -29,6 +28,7 @@ public abstract class Account {
 			this.creditLimit = 0;
 			this.accountType = "Sparkonto";
 		}
+		
 		/**Konstruktor med parametrar
 		 * @param typeOfTransaction i form av en String.
 		 * @param creditLimit i form av en double.

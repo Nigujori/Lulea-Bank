@@ -1,11 +1,16 @@
 package johrin7.Model;
-/**Denna klass rymmer bankens logik. Den skapar och ter bort kunder och håller ett register med customers-objekt.
+/**Denna klass rymmer bankens logik. Den skapar och tar bort kunder och håller ett register med customers-objekt.
  *Det är genom dessa customers-objekt som Banklogic-klassen får möjlighet att ta del av kundernas uppgifter och deras 
- *konton.  
+ *konton. Implementerar BankModelInterface som på så sätt kräver vilka metoder som måste implementeras.
+ *Eftersom denna klass kan sägas knyta ihop hela modellen till en bank med dess logik agerar denna klass som
+ *en representant för alla modellens klasser. Det är denna klass som implementerar, de för MVC strukturens
+ *så viktiga metoderna, registerObserver, unRegisterObserver och notifyBankObservers. Den håller därför även
+ *en arrayList av bankObservers, views i detta fall, som vill veta om och hur modellen förändras.
  *@author Johan Ringström användarnamn johrin7.*/
 import java.util.ArrayList;
 
 import johrin7.Model.Account.TypeOfTransaction;
+import johrin7.views.BankObserver;
 import johrin7.views.CustomerSearchAndDisplayView;
 
 public class BankLogic implements BankModelInterface {
@@ -75,7 +80,8 @@ public class BankLogic implements BankModelInterface {
 	 * @param pNo personnumret som en String.
 	 * @return kontonumret som en int.
 	 */
-	public int createSavingsAccount(String pNo) {
+	public int createSavingsAccount(String pNo) 
+	{
 		Client customer;
 		//Om det finns ett object med matchande personnummer(Samtidigt läggs detta objekt i customer variabeln.)
 		//retuneras kontonumret annars -1;
@@ -87,7 +93,8 @@ public class BankLogic implements BankModelInterface {
 	 * @param pNo personnumret som en String.
 	 * @return kontonumret som en int.
 	 */
-	public int createCreditAccount(String pNr) {
+	public int createCreditAccount(String pNr)
+	{
 		Client customer;
 		//Om det finns ett object med matchande personnummer(Samtidigt läggs detta objekt i customer variabeln.)
 		//retuneras kontonumret annars -1;
@@ -114,7 +121,8 @@ public class BankLogic implements BankModelInterface {
 	 * @param amount summan som ska sättas in.
 	 * @return boolean.
 	 */
-	public boolean deposit(String pNo, int accountId, double amount) {
+	public boolean deposit(String pNo, int accountId, double amount) 
+	{
 		Client customer;
 		//Om det finns ett object med matchande personnummer och ett konto med matchande kontonummer
 		//görs en insättning på det kontot och retunerar true annars false.
@@ -299,24 +307,40 @@ public class BankLogic implements BankModelInterface {
 		}
 		return customer;
 	}
-	
-	public double getCreditLimit(String pNr, int accountNr) {
+	/**Hämtar ett kontos kreditgräns
+	 * @param pNo personnumret som en String.
+	 * @param accountNr kontonummer som en int.
+	 * @return kreditgränsen som en double.
+	 */
+	public double getCreditLimit(String pNr, int accountNr)
+	{
 		return getCustomerObject(pNr).getAccount(accountNr).getCreditLimit();
 	}
-
+	
+	/**Registrerar prenumeranter(observers) som blir uppdaterade om modellen förändras.
+	 * @param Bankobserver
+	 */
 	@Override
-	public void registerObserver(BankObserver bo) {
+	public void registerObserver(BankObserver bo) 
+	{		//Lägger till en BankObserver till bankObserver-arrayListan.
 			this.bankObservers.add(bo);
 	}
 	
-	public void unRegisterObserver(BankObserver bo) {
+	/**Avregistrerar prenumeranter(observers) till att bli uppdaterade om modellen förändras.
+	 * @param Bankobserver
+	 */
+	public void unRegisterObserver(BankObserver bo)
+	{	//Tar bort en BankObserver från bankObserver-arrayListan.
 		this.bankObservers.remove(bo);
-		System.out.println("Unregister");
-}
+	}
 	
-	public void notifyBankObservers(Boolean bool) {
-			bankObservers.forEach(o -> o.updateBank(bool));	
-			System.out.println("Observer norify " + bankObservers.size());
+	/**Notifierar prenumeranterna(observers) om att en förändring tagit plats. 
+	 * @param Boolean som indekerar om ett försök till förändring gjorts men misslyckats.
+	 */
+	public void notifyBankObservers(Boolean bool) 
+	{
+		//Lambda forloop. För varje bankObserver i bankObservers uppdatera denna observer.
+			bankObservers.forEach(bo -> bo.updateBank(bool));	
 	}
 	
 }
