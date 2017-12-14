@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
@@ -20,8 +21,16 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
-
 import johrin7.Controller.BankControllerInterface;
+
+/**Detta är den view som visas först när applicationen startas. Den visar bankens kunder samt en ett sökfält
+ * där man kan söka efter kunder efter på efternamn och personnummer. Den implementerar BankObserver 
+ * och måste därför implementera updateBank() metoden som updaterar denna view om förändringar görs eller
+ * försöker göras i modellen. Håller en reference till BankController som är länken till modellen.
+ * Implementerar TableView interfacet och dess closeOptionView() metod som ser till att alla optionViews
+ * som skapats av ett specifikt CustomerSearchAndDisplayViewinstans-objekt, vilken den sparar i 
+ * ArrayListan optionViews, stängs om detta view-object blir inaktuellt. 
+ * @author Johan Ringström användarnamn johrin7.*/
 
 @SuppressWarnings("serial")
 public class CustomerSearchAndDisplayView extends JFrame implements BankObserver, TableView{
@@ -40,16 +49,23 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 	ArrayList<OptionView> optionViews = new ArrayList<>();
 	ArrayList<CustomerView > tableViews = new ArrayList<>();
 	
-	public CustomerSearchAndDisplayView(BankControllerInterface bankController) {
+	/**Initierar bankController variabeln och registrerar sig som en observer av modellen.
+	 * @param bankController
+	 */
+	public CustomerSearchAndDisplayView(BankControllerInterface bankController)
+	{
 		this.bankController = bankController;
 		bankController.registerObserver(this);
 		
 	}
 	
-	public void createView() {
+	/**Skapar viewn med dess fält, kontroller och paneler.
+	 */
+	public void createView() 
+	{
 		createTable();
 		createTextField();
-		createButton();
+		searchButton();
 		createMenu();
 		createPane();
 		setSize(FRAME_WIDTH, FRAME_HIGHT);
@@ -58,14 +74,23 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 		setVisible(true);
 	}
 	
+	/**Skaper sökfältet.
+	 */
 	private void createTextField() {
 		searchField = new JTextField();
 		searchField.setText(DEFAULT_SERARCH_WORD);
 	}
 	
-	private void createButton() {
+	/**Skapar sökknappen med actionListener och tillhörande lambda uttryck.
+	 */
+	private void searchButton() {
 		searchButton = new JButton("Search");
-		searchButton.addActionListener(e -> { String searchText = searchField.getText();
+		searchButton.addActionListener(e -> { 
+		String searchText = searchField.getText();
+		//Om det inte står något i sökfältet sätts rowFinder variabeln till null, d.v.s inget sökfilter skapas,
+		//annars om sökfiltret består av siffror söker man på värdet i radernas tredje kolumn annars söker man i
+		//radernas andra kolumn. Tabellen uppdateras med de rader som matchar med sök termerna. Är känslig för 
+		//versaler och gemener.
         if (searchText.length() == 0) {
             rowFinder.setRowFilter(null);
           } else if(searchText.matches(("[0-9]{1,13}(\\.[0-9]*)?")))
@@ -76,6 +101,10 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 		});
 	}
 	
+	/**Skapar tabellen som visar bankens kunder. Har en ListSelectionListner med tillhörande lambda uttryck.
+	 * Skapar även en TableRowSorter som sedan ges till tabellen för att den ska bli sökbar. Tabellen
+	 * sätts även, med hjälp av ListSelectionModel.SINGLE_SELECTION, till att endast kan välja en rad.
+	 */
 	private void createTable() {
 		customerTable= new JTable();
 		tableModel = new DefaultTableModel(0, 3);
@@ -88,26 +117,23 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 		 ListSelectionModel select= customerTable.getSelectionModel();  
 		 select.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		 select.addListSelectionListener(e -> { 
+			 //ListSelectionListene r lyssnar efter flera olika typer events som händer på tabellen.
+			 //Om det är den sista eventet(Säkerställer så att lyssnaren endast reagerar en gång vid 
+			 //ett kick på en rad.)
 			 if(!e.getValueIsAdjusting()) {
+				 //Om den valda raden finns hämtas informationen i radens tredje kolumn, d.v.s. personnumret
+				 //och en CustomerView skapas, som läggs till tablesViews. 
 				 if(customerTable.getSelectedRow() != -1) {
 					personalNumber =	 (String)customerTable.getValueAt(customerTable.getSelectedRow(), 2);
 				 	CustomerView customerView = new CustomerView(bankController, personalNumber);
 				 	tableViews.add(customerView);
-				 	customerView.addWindowListener(new WindowAdapter() {
-			            @Override
-			            public void windowClosing(WindowEvent e) {
-			                customerView.closeOptionViews();
-			            }
-			            @Override
-			            public void windowClosed(WindowEvent e) {
-			                customerView.dispose();
-			            }
-			        });
 				 }
 			 }
 		 });
 	}
 	
+	/**En meny med tillhörande menyval skapas med tillhörande actionListiners och lambdauttryck.
+	 */
 	private void createMenu() 
 	{
 		JMenuBar menuBar = new JMenuBar();
@@ -121,22 +147,29 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 		
 		JMenuItem createItem = new JMenuItem("Skapa kund");
 		createItem.addActionListener(e -> {
+			//Skapar en CreateCustomerView.
 			new CreateCustomerView(bankController);
 		});
 
 		JMenuItem deletItem = new JMenuItem("Radera kund");
-		deletItem.addActionListener(e -> new DeleteCustomerView(bankController));
+		deletItem.addActionListener(e -> {
+			//Skapar en DeleteCustomerView.
+			new DeleteCustomerView(bankController);
+			});
 		
 		JMenuItem saveAllCustomerItem = new JMenuItem("Spara kunder till fil");
 		createItem.addActionListener(e -> {
+			//Implementeras i uppgift 4.
 		});
 		
 		JMenuItem getAllCustomersItem = new JMenuItem("Hämta kunder från");
 		createItem.addActionListener(e -> {
+			//Implementeras i uppgift 4.
 		});
 		
 		JMenuItem helpItem = new JMenuItem("Hjälp");
 		createItem.addActionListener(e -> {
+			//Implementeras i uppgift 4.
 		});
 		
 		options.add(createItem);
@@ -146,6 +179,8 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 		help.add(helpItem);
 	}
 	
+	/**Skapar de paneler som ska läggs till denna frame. Använder sig av FlowLayout och BorderLayout.
+	 */
 	private void createPane() 
 	{
 		JPanel panelMain = new JPanel();
@@ -163,20 +198,32 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 		add(panelMain);	
 	}
 
+	/**Implementationen av udateBank() som ansvarar för uppdaterandet av viewn när modellen förändras. 
+	 */
 	@Override
-	public void updateBank(Boolean bool) {
-			if(bool) {
+	public void updateBank(Boolean bool) 
+	{ 	//Om modellen har förändras sätts radantalet till 0(Alla rader tas bort) och nya rader skapas
+		//av den information som getAllCustomers ger. Om en ny kund läggs till kommer tabellen med andra ord
+		//updateras automatiskt.
+		if(bool) 
+		{
 			tableModel.setNumRows(0);
 			ArrayList<String> customerList= this.bankController.getAllCustomers();
 			for(String customerStr : customerList) {
 				String[] splitStr = customerStr.split(" ");
 				tableModel.addRow(new Object[] { splitStr[0], splitStr[1], splitStr[2]});
 			}
-		} 
+		} else 
+			{
+			 JOptionPane.showMessageDialog(null, "Kontrollera att informationen i fälten är korrekt ifyllda");
+			}
 	}
 
+	/**Stänger ner de optionViews som ett specefikt objekt har skapat.
+	 */
 	@Override
-	public void closeOptionViews() {
+	public void closeOptionViews() 
+	{	//Om objektet skapat optionViews-objekt så stängs dessa ner.
 		if(this.optionViews.size() != 0) {
 			for(OptionView op : this.optionViews) 
 			{

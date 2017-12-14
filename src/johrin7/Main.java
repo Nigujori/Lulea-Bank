@@ -12,6 +12,11 @@ import johrin7.Controller.BankController;
 import johrin7.Model.BankLogic;
 import johrin7.Model.BankModelInterface;
 
+/**Detta är den klass som håller main-metoden. Den skapar en instans av BankLogic och lägger in några
+ * kunder samt konton och skapar sedan en BankController instans som skapar en instans av  huvud-viewn 
+ * CustomerSearchAndDisplayViewn.
+* @author Johan Ringström användarnamn johrin7.*/
+
 public class Main
 {
 	public static void main(String[] args) throws FileNotFoundException

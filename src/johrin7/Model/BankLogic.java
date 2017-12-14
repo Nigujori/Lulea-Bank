@@ -30,7 +30,7 @@ public class BankLogic implements BankModelInterface {
 	{
 		//Om det inte finns något customer-objekt med samma personnummer så skapas ett som 
 		//läggs till customerObjectList. Retunerar därefter true annars false.
-		if((this.getCustomerObject(pNo)) == null && !pNo.isEmpty() && !forename.isEmpty() && !surname.isEmpty()) 
+		if((this.getCustomerObject(pNo)) == null && !pNo.isEmpty() && pNo.matches("[0-9]+") && !forename.isEmpty() && !surname.isEmpty()) 
 		{
 			Client newCustomer = new Customer(forename, surname, pNo);
 			customerObjectList.add(newCustomer);
@@ -223,7 +223,7 @@ public class BankLogic implements BankModelInterface {
 		//Om det finns ett object med matchande personnummer som har ett bankkonto med matchande id
 		//läggs informationen om detta i en temporär varaiabel som sedan retuneras, sedan tas kontot
 		//bort från denna kunds kontolista, annars retuneras null.
-		if((customer = this.getCustomerObject(pNr)) != null &&  isAccountToCustomer(pNr, accountId)) 
+		if((customer = this.getCustomerObject(pNr)) != null &&  isAccountToCustomer(pNr, accountId) && accountId != 0) 
 		{
 			String tmp = customer.getAccount(accountId).getAccountInfo();
 			customer.deleteAccount(accountId);

@@ -14,7 +14,7 @@ import johrin7.Controller.BankControllerInterface;
 import johrin7.Model.BankLogic.TypeOfAccount;
 
 /**Denna view-klass skapas av customerView-klassen och är avsedd för att förändra modellen genom 
- * att lägga till konton. Den implementerar OptionsViews för att inaktuella fönster ska stängas.
+ * att lägga till konton. Den implementerar OptionsViews.
  * @author Johan Ringström användarnamn johrin7.*/
 
 @SuppressWarnings("serial")

@@ -1,6 +1,8 @@
 package johrin7.views;
 
 import java.awt.Dimension;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,7 +26,6 @@ import johrin7.Controller.BankControllerInterface;
  * Implementerar TableView interfacet och dess closeOptionView() metod som ser till att alla optionViews
  * som skapats av ett specifikt AccountView-instans-objekt, vilken den sparar i ArrayListan optionViews,
  * stängs om detta view-object stängs ner. 
- * Håller alla optionView-object som skapats
  * @author Johan Ringström användarnamn johrin7.*/
 
 @SuppressWarnings("serial")
@@ -76,10 +77,23 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 		this.updateBank(true);
 		bankController.registerObserver(this);
 	}
-	/**Skapar viewn med dess kontroller, fält och labels.
+	/**Skapar viewn med dess kontroller, fält och labels. Lägger till en som bestämmer vad som händer om detta
+	 * fönster stängs.
 	 */
 	public void createView() 
 	{
+		//En WindowListener skapas med en anonym class som implementerar windowClosing() och
+	 	//windowClosed() metoderna som bestämmer vad som händer om fönstret stängs. 
+	 	this.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                closeOptionViews();
+            }
+            @Override
+            public void windowClosed(WindowEvent e) {
+            		closeOptionViews();
+            }
+        });
 		createAccuntInformationLabels();
 		createDeletButton();
 		createMenu();
@@ -153,7 +167,6 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 						 String[] splitStrArray = account.split(" ");
 						 JOptionPane.showMessageDialog(null,  splitStrArray[2] + splitStrArray[0] + " med saldot " +  splitStrArray[1]
 								 + " och räntesatsen " +  splitStrArray[3] + " är borttagen " + ". Räntan blev " + splitStrArray[4]);
-						 this.dispose();
 					 }
 				 }
 		});
@@ -270,7 +283,7 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 		account = this.bankController.getAccount(this.personalNumberStr, this.accountNumberInt);
 		//Om hämtningen av bankkonton lyckades hämtas de transaktioner som är gjorda och kund- samt
 		//kontoinformations strängarna splitras upp och varje del läggs i en, för respektive informations-
-		//sträng, String Array. Annars om t.e.x. viewns konto redan är borttaget så stängs fönstret ner.
+		//sträng, String Array.
 		if(account != null) 
 		{
 			ArrayList<String> transactions = bankController.getTransactions(this.personalNumberStr, this.accountNumberInt);
@@ -303,7 +316,7 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 					String[] transInfo = transactions.get(i).toString().split(" ");
 					tableModel.addRow(new Object[] { transInfo[0], transInfo[2], transInfo[3]});
 				} 
-			}
+			} 
 		} else dispose();
 	}
 	

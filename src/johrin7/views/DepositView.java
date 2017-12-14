@@ -1,15 +1,17 @@
 package johrin7.views;
 
 import java.awt.GridLayout;
-
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import johrin7.Controller.BankControllerInterface;
+
+/**Denna view-klass skapas av AccountView-klassen och är avsedd för att förändra modellen genom 
+ * att sätta in pengar på ett konto. Den implementerar OptionsViews.
+ * @author Johan Ringström användarnamn johrin7.*/
 
 @SuppressWarnings("serial")
 public class DepositView extends JFrame implements OptionView {
@@ -25,14 +27,23 @@ public class DepositView extends JFrame implements OptionView {
 	private String accountNumberStr;
 	private String personalNumberStr;
 	
-	public DepositView(BankControllerInterface bankController, String accountNr, String personalNumber) {
+	/**Konstruktor som initierar bankController, accountNumberStr och personalNumberStr variablerna.
+	 * @param bankController
+	 * @param accountNr
+	 * @param personalNumber
+	 */
+	public DepositView(BankControllerInterface bankController, String accountNr, String personalNumber) 
+	{
 		this.bankController = bankController;
 		this.accountNumberStr = accountNr;
 		this.personalNumberStr = personalNumber;
 		createView();
 	}
 	
-	public void createView() {
+	/**Skapar viewn med dess kontroller, fält och labels.
+	 */
+	public void createView() 
+	{
 		createTextFields();
 		createDepositButton();
 		createPane();
@@ -41,7 +52,10 @@ public class DepositView extends JFrame implements OptionView {
 		setVisible(true);
 	}
 	
-	public void createTextFields() {		
+	/**Skapar fälten och labes.
+	 */
+	public void createTextFields() 
+	{		
 		accountNumberLabel = new JLabel("  Kontonummer");
 		accountnumber = new JTextField();
 		accountnumber.setText(accountNumberStr);
@@ -50,11 +64,16 @@ public class DepositView extends JFrame implements OptionView {
 		deposit = new JTextField();
 	}
 	
-	 private void createDepositButton() {
+	/**Skapar knappen vars aktionListener som rymmer koden för insättning av pengar i ett lambdauttryck. 
+	 */
+	 private void createDepositButton() 
+	 {
 		 depositButton = new JButton("Gör insättning");
 		 depositButton.addActionListener(e -> 
 		 {	
 			 Boolean bool = false;
+			 //Om deposit-textfältet är i ett format som går att tolka till en double görs en insättning,
+			 //annars skapas ett felmeddelande
 			 if(deposit.getText().matches(("[0-9]{1,13}(\\.[0-9]*)?"))) 
 			 {
 				 bool = bankController.deposit(personalNumberStr, Integer.parseInt(accountNumberStr),  Double.parseDouble(deposit.getText()));
@@ -62,6 +81,8 @@ public class DepositView extends JFrame implements OptionView {
 		});
 	 }
 	 
+	 /**Skapar de paneler som ska läggs till denna frame. Använder sig av GridLayout.
+		*/
 	 public void createPane() 
 		{
 			JPanel panelGrid = new JPanel(new GridLayout(3, 1));

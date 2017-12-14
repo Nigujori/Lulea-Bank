@@ -11,7 +11,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import johrin7.Controller.BankControllerInterface;
 
-/**
+/**Denna view-klass skapas av customerSearchAndDisplayView-klassen och är avsedd för att förändra modellen genom 
+ * att lägga till kunder. Den implementerar OptionsViews.
  * @author Johan Ringström användarnamn johrin7.*/
 
 @SuppressWarnings("serial")
@@ -28,12 +29,19 @@ public class CreateCustomerView extends JFrame implements OptionView{
 	private JButton createButton;
 	private BankControllerInterface bankController;
 	
-	public CreateCustomerView(BankControllerInterface bankController) {
+	/**Konstruktorn initierar bankController variabeln och skapar viewn.
+	 * @param bankController
+	 */
+	public CreateCustomerView(BankControllerInterface bankController) 
+	{
 		this.bankController = bankController;
 		createView();
 	}
 	
-	public void createView() {
+	/**Skapar viewn med dess kontroller, fält och labels.
+	 */
+	public void createView() 
+	{
 		createTextFields();
 		createCustomerButton();
 		createPane();
@@ -42,7 +50,10 @@ public class CreateCustomerView extends JFrame implements OptionView{
 		setVisible(true);
 	}
 	
-	public void createTextFields() {		
+	/**Skapar fälten och labes.
+	 */
+	public void createTextFields() 
+	{		
 		fornameLabel = new JLabel("  Förnamn");
 		forname = new JTextField();
 		surnameLabel = new JLabel("  Efternamn");
@@ -50,15 +61,19 @@ public class CreateCustomerView extends JFrame implements OptionView{
 		personalNumberLabel = new JLabel("  Personnummer");
 		personalnumber = new JTextField();
 	}
-	 private void createCustomerButton() {
+	
+	/**Skapar knappen vars aktionListener som rymmer koden för skapandet av ett kunder i ett lambda uttryck. 
+	 */
+	 private void createCustomerButton() 
+	 {
 		 createButton = new JButton("Skapa kund");
 		 createButton.addActionListener(e -> {
-			 boolean bool = bankController.createCustomer(forname.getText(), surname.getText(), personalnumber.getText());
-		 if(!bool) {
-			 JOptionPane.showMessageDialog(null, "De var inte möjligt att skapa denna kund.");
-		 }});
+			bankController.createCustomer(forname.getText(), surname.getText(), personalnumber.getText());
+		 });
 	 }
 	 
+	 /**Skapar de paneler som ska läggs till denna frame. Använder sig av BorderLayout och GridLayout.
+		*/
 	 public void createPane() 
 		{
 			JPanel panelMain = new JPanel(new BorderLayout());

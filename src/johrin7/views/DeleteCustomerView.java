@@ -8,11 +8,15 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-
 import johrin7.Controller.BankControllerInterface;
 
+/**Denna view-klass skapas av CustomerSearchAndDisplayView-klassen och är avsedd för att förändra modellen genom 
+ * att ta bort till kunder. Den implementerar OptionsViews.
+ * @author Johan Ringström användarnamn johrin7.*/
+
 @SuppressWarnings("serial")
-public class DeleteCustomerView extends JFrame implements OptionView {
+public class DeleteCustomerView extends JFrame implements OptionView 
+{
 	private static final int FRAME_WIDTH = 550;
 	private static final int FRAME_HIGHT = 100;
 	
@@ -22,11 +26,17 @@ public class DeleteCustomerView extends JFrame implements OptionView {
 	private BankControllerInterface bankController;
 	CustomerSearchAndDisplayView customerSearchAndDisplayView;
 	
-	public DeleteCustomerView(BankControllerInterface bankController) {
+	/**Konstruktorn initierar bankController variabeln och skaper viewn.
+	 * @param bankController
+	 */
+	public DeleteCustomerView(BankControllerInterface bankController) 
+	{
 		this.bankController = bankController;
 		createView();
 	}
 	
+	/**Skapar viewn med dess kontroller, fält och labels.
+	 */
 	public void createView() {
 		createTextFields();
 		createDeleteButton();
@@ -36,30 +46,35 @@ public class DeleteCustomerView extends JFrame implements OptionView {
 		setVisible(true);
 	}
 	
-	public void createTextFields() {		
+	/**Skapar fälten och labes.
+	 */
+	public void createTextFields() 
+	{		
 		personalNumberLabel = new JLabel("  Personnummer");
 		personalnumber = new JTextField();
 	}
 	
-	 private void createDeleteButton() {
+	/**Skapar knappen vars aktionListener som rymmer koden för bort tagandet av en kund i ett lambdauttryck. 
+	 */
+	 private void createDeleteButton() 
+	 {
 		 deleteButton = new JButton("Ta bort kund");
 		 deleteButton.addActionListener(e -> {
 			 ArrayList<String> customer = bankController.deleteCustomer(personalnumber.getText());
+			 //Om kunden togs bort genereras ett meddelande med information om kunden
 			 if(customer != null) 
 			 { 	
 				 String customerInfo = customer.remove(0);
 				 JOptionPane.showMessageDialog(null, "Kunden " + customerInfo + " är borttagen"
 			 +" med följande konto/konton:\n" + this.presentAccount(customer));
-			 } else 
-			 {
-				JOptionPane.showMessageDialog(null, "Det var inte möjligt att ta bort denna kund");
-			 }
+			 } 
 		});
 	 }
 	 
+	 /**Skapar de paneler som ska läggs till denna frame. Använder sig av GridLayout.
+		*/
 	 public void createPane() 
 		{
-
 			JPanel panelGrid = new JPanel(new GridLayout(3, 1));
 			panelGrid.add(personalNumberLabel);
 			panelGrid.add(personalnumber);
@@ -68,10 +83,14 @@ public class DeleteCustomerView extends JFrame implements OptionView {
 			this.setLocation(0, 475);
 		}
 		
-
+	 /**En hjälpmetod för att skapa en presentation av konton.
+	  * @param accountList
+	  * @return
+	  */
 	 private String presentAccount(ArrayList<String> accountList) 
 	 {
 		 String accountStr = "";
+		 //Skapar en sträng av en ArrayList med konton.
 		 for(String account : accountList)
 		 {
 			 accountStr += account + "\n";
