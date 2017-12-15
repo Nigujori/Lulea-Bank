@@ -12,7 +12,7 @@ import java.util.ArrayList;
  
 public class Customer {
 		//En array med förnamnet i första indexet och efternamn i det andra.
-		String[] nameArray = new String[2];
+		private String[] nameArray = new String[2];
 		private String personalNumber;
 		//En array lista med kundens konton.
 		private ArrayList<BankAccount> accountList = new ArrayList<>();

@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notation:Diagram xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:notation="http://www.eclipse.org/gmf/runtime/1.0.2/notation" xmlns:style="http://www.eclipse.org/papyrus/infra/gmfdiag/style" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML" xmi:id="_kFSgsOEJEeehK96xmeRHqg" type="PapyrusUMLClassDiagram" name="BankClassDiagram" measurementUnit="Pixel">
+  <children xmi:type="notation:Shape" xmi:id="_518JkuEJEeehK96xmeRHqg" type="Class_Shape">
+    <children xmi:type="notation:DecorationNode" xmi:id="_52BpIOEJEeehK96xmeRHqg" type="Class_NameLabel"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_52BpIeEJEeehK96xmeRHqg" type="Class_FloatingNameLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_52BpIuEJEeehK96xmeRHqg" y="15"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_52BpI-EJEeehK96xmeRHqg" type="Class_AttributeCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_GKTeMOEKEeehK96xmeRHqg" type="Property_ClassAttributeLabel">
+        <element xmi:type="uml:Property" href="Lulea-Bank.uml#_5vcgAOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_GKTeMeEKEeehK96xmeRHqg"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_52BpJOEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_52BpJeEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_52BpJuEJEeehK96xmeRHqg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_52BpJ-EJEeehK96xmeRHqg"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_52CQMOEJEeehK96xmeRHqg" type="Class_OperationCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_QktnkOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_5xdSMOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_QktnkeEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_Wp9ukOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_5xvmEOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Wp9ukeEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_WqEcQOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_5x0ekOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_WqEcQeEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_WqLJ8OEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_5x8aYOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_WqLJ8eEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_WqTFwOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_5yB58OEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_WqTFweEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_WqbBkOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_5yGyceEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_WqbBkeEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_WqkykOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_5yOHMOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_WqkykeEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_WqujkOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_5yRxkOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_WqujkeEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_Wq_CQOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_5ya7gOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Wq_CQeEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_WrOS0OEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_5yksgOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_WrOS0eEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_Wrf_oOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_5yudgOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Wrf_oeEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_Wry6kOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_5yzWAOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_Wry6keEKEeehK96xmeRHqg"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_52CQMeEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_52CQMuEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_52CQM-EJEeehK96xmeRHqg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_52CQNOEJEeehK96xmeRHqg"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_52CQNeEJEeehK96xmeRHqg" type="Class_NestedClassifierCompartment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_52CQNuEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_52CQN-EJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_52CQOOEJEeehK96xmeRHqg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_52CQOeEJEeehK96xmeRHqg"/>
+    </children>
+    <element xmi:type="uml:Class" href="Lulea-Bank.uml#_5vb48OEJEeehK96xmeRHqg"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_518Jk-EJEeehK96xmeRHqg" y="-40" width="341" height="281"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_54bc8OEJEeehK96xmeRHqg" type="Class_Shape">
+    <children xmi:type="notation:DecorationNode" xmi:id="_59VyEOEJEeehK96xmeRHqg" type="Class_NameLabel"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_59VyEeEJEeehK96xmeRHqg" type="Class_FloatingNameLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_59VyEuEJEeehK96xmeRHqg" y="15"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_59VyE-EJEeehK96xmeRHqg" type="Class_AttributeCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_O1_mgOELEeehK96xmeRHqg" type="Property_ClassAttributeLabel">
+        <element xmi:type="uml:Property" href="Lulea-Bank.uml#_50KA4OEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_O1_mgeELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_O2NB4OELEeehK96xmeRHqg" type="Property_ClassAttributeLabel">
+        <element xmi:type="uml:Property" href="Lulea-Bank.uml#_50L2EOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_O2NB4eELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_O2bEUOELEeehK96xmeRHqg" type="Property_ClassAttributeLabel">
+        <element xmi:type="uml:Property" href="Lulea-Bank.uml#_50OSUOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_O2bEUeELEeehK96xmeRHqg"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_59VyFOEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_59VyFeEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_59VyFuEJEeehK96xmeRHqg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_59VyF-EJEeehK96xmeRHqg"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_59VyGOEJEeehK96xmeRHqg" type="Class_OperationCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_jCpGAOELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_50Tx4OEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_jCpGAeELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_jDD8wOELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_50btsOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_jDD8weELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_jDUbcOELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_50gmMOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_jDUbceELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_jDnWYOELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_50hNQeEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_jDnWYeELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_jD7fcOELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_50jCcOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_jD7fceELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_jEKwAOELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_50lesOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_jEKwAeELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_jEYLYOELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_50ms0eEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_jEYLYeELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_jElmwOELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_50n68OEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_jElmweELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_n-jmYOELEeehK96xmeRHqg" type="Reception_ReceptionLabel">
+        <element xmi:type="uml:Reception" href="Lulea-Bank.uml#_n-RSgOELEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_n-jmYeELEeehK96xmeRHqg"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_59VyGeEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_59VyGuEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_59VyG-EJEeehK96xmeRHqg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_59VyHOEJEeehK96xmeRHqg"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_59VyHeEJEeehK96xmeRHqg" type="Class_NestedClassifierCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_mgXxIOELEeehK96xmeRHqg" type="Enumeration_ClassNestedClassifierLabel">
+        <element xmi:type="uml:Enumeration" href="Lulea-Bank.uml#_50O5YOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_mgXxIeELEeehK96xmeRHqg"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_59VyHuEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_59VyH-EJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_59VyIOEJEeehK96xmeRHqg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_59VyIeEJEeehK96xmeRHqg"/>
+    </children>
+    <element xmi:type="uml:Class" href="Lulea-Bank.uml#_50JZ0OEJEeehK96xmeRHqg"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_54bc8eEJEeehK96xmeRHqg" x="480" y="320" width="341"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_59VyIuEJEeehK96xmeRHqg" type="Class_Shape">
+    <children xmi:type="notation:DecorationNode" xmi:id="_5_uXsOEJEeehK96xmeRHqg" type="Class_NameLabel"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_5_uXseEJEeehK96xmeRHqg" type="Class_FloatingNameLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5_uXsuEJEeehK96xmeRHqg" y="15"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_5_uXs-EJEeehK96xmeRHqg" type="Class_AttributeCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_1i2R0OELEeehK96xmeRHqg" type="Property_ClassAttributeLabel">
+        <element xmi:type="uml:Property" href="Lulea-Bank.uml#_50szcOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_1i2R0eELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_1jKa4OELEeehK96xmeRHqg" type="Property_ClassAttributeLabel">
+        <element xmi:type="uml:Property" href="Lulea-Bank.uml#_50uBkOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_1jKa4eELEeehK96xmeRHqg"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_5_uXtOEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5_uXteEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5_uXtuEJEeehK96xmeRHqg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5_uXt-EJEeehK96xmeRHqg"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_5_u-wOEJEeehK96xmeRHqg" type="Class_OperationCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_4fC9MOELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_50uooOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_4fC9MeELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_4fg3QOELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_50y6EOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_4fg3QeELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_4gMzwOELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_501WUeEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_4gMzweELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_4gegkOELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_5019YeEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_4gegkeELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_4gvmUOELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_502kcuEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_4gvmUeELEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_4g-24OELEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_503ykOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_4g-24eELEeehK96xmeRHqg"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_5_u-weEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5_u-wuEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5_u-w-EJEeehK96xmeRHqg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5_u-xOEJEeehK96xmeRHqg"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_5_u-xeEJEeehK96xmeRHqg" type="Class_NestedClassifierCompartment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_5_u-xuEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5_u-x-EJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5_u-yOEJEeehK96xmeRHqg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5_u-yeEJEeehK96xmeRHqg"/>
+    </children>
+    <element xmi:type="uml:Class" href="Lulea-Bank.uml#_50q-QOEJEeehK96xmeRHqg"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_59VyI-EJEeehK96xmeRHqg" y="320" width="341" height="261"/>
+  </children>
+  <children xmi:type="notation:Shape" xmi:id="_5_u-yuEJEeehK96xmeRHqg" type="Class_Shape">
+    <children xmi:type="notation:DecorationNode" xmi:id="_5_vl0OEJEeehK96xmeRHqg" type="Class_NameLabel"/>
+    <children xmi:type="notation:DecorationNode" xmi:id="_5_wM4OEJEeehK96xmeRHqg" type="Class_FloatingNameLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_5_wM4eEJEeehK96xmeRHqg" y="15"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_5_wM4uEJEeehK96xmeRHqg" type="Class_AttributeCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_gVW10OEKEeehK96xmeRHqg" type="Property_ClassAttributeLabel">
+        <element xmi:type="uml:Property" href="Lulea-Bank.uml#_51BjkOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_gVW10eEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_gVjDEOEKEeehK96xmeRHqg" type="Property_ClassAttributeLabel">
+        <element xmi:type="uml:Property" href="Lulea-Bank.uml#_51HDIOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_gVjDEeEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_gVvQUOEKEeehK96xmeRHqg" type="Property_ClassAttributeLabel">
+        <element xmi:type="uml:Property" href="Lulea-Bank.uml#_51KGcOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_gVv3YOEKEeehK96xmeRHqg"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_5_wM4-EJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5_wM5OEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5_wM5eEJEeehK96xmeRHqg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5_wM5uEJEeehK96xmeRHqg"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_5_wM5-EJEeehK96xmeRHqg" type="Class_OperationCompartment">
+      <children xmi:type="notation:Shape" xmi:id="_lQ2fcOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_51RbMOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_lQ2fceEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_lRLPkOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_51ZXAOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_lRLPkeEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_lRWOsOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_51docOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_lRWOseEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_lRhN0OEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_51mLUOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_lRhN0eEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_lRs0AOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_51p1sOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_lRs0AeEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_lSFOgOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_51uuMOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_lSFOgeEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_lSQ0sOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_51zmsOEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_lSQ0seEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_lSdB8OEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_516UYeEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_lSdB8eEKEeehK96xmeRHqg"/>
+      </children>
+      <children xmi:type="notation:Shape" xmi:id="_lSooIOEKEeehK96xmeRHqg" type="Operation_ClassOperationLabel">
+        <element xmi:type="uml:Operation" href="Lulea-Bank.uml#_517igeEJEeehK96xmeRHqg"/>
+        <layoutConstraint xmi:type="notation:Location" xmi:id="_lSooIeEKEeehK96xmeRHqg"/>
+      </children>
+      <styles xmi:type="notation:TitleStyle" xmi:id="_5_wM6OEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5_wM6eEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5_wM6uEJEeehK96xmeRHqg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5_wM6-EJEeehK96xmeRHqg"/>
+    </children>
+    <children xmi:type="notation:BasicCompartment" xmi:id="_5_wM7OEJEeehK96xmeRHqg" type="Class_NestedClassifierCompartment">
+      <styles xmi:type="notation:TitleStyle" xmi:id="_5_wM7eEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:SortingStyle" xmi:id="_5_wM7uEJEeehK96xmeRHqg"/>
+      <styles xmi:type="notation:FilteringStyle" xmi:id="_5_wM7-EJEeehK96xmeRHqg"/>
+      <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5_wM8OEJEeehK96xmeRHqg"/>
+    </children>
+    <element xmi:type="uml:Class" href="Lulea-Bank.uml#_5vb48eEJEeehK96xmeRHqg"/>
+    <layoutConstraint xmi:type="notation:Bounds" xmi:id="_5_u-y-EJEeehK96xmeRHqg" x="480" y="-40" width="341" height="281"/>
+  </children>
+  <styles xmi:type="notation:StringValueStyle" xmi:id="_kFSgseEJEeehK96xmeRHqg" name="diagram_compatibility_version" stringValue="1.3.0"/>
+  <styles xmi:type="notation:DiagramStyle" xmi:id="_kFSgsuEJEeehK96xmeRHqg"/>
+  <styles xmi:type="style:PapyrusDiagramStyle" xmi:id="_kFSgs-EJEeehK96xmeRHqg" diagramKindId="org.eclipse.papyrus.uml.diagram.class">
+    <owner xmi:type="uml:Model" href="Lulea-Bank.uml#_gh8VwOEJEeehK96xmeRHqg"/>
+  </styles>
+  <element xmi:type="uml:Model" href="Lulea-Bank.uml#_gh8VwOEJEeehK96xmeRHqg"/>
+  <edges xmi:type="notation:Connector" xmi:id="_y0hqYOELEeehK96xmeRHqg" type="Generalization_Edge" source="_59VyIuEJEeehK96xmeRHqg" target="_54bc8OEJEeehK96xmeRHqg">
+    <children xmi:type="notation:DecorationNode" xmi:id="_y0hqY-ELEeehK96xmeRHqg" type="Generalization_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_5bZQsOELEeehK96xmeRHqg" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_y0hqZOELEeehK96xmeRHqg" y="40"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_y0hqYeELEeehK96xmeRHqg"/>
+    <element xmi:type="uml:Generalization" href="Lulea-Bank.uml#_50rlUOEJEeehK96xmeRHqg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_y0hqYuELEeehK96xmeRHqg" points="[341, 440, -643984, -643984]$[360, 440, -643984, -643984]$[400, 420, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_5bxEIOELEeehK96xmeRHqg" id="(1.0,0.45977011494252873)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_5bxrMOELEeehK96xmeRHqg" id="(0.0,0.4444444444444444)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_eGitgOENEeehK96xmeRHqg" type="Association_Edge" source="_5_u-yuEJEeehK96xmeRHqg" target="_54bc8OEJEeehK96xmeRHqg">
+    <children xmi:type="notation:DecorationNode" xmi:id="_eGitg-ENEeehK96xmeRHqg" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_ONe4MOEPEeehK96xmeRHqg" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_eGithOENEeehK96xmeRHqg" y="-20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_eGitheENEeehK96xmeRHqg" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_ON2EkOEPEeehK96xmeRHqg" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_eGithuENEeehK96xmeRHqg" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_eGith-ENEeehK96xmeRHqg" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_OON4AOEPEeehK96xmeRHqg" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_eGitiOENEeehK96xmeRHqg" x="-695" y="525"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_eGitieENEeehK96xmeRHqg" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_OOkdUOEPEeehK96xmeRHqg" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_eGitiuENEeehK96xmeRHqg" x="-666" y="525"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_eGiti-ENEeehK96xmeRHqg" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_OO2xMOEPEeehK96xmeRHqg" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_eGitjOENEeehK96xmeRHqg" x="-637" y="525"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_eGitjeENEeehK96xmeRHqg" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_OPGo0OEPEeehK96xmeRHqg" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_eGitjuENEeehK96xmeRHqg" x="-810" y="525"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_eGitgeENEeehK96xmeRHqg"/>
+    <element xmi:type="uml:Association" href="Lulea-Bank.uml#_eGOkcOENEeehK96xmeRHqg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_eGitguENEeehK96xmeRHqg" points="[700, 0, -643984, -643984]$[800, 120, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_eHTigOENEeehK96xmeRHqg" id="(0.46920821114369504,1.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_eHTigeENEeehK96xmeRHqg" id="(0.46920821114369504,0.0)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_D0MJIOEPEeehK96xmeRHqg" type="Association_Edge" source="_518JkuEJEeehK96xmeRHqg" target="_5_u-yuEJEeehK96xmeRHqg">
+    <children xmi:type="notation:DecorationNode" xmi:id="_D0MJI-EPEeehK96xmeRHqg" type="Association_StereotypeLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_ENv4oOEPEeehK96xmeRHqg" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_D0MJJOEPEeehK96xmeRHqg" x="1" y="-18"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_D0MwMOEPEeehK96xmeRHqg" type="Association_NameLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_EN_JMOEPEeehK96xmeRHqg" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_D0MwMeEPEeehK96xmeRHqg" x="-2" y="17"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_D0MwMuEPEeehK96xmeRHqg" type="Association_TargetRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_EOOZwOEPEeehK96xmeRHqg" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_D0MwM-EPEeehK96xmeRHqg" x="-114" y="545"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_D0MwNOEPEeehK96xmeRHqg" type="Association_SourceRoleLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_EOdDQOEPEeehK96xmeRHqg" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_D0MwNeEPEeehK96xmeRHqg" x="-74" y="545"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_D0MwNuEPEeehK96xmeRHqg" type="Association_SourceMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_EOth8OEPEeehK96xmeRHqg" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_D0MwN-EPEeehK96xmeRHqg" x="3" y="545"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_D0MwOOEPEeehK96xmeRHqg" type="Association_TargetMultiplicityLabel">
+      <styles xmi:type="notation:BooleanValueStyle" xmi:id="_EO8LcOEPEeehK96xmeRHqg" name="IS_UPDATED_POSITION" booleanValue="true"/>
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_D0MwOeEPEeehK96xmeRHqg" x="-110" y="545"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_D0MJIeEPEeehK96xmeRHqg"/>
+    <element xmi:type="uml:Association" href="Lulea-Bank.uml#_Dz1j0OEPEeehK96xmeRHqg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_D0MJIuEPEeehK96xmeRHqg" points="[321, 80, -643984, -643984]$[360, 80, -643984, -643984]$[400, 80, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_D1KZgOEPEeehK96xmeRHqg" id="(1.0,0.42704626334519574)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_D1KZgeEPEeehK96xmeRHqg" id="(0.0,0.42704626334519574)"/>
+  </edges>
+  <edges xmi:type="notation:Connector" xmi:id="_tOMWwOGJEeehK96xmeRHqg" type="Association_Edge" source="_54bc8OEJEeehK96xmeRHqg" target="_518JkuEJEeehK96xmeRHqg">
+    <children xmi:type="notation:DecorationNode" xmi:id="_tOMWw-GJEeehK96xmeRHqg" type="Association_StereotypeLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_tOMWxOGJEeehK96xmeRHqg" y="-20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_tOMWxeGJEeehK96xmeRHqg" type="Association_NameLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_tOMWxuGJEeehK96xmeRHqg" y="20"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_tOMWx-GJEeehK96xmeRHqg" type="Association_TargetRoleLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_tOMWyOGJEeehK96xmeRHqg" x="-112" y="-331"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_tOM90OGJEeehK96xmeRHqg" type="Association_SourceRoleLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_tOM90eGJEeehK96xmeRHqg" x="-209" y="-327"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_tOM90uGJEeehK96xmeRHqg" type="Association_SourceMultiplicityLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_tOM90-GJEeehK96xmeRHqg" x="-76" y="-329"/>
+    </children>
+    <children xmi:type="notation:DecorationNode" xmi:id="_tOM91OGJEeehK96xmeRHqg" type="Association_TargetMultiplicityLabel">
+      <layoutConstraint xmi:type="notation:Location" xmi:id="_tOM91eGJEeehK96xmeRHqg" x="-207" y="-329"/>
+    </children>
+    <styles xmi:type="notation:FontStyle" xmi:id="_tOMWweGJEeehK96xmeRHqg"/>
+    <element xmi:type="uml:Association" href="Lulea-Bank.uml#_tN0jUOGJEeehK96xmeRHqg"/>
+    <bendpoints xmi:type="notation:RelativeBendpoints" xmi:id="_tOMWwuGJEeehK96xmeRHqg" points="[500, 320, -643984, -643984]$[341, 220, -643984, -643984]"/>
+    <sourceAnchor xmi:type="notation:IdentityAnchor" xmi:id="_tOzawOGJEeehK96xmeRHqg" id="(0.0,0.0)"/>
+    <targetAnchor xmi:type="notation:IdentityAnchor" xmi:id="_tOzaweGJEeehK96xmeRHqg" id="(1.0,0.99644128113879)"/>
+  </edges>
+</notation:Diagram>

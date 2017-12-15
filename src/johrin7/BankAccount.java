@@ -21,21 +21,6 @@ public abstract class BankAccount {
 			this.bankAccountNumber = lastAccountNr; 
 		}
 		
-		/**Ändrar saldot.
-		 * @param amount ett negativt eller positivt värde att justera saldot med.
-		 * @return boolean
-		 */
-		/*public boolean setBalance(double amount) 
-		{
-			//Om summan är mindre än noll och saldot inte blir negativt efter en justering eller om summan är positivt
-			//då justeras saldot. Då retuneras true annars false.
-			if((amount < 0 && this.balance >= (amount*-1)) || amount > 0) 
-			{
-				this.balance += amount;
-				return true;
-			} 
-			else return false;
-		}*/
 		/**Förändrar ett specifikt kontos saldo. 
 		 * @param accountNumber kontonummer som en int.
 		 * @param amount summan med vilket saldot ska förändras.

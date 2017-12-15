@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xmi:XMI xmi:version="20131001" xmlns:xmi="http://www.omg.org/spec/XMI/20131001" xmlns:PapyrusJava="http://www.eclipse.org/papyrus/PapyrusJava/1" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore" xmlns:standard="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard" xmlns:uml="http://www.eclipse.org/uml2/5.0.0/UML">
+  <uml:Model xmi:id="_gh8VwOEJEeehK96xmeRHqg" name="Lulea-Bank">
+    <packagedElement xmi:type="uml:Package" xmi:id="_oY_xkOEJEeehK96xmeRHqg" name="johrin7"/>
+    <packagedElement xmi:type="uml:Package" xmi:id="_vP0fcOEJEeehK96xmeRHqg" name="Lulea-Bank">
+      <packagedElement xmi:type="uml:Package" xmi:id="_5vaDwOEJEeehK96xmeRHqg" name="johrin7">
+        <packagedElement xmi:type="uml:Class" xmi:id="_5vb48OEJEeehK96xmeRHqg" name="BankLogic" visibility="public">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_5vcgAOEJEeehK96xmeRHqg" name="customerObjectList" visibility="private" type="_5vb48eEJEeehK96xmeRHqg" isUnique="false">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5vcgAeEJEeehK96xmeRHqg"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5vcgAuEJEeehK96xmeRHqg" value="*"/>
+            <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_5vcgA-EJEeehK96xmeRHqg" name="defaultValue">
+              <language>JAVA</language>
+              <body>new ArrayList&lt;>()</body>
+            </defaultValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_Dz1j0-EPEeehK96xmeRHqg" name="customer" type="_5vb48eEJEeehK96xmeRHqg" aggregation="shared" association="_Dz1j0OEPEeehK96xmeRHqg">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_Dz2K4OEPEeehK96xmeRHqg"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_Dz2K4eEPEeehK96xmeRHqg" value="1"/>
+          </ownedAttribute>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_5xtw4OEJEeehK96xmeRHqg" name="createCustomer" specification="_5xdSMOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    //läggs till customerObjectList. Retunerar därefter true annars false.
+    if ((this.getCustomerObject(pNo)) == null) {
+        Customer newCustomer = new Customer(forename, surname, pNo);
+        customerObjectList.add(newCustomer);
+        return true;
+    } else
+        return false;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_5xypYOEJEeehK96xmeRHqg" name="getAllCustomers" specification="_5xvmEOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    //Skapar en lista som används för att lägga customer-objekten i.
+    ArrayList&lt;String> customerStrList = new ArrayList&lt;>();
+    //Går igenom customerObjectList och lägger namnen och personnumren i customerStrList. Retunerar sedan denna lista.
+    for (Customer c : customerObjectList) {
+        customerStrList.add(c.getName()[0] + &quot; &quot; + c.getName()[1] + &quot; &quot; + c.getPersonalNumber());
+    }
+    return customerStrList;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_5x5XEOEJEeehK96xmeRHqg" name="getCustomer" specification="_5x0ekOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    Customer customer;
+    //retuneras en arrayList, som representerar detta object. Retunerar null om ingen matchnig finns
+    if ((customer = this.getCustomerObject(pNo)) != null) {
+        return customer.getCustomer();
+    } else
+        return null;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_5x-2oOEJEeehK96xmeRHqg" name="createSavingsAccount" specification="_5x8aYOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    Customer customer;
+    //retuneras kontonumret i orm av en int, annars -1;
+    if ((customer = this.getCustomerObject(pNo)) != null) {
+        return customer.createAccount();
+    } else
+        return -1;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_5yGycOEJEeehK96xmeRHqg" name="deposit" specification="_5yB58OEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    Customer customer;
+    //görs en insättning på det kontot och retunerar true annars false.
+    if ((customer = this.getCustomerObject(pNo)) != null &amp;&amp; isAccountToCustomer(pNo, accountId)) {
+        return customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.DEPOSIT);
+    } else
+        return false;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_5yNgIOEJEeehK96xmeRHqg" name="withdraw" specification="_5yGyceEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    Customer customer;
+    //görs ett försök till uttag från kontot om det lyckas retuneras true annars false.
+    if ((customer = this.getCustomerObject(pNo)) != null &amp;&amp; isAccountToCustomer(pNo, accountId)) {
+        //customer.changeAccountBalance(accountId, amount, Customer.TypeOfTransaction.WITHDRAW);
+        return customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.WITHDRAW);
+    } else
+        return false;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_5yPVUOEJEeehK96xmeRHqg" name="getCustomerObject" specification="_5yOHMOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    Customer customer = null;
+    //i customer variableln som retuneras. Om ingen matchning görs kommer objektet retuneras med ett värde av null.
+    for (Customer c : customerObjectList) {
+        if (c.getPersonalNumber().equals(pNo)) {
+            customer = c;
+        }
+    }
+    return customer;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_5yYfQOEJEeehK96xmeRHqg" name="changeCustomerName" specification="_5yRxkOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    Customer customer;
+    //Om det finns ett object med matchande personnummer ändras namnet.
+    if ((customer = this.getCustomerObject(pNo)) != null) {
+        customer.setName(name, surname);
+        return true;
+    } else
+        return false;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_5yiQQOEJEeehK96xmeRHqg" name="deleteCustomer" specification="_5ya7gOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    Customer customer;
+    //annars retuneras null.
+    if ((customer = this.getCustomerObject(pNo)) != null) {
+        ArrayList&lt;String> tmp = customer.getCustomer();
+        String accountInfo;
+        //getCustomer-array-listans strängar. 
+        for (int i = 1; i &lt; tmp.size(); i++) {
+            //lägger information om det i forloopen aktuella kontot i accountInfo variabeln.
+            accountInfo = tmp.get(i);
+            //Skapar en ny förängd sträng. Hämtar kontonummerinformationen som en substring 
+            //från accountInfo strängen, som sedan används för att hämta kontoinformationen.
+            //   .getAccountInformation(;
+            tmp.set(i, customer.getAccount(Integer.parseInt(accountInfo.substring(0, accountInfo.indexOf(&quot; &quot;)))).getAccountInfo());
+        }
+        //Tar bort objectet, eller rättare sagt tar bort referensen till objectet. När det inte finns någon reference
+        //till objektet, d.v.s. att det inte används, kommer det att bli garbage collected.
+        customerObjectList.remove(customer);
+        return tmp;
+    } else
+        return null;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_5ysBQOEJEeehK96xmeRHqg" name="closeAccount" specification="_5yksgOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    Customer customer;
+    //bort från denna kunds kontolista, annars retuneras null.
+    if ((customer = this.getCustomerObject(pNr)) != null &amp;&amp; isAccountToCustomer(pNr, accountId)) {
+        String tmp = customer.getAccount(accountId).getAccountInfo();
+        customer.deleteAccount(accountId);
+        return tmp;
+    } else
+        return null;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_5y2ZUOEJEeehK96xmeRHqg" name="isAccountToCustomer" specification="_5yzWAOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    // accountIdt matchar med något accountId i denna information om det gör det retuneras true annars false.
+    for (String a : this.getCustomer(pNo)) {
+        if (a.substring(0, a.indexOf(&quot; &quot;)).equals(Integer.toString(accountId))) {
+            return true;
+        }
+    }
+    return false;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_5xdSMOEJEeehK96xmeRHqg" name="createCustomer" visibility="public" method="_5xtw4OEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5xo4YOEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5xqGgOEJEeehK96xmeRHqg" name="forename" type="_5v5zAeEJEeehK96xmeRHqg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5xqtkOEJEeehK96xmeRHqg" name="surname" type="_5v5zAeEJEeehK96xmeRHqg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5xsiwOEJEeehK96xmeRHqg" name="pNo" type="_5v5zAeEJEeehK96xmeRHqg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_5xvmEOEJEeehK96xmeRHqg" name="getAllCustomers" visibility="public" method="_5xypYOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5xw0MOEJEeehK96xmeRHqg" type="_5v5zAeEJEeehK96xmeRHqg" direction="return">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5xxbQOEJEeehK96xmeRHqg"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5xyCUOEJEeehK96xmeRHqg" value="*"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_5x0ekOEJEeehK96xmeRHqg" name="getCustomer" visibility="public" method="_5x5XEOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5x1ssOEJEeehK96xmeRHqg" type="_5v5zAeEJEeehK96xmeRHqg" direction="return">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5x260OEJEeehK96xmeRHqg"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5x3h4OEJEeehK96xmeRHqg" value="*"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5x4wAOEJEeehK96xmeRHqg" name="pNo" type="_5v5zAeEJEeehK96xmeRHqg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_5x8aYOEJEeehK96xmeRHqg" name="createSavingsAccount" visibility="public" method="_5x-2oOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5x8aYeEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5x9ogOEJEeehK96xmeRHqg" name="pNo" type="_5v5zAeEJEeehK96xmeRHqg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_5yB58OEJEeehK96xmeRHqg" name="deposit" visibility="public" method="_5yGycOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yDIEOEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yEWMOEJEeehK96xmeRHqg" name="pNo" type="_5v5zAeEJEeehK96xmeRHqg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yFkUOEJEeehK96xmeRHqg" name="accountId">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yGLYOEJEeehK96xmeRHqg" name="amount">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_6j0jABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_5yGyceEJEeehK96xmeRHqg" name="withdraw" visibility="public" method="_5yNgIOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yIAkOEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yJ1wOEJEeehK96xmeRHqg" name="pNo" type="_5v5zAeEJEeehK96xmeRHqg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yLD4OEJEeehK96xmeRHqg" name="accountId">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yMSAOEJEeehK96xmeRHqg" name="amount">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_6j0jABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_5yOHMOEJEeehK96xmeRHqg" name="getCustomerObject" visibility="private" method="_5yPVUOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yOHMeEJEeehK96xmeRHqg" type="_5vb48eEJEeehK96xmeRHqg" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yOuQOEJEeehK96xmeRHqg" name="pNo" type="_5v5zAeEJEeehK96xmeRHqg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_5yRxkOEJEeehK96xmeRHqg" name="changeCustomerName" visibility="public" method="_5yYfQOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yS_sOEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yUN0OEJEeehK96xmeRHqg" name="name" type="_5v5zAeEJEeehK96xmeRHqg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yWDAOEJEeehK96xmeRHqg" name="surname" type="_5v5zAeEJEeehK96xmeRHqg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yXRIOEJEeehK96xmeRHqg" name="pNo" type="_5v5zAeEJEeehK96xmeRHqg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_5ya7gOEJEeehK96xmeRHqg" name="deleteCustomer" visibility="public" method="_5yiQQOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yd-0OEJEeehK96xmeRHqg" type="_5v5zAeEJEeehK96xmeRHqg" direction="return">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5yfM8OEJEeehK96xmeRHqg"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5ygbEOEJEeehK96xmeRHqg" value="*"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yhCIOEJEeehK96xmeRHqg" name="pNo" type="_5v5zAeEJEeehK96xmeRHqg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_5yksgOEJEeehK96xmeRHqg" name="closeAccount" visibility="public" method="_5ysBQOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5ymhsOEJEeehK96xmeRHqg" type="_5v5zAeEJEeehK96xmeRHqg" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yoW4OEJEeehK96xmeRHqg" name="pNr" type="_5v5zAeEJEeehK96xmeRHqg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yqzIOEJEeehK96xmeRHqg" name="accountId">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_5yudgOEJEeehK96xmeRHqg" name="getAccount" visibility="public">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yvEkOEJEeehK96xmeRHqg" type="_5v5zAeEJEeehK96xmeRHqg" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yw5wOEJEeehK96xmeRHqg" name="pNo" type="_5v5zAeEJEeehK96xmeRHqg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yyH4OEJEeehK96xmeRHqg" name="accountId">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_5yzWAOEJEeehK96xmeRHqg" name="isAccountToCustomer" visibility="private" method="_5y2ZUOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5yz9EOEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5y0kIOEJEeehK96xmeRHqg" name="pNo" type="_5v5zAeEJEeehK96xmeRHqg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5y1yQOEJEeehK96xmeRHqg" name="accountId">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_5vb48eEJEeehK96xmeRHqg" name="Customer" visibility="public">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_51BjkOEJEeehK96xmeRHqg" name="nameArray" visibility="private" type="_5v5zAeEJEeehK96xmeRHqg" isUnique="false">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_51F1AOEJEeehK96xmeRHqg"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_51F1AeEJEeehK96xmeRHqg" value="*"/>
+            <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_51F1AuEJEeehK96xmeRHqg" name="defaultValue">
+              <language>JAVA</language>
+              <body>new String[2]</body>
+            </defaultValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_51HDIOEJEeehK96xmeRHqg" name="personalNumber" visibility="private" type="_5v5zAeEJEeehK96xmeRHqg" isUnique="false"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_51KGcOEJEeehK96xmeRHqg" name="accountList" visibility="private" type="_50JZ0OEJEeehK96xmeRHqg" isUnique="false">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_51L7oOEJEeehK96xmeRHqg"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_51Nw0OEJEeehK96xmeRHqg" value="*"/>
+            <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_51O-8OEJEeehK96xmeRHqg" name="defaultValue">
+              <language>JAVA</language>
+              <body>new ArrayList&lt;>()</body>
+            </defaultValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_eGPykOENEeehK96xmeRHqg" name="bankaccount" type="_50JZ0OEJEeehK96xmeRHqg" aggregation="shared" association="_eGOkcOENEeehK96xmeRHqg">
+            <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_eGQZoOENEeehK96xmeRHqg"/>
+            <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_eGQZoeENEeehK96xmeRHqg" value="1"/>
+          </ownedAttribute>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_51Yv8eEJEeehK96xmeRHqg" name="Customer" specification="_51RbMOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    this.nameArray[0] = foreName;
+    this.nameArray[1] = surname;
+    this.personalNumber = personalNumber;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_51dBYOEJEeehK96xmeRHqg" name="getName" specification="_51ZXAOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    return this.nameArray;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_51jvEOEJEeehK96xmeRHqg" name="setName" specification="_51docOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    this.nameArray[0] = foreName;
+    this.nameArray[1] = surname;
+    return true;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_51onkOEJEeehK96xmeRHqg" name="getPersonalNumber" specification="_51mLUOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    return personalNumber;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_51s5AOEJEeehK96xmeRHqg" name="deleteAccount" specification="_51p1sOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    BankAccount bankAccount = this.getAccount(accountNumber);
+    //Om det finns ett konto med angivet kontonummer så tas detta bort och true retuneras annars false.
+    if (bankAccount != null) {
+        this.accountList.remove(bankAccount);
+        return true;
+    }
+    return false;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_51xKcOEJEeehK96xmeRHqg" name="createAccount" specification="_51uuMOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    BankAccount savingsAccount = new SavingsAccount();
+    this.accountList.add(savingsAccount);
+    return savingsAccount.getAccountNumber();
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_516UYOEJEeehK96xmeRHqg" name="createAccount" specification="_51zmsOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    return 0;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_517igOEJEeehK96xmeRHqg" name="getCustomer" specification="_516UYeEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    //Skapar ett ett nytt customerList object.
+    ArrayList&lt;String> customerList = new ArrayList&lt;>();
+    //Lägger till namn och personnummer först i denna array-sträng-lista.
+    customerList.add(this.nameArray[0] + &quot; &quot; + this.nameArray[1] + &quot; &quot; + this.personalNumber);
+    //och personnummer-strängen. Listan retuneras sedan annars retuneras listan med endast namn-strängen.
+    if (accountList != null) {
+        for (BankAccount ba : accountList) {
+            customerList.add(ba.getAccountNumber() + &quot; &quot; + ba.getBalance() + &quot; &quot; + ba.getAccountType() + &quot; &quot; + ba.getInterest() * 100);
+        }
+        return customerList;
+    } else
+        return customerList;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_518JkeEJEeehK96xmeRHqg" name="getAccount" specification="_517igeEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    BankAccount bankAccount = null;
+    //Om kontot finns i kundens kontolista retuneras detta konto annars retuneras null;
+    for (BankAccount ba : accountList) {
+        if (ba.getAccountNumber() == accountNumber) {
+            bankAccount = ba;
+        }
+    }
+    return bankAccount;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_51RbMOEJEeehK96xmeRHqg" name="Customer" visibility="public" method="_51Yv8eEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_51W6wOEJEeehK96xmeRHqg" name="foreName" type="_5v5zAeEJEeehK96xmeRHqg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_51YI4OEJEeehK96xmeRHqg" name="surname" type="_5v5zAeEJEeehK96xmeRHqg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_51Yv8OEJEeehK96xmeRHqg" name="personalNumber" type="_5v5zAeEJEeehK96xmeRHqg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_51ZXAOEJEeehK96xmeRHqg" name="getName" visibility="public" method="_51dBYOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_51Z-EOEJEeehK96xmeRHqg" type="_5v5zAeEJEeehK96xmeRHqg" direction="return">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_51bMMOEJEeehK96xmeRHqg"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_51caUOEJEeehK96xmeRHqg" value="*"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_51docOEJEeehK96xmeRHqg" name="setName" visibility="public" method="_51jvEOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_51e2kOEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_51hS0OEJEeehK96xmeRHqg" name="foreName" type="_5v5zAeEJEeehK96xmeRHqg"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_51ig8OEJEeehK96xmeRHqg" name="surname" type="_5v5zAeEJEeehK96xmeRHqg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_51mLUOEJEeehK96xmeRHqg" name="getPersonalNumber" visibility="public" method="_51onkOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_51nZcOEJEeehK96xmeRHqg" type="_5v5zAeEJEeehK96xmeRHqg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_51p1sOEJEeehK96xmeRHqg" name="deleteAccount" visibility="public" method="_51s5AOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_51rD0OEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_51rq4OEJEeehK96xmeRHqg" name="accountNumber">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_51uuMOEJEeehK96xmeRHqg" name="createAccount" visibility="public" method="_51xKcOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_51v8UOEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_51zmsOEJEeehK96xmeRHqg" name="createAccount" visibility="public" method="_516UYOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_510NwOEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_512qAOEJEeehK96xmeRHqg" name="interest">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_KgG0cPaLEeW5KOK8aDMdgA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_514fMOEJEeehK96xmeRHqg" name="accountType" type="_5v5zAeEJEeehK96xmeRHqg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_516UYeEJEeehK96xmeRHqg" name="getCustomer" visibility="public" method="_517igOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_5167cOEJEeehK96xmeRHqg" type="_5v5zAeEJEeehK96xmeRHqg" direction="return">
+              <lowerValue xmi:type="uml:LiteralInteger" xmi:id="_5167ceEJEeehK96xmeRHqg"/>
+              <upperValue xmi:type="uml:LiteralUnlimitedNatural" xmi:id="_5167cuEJEeehK96xmeRHqg" value="*"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_517igeEJEeehK96xmeRHqg" name="getAccount" visibility="public" method="_518JkeEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_517iguEJEeehK96xmeRHqg" type="_50JZ0OEJEeehK96xmeRHqg" direction="return"/>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_518JkOEJEeehK96xmeRHqg" name="accountNumber">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_5zJ7UOEJEeehK96xmeRHqg" name="FileNotFoundException"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_50JZ0OEJEeehK96xmeRHqg" name="BankAccount" visibility="public" isAbstract="true">
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_50KA4OEJEeehK96xmeRHqg" name="balance" visibility="private" isUnique="false">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_6j0jABydEduyofBvg4RL2w"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_50L2EOEJEeehK96xmeRHqg" name="lastAccountNr" visibility="private" isStatic="true" isUnique="false">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+            <defaultValue xmi:type="uml:OpaqueExpression" xmi:id="_50NEMOEJEeehK96xmeRHqg" name="defaultValue">
+              <language>JAVA</language>
+              <body>1000</body>
+            </defaultValue>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_50OSUOEJEeehK96xmeRHqg" name="bankAccountNumber" visibility="private" isUnique="false">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+          </ownedAttribute>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_50W1MOEJEeehK96xmeRHqg" name="BankAccount" specification="_50Tx4OEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    BankAccount.lastAccountNr++;
+    this.balance = 0;
+    this.bankAccountNumber = lastAccountNr;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_50f_IOEJEeehK96xmeRHqg" name="changeAccountBalance" specification="_50btsOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    //pengar. Retunerar true om uttaget medgavs annars false.
+    if (typeOfTransaction == TypeOfTransaction.WITHDRAW &amp;&amp; this.balance >= amount) {
+        this.balance -= amount;
+        //this.getAccount(accountNumber).setBalance(amount *= -1);
+        return true;
+    //Annars om kontot finns görs en insättning och true retuneraa annars retuneras false,
+    } else if (typeOfTransaction == TypeOfTransaction.DEPOSIT) {
+        this.balance += amount;
+        return true;
+    }
+    return false;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_50hNQOEJEeehK96xmeRHqg" name="getBalance" specification="_50gmMOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    return this.balance;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_50h0UOEJEeehK96xmeRHqg" name="getAccountNumber" specification="_50hNQeEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    return this.bankAccountNumber;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_50k3oOEJEeehK96xmeRHqg" name="getAccountInfo" specification="_50jCcOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    String infoString = this.getAccountNumber() + &quot; &quot; + this.getBalance();
+    return infoString;
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_50Tx4OEJEeehK96xmeRHqg" name="BankAccount" visibility="public" method="_50W1MOEJEeehK96xmeRHqg"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_50btsOEJEeehK96xmeRHqg" name="changeAccountBalance" visibility="public" method="_50f_IOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_50c70OEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_vAIV4I7PEdySGvm5GN66HA"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_50exAOEJEeehK96xmeRHqg" name="amount">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_6j0jABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_50fYEOEJEeehK96xmeRHqg" name="typeOfTransaction" type="_50XcQOEJEeehK96xmeRHqg"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_50gmMOEJEeehK96xmeRHqg" name="getBalance" visibility="public" method="_50hNQOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_50gmMeEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_6j0jABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_50hNQeEJEeehK96xmeRHqg" name="getAccountNumber" visibility="public" method="_50h0UOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_50hNQuEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_7wRIABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_50jCcOEJEeehK96xmeRHqg" name="getAccountInfo" visibility="public" method="_50k3oOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_50kQkOEJEeehK96xmeRHqg" type="_5v5zAeEJEeehK96xmeRHqg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_50lesOEJEeehK96xmeRHqg" name="getAccountType" visibility="public" isAbstract="true">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_50ms0OEJEeehK96xmeRHqg" type="_5v5zAeEJEeehK96xmeRHqg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_50ms0eEJEeehK96xmeRHqg" name="getInterest" visibility="public" isAbstract="true">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_50nT4OEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_6j0jABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_50n68OEJEeehK96xmeRHqg" name="getInterestAmount" visibility="public" isAbstract="true">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_50oiAOEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_6j0jABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+          <nestedClassifier xmi:type="uml:Enumeration" xmi:id="_50O5YOEJEeehK96xmeRHqg" name="TypeOfTransaction" visibility="public">
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_50SjwOEJEeehK96xmeRHqg" name="WITHDRAW"/>
+            <ownedLiteral xmi:type="uml:EnumerationLiteral" xmi:id="_50TK0OEJEeehK96xmeRHqg" name="DEPOSIT"/>
+          </nestedClassifier>
+          <ownedReception xmi:type="uml:Reception" xmi:id="_n-RSgOELEeehK96xmeRHqg" name="Reception1"/>
+        </packagedElement>
+        <packagedElement xmi:type="uml:Class" xmi:id="_50XcQOEJEeehK96xmeRHqg" name="TypeOfTransaction"/>
+        <packagedElement xmi:type="uml:Class" xmi:id="_50q-QOEJEeehK96xmeRHqg" name="SavingsAccount" visibility="public">
+          <generalization xmi:type="uml:Generalization" xmi:id="_50rlUOEJEeehK96xmeRHqg" general="_50JZ0OEJEeehK96xmeRHqg"/>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_50szcOEJEeehK96xmeRHqg" name="interest" visibility="private" isUnique="false">
+            <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_6j0jABydEduyofBvg4RL2w"/>
+          </ownedAttribute>
+          <ownedAttribute xmi:type="uml:Property" xmi:id="_50uBkOEJEeehK96xmeRHqg" name="accountType" visibility="private" type="_5v5zAeEJEeehK96xmeRHqg" isUnique="false"/>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_50xr8OEJEeehK96xmeRHqg" name="SavingsAccount" specification="_50uooOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    super();
+    this.interest = 0.01;
+    this.accountType = &quot;Sparkonto&quot;;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_501WUOEJEeehK96xmeRHqg" name="SavingsAccount" specification="_50y6EOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    super();
+    this.interest = interest;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_5019YOEJEeehK96xmeRHqg" name="getAccountInfo" specification="_501WUeEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    String infoString = super.getAccountInfo() + &quot; &quot; + this.accountType + &quot; &quot; + this.interest * 100 + &quot; &quot; + this.getInterestAmount();
+    return infoString;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_502kceEJEeehK96xmeRHqg" name="getAccountType" specification="_5019YeEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    return this.accountType;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_503LgeEJEeehK96xmeRHqg" name="getInterest" specification="_502kcuEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    return this.interest;
+</body>
+          </ownedBehavior>
+          <ownedBehavior xmi:type="uml:OpaqueBehavior" xmi:id="_503ykuEJEeehK96xmeRHqg" name="getInterestAmount" specification="_503ykOEJEeehK96xmeRHqg">
+            <language>JAVA</language>
+            <body>
+    return this.interest * this.getBalance();
+</body>
+          </ownedBehavior>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_50uooOEJEeehK96xmeRHqg" name="SavingsAccount" visibility="public" method="_50xr8OEJEeehK96xmeRHqg"/>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_50y6EOEJEeehK96xmeRHqg" name="SavingsAccount" visibility="public" method="_501WUOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_500vQOEJEeehK96xmeRHqg" name="interest">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_KgG0cPaLEeW5KOK8aDMdgA"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_501WUeEJEeehK96xmeRHqg" name="getAccountInfo" visibility="public" method="_5019YOEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_501WUuEJEeehK96xmeRHqg" type="_5v5zAeEJEeehK96xmeRHqg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_5019YeEJEeehK96xmeRHqg" name="getAccountType" visibility="public" method="_502kceEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_502kcOEJEeehK96xmeRHqg" type="_5v5zAeEJEeehK96xmeRHqg" direction="return"/>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_502kcuEJEeehK96xmeRHqg" name="getInterest" visibility="public" method="_503LgeEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_503LgOEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_6j0jABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+          <ownedOperation xmi:type="uml:Operation" xmi:id="_503ykOEJEeehK96xmeRHqg" name="getInterestAmount" visibility="public" method="_503ykuEJEeehK96xmeRHqg">
+            <ownedParameter xmi:type="uml:Parameter" xmi:id="_503ykeEJEeehK96xmeRHqg" direction="return">
+              <type xmi:type="uml:PrimitiveType" href="pathmap://PapyrusJava_LIBRARIES/JavaLibrary.uml#_6j0jABydEduyofBvg4RL2w"/>
+            </ownedParameter>
+          </ownedOperation>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Package" xmi:id="_5vdHEOEJEeehK96xmeRHqg" name="java">
+      <packagedElement xmi:type="uml:Package" xmi:id="_5v5L8OEJEeehK96xmeRHqg" name="java">
+        <packagedElement xmi:type="uml:Package" xmi:id="_5v5zAOEJEeehK96xmeRHqg" name="lang">
+          <packagedElement xmi:type="uml:Class" xmi:id="_5v5zAeEJEeehK96xmeRHqg" name="String"/>
+        </packagedElement>
+      </packagedElement>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_eGOkcOENEeehK96xmeRHqg" memberEnd="_eGPykOENEeehK96xmeRHqg _eGQZouENEeehK96xmeRHqg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_eGPLgOENEeehK96xmeRHqg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_eGPLgeENEeehK96xmeRHqg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_eGQZouENEeehK96xmeRHqg" name="customer" type="_5vb48eEJEeehK96xmeRHqg" association="_eGOkcOENEeehK96xmeRHqg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_Dz1j0OEPEeehK96xmeRHqg" memberEnd="_Dz1j0-EPEeehK96xmeRHqg _Dz2K4uEPEeehK96xmeRHqg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_Dz1j0eEPEeehK96xmeRHqg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_Dz1j0uEPEeehK96xmeRHqg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_Dz2K4uEPEeehK96xmeRHqg" name="banklogic" type="_5vb48OEJEeehK96xmeRHqg" association="_Dz1j0OEPEeehK96xmeRHqg"/>
+    </packagedElement>
+    <packagedElement xmi:type="uml:Association" xmi:id="_tN0jUOGJEeehK96xmeRHqg" memberEnd="_tN1KYuGJEeehK96xmeRHqg _tN1KY-GJEeehK96xmeRHqg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_tN1KYOGJEeehK96xmeRHqg" source="org.eclipse.papyrus">
+        <details xmi:type="ecore:EStringToStringMapEntry" xmi:id="_tN1KYeGJEeehK96xmeRHqg" key="nature" value="UML_Nature"/>
+      </eAnnotations>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_tN1KYuGJEeehK96xmeRHqg" name="banklogic" type="_5vb48OEJEeehK96xmeRHqg" association="_tN0jUOGJEeehK96xmeRHqg"/>
+      <ownedEnd xmi:type="uml:Property" xmi:id="_tN1KY-GJEeehK96xmeRHqg" name="bankaccount" type="_50JZ0OEJEeehK96xmeRHqg" association="_tN0jUOGJEeehK96xmeRHqg"/>
+    </packagedElement>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_oZxNoOEJEeehK96xmeRHqg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_oZx0sOEJEeehK96xmeRHqg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/PapyrusJava/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://PapyrusJava_PROFILES/PapyrusJava.profile.uml#_j9REUByGEduN1bTiWJ0lyw"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_oZ6-oOEJEeehK96xmeRHqg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_oZ8MwOEJEeehK96xmeRHqg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/papyrus/Codegen/1#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://Codegen_PROFILES/Codegen.profile.uml#_fPDsIBa-EearhdjjJ6cVzQ"/>
+    </profileApplication>
+    <profileApplication xmi:type="uml:ProfileApplication" xmi:id="_oaCTYOEJEeehK96xmeRHqg">
+      <eAnnotations xmi:type="ecore:EAnnotation" xmi:id="_oaC6cOEJEeehK96xmeRHqg" source="http://www.eclipse.org/uml2/2.0.0/UML">
+        <references xmi:type="ecore:EPackage" href="http://www.eclipse.org/uml2/5.0.0/UML/Profile/Standard#/"/>
+      </eAnnotations>
+      <appliedProfile xmi:type="uml:Profile" href="pathmap://UML_PROFILES/Standard.profile.uml#_0"/>
+    </profileApplication>
+  </uml:Model>
+  <PapyrusJava:External xmi:id="_5xbdAOEJEeehK96xmeRHqg" name="java.lang.String" base_Classifier="_5v5zAeEJEeehK96xmeRHqg"/>
+  <PapyrusJava:External xmi:id="_5zMXkOEJEeehK96xmeRHqg" name="FileNotFoundException" base_Classifier="_5zJ7UOEJEeehK96xmeRHqg"/>
+  <PapyrusJava:StaticClassifier xmi:id="_50RVoOEJEeehK96xmeRHqg" base_Classifier="_50O5YOEJEeehK96xmeRHqg"/>
+  <standard:Create xmi:id="_50VnEOEJEeehK96xmeRHqg" base_BehavioralFeature="_50Tx4OEJEeehK96xmeRHqg"/>
+  <PapyrusJava:External xmi:id="_50Z4gOEJEeehK96xmeRHqg" name="TypeOfTransaction" base_Classifier="_50XcQOEJEeehK96xmeRHqg"/>
+  <standard:Create xmi:id="_50wd0OEJEeehK96xmeRHqg" base_BehavioralFeature="_50uooOEJEeehK96xmeRHqg"/>
+  <standard:Create xmi:id="_500IMOEJEeehK96xmeRHqg" base_BehavioralFeature="_50y6EOEJEeehK96xmeRHqg"/>
+  <standard:Create xmi:id="_51UegOEJEeehK96xmeRHqg" base_BehavioralFeature="_51RbMOEJEeehK96xmeRHqg"/>
+</xmi:XMI>

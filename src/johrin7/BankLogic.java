@@ -42,7 +42,7 @@ public class BankLogic {
 		//Går igenom customerObjectList och lägger namnen och personnumren i customerStrList. Retunerar sedan denna lista.
 			for(Customer c : customerObjectList)
 			{
-				customerStrList.add(c.getName()[0] + " " + c.nameArray[1] + " " + c.getPersonalNumber());
+				customerStrList.add(c.getName()[0] + " " + c.getName()[1] + " " + c.getPersonalNumber());
 			} 
 			return customerStrList;
 	}
@@ -86,7 +86,7 @@ public class BankLogic {
 		//Om det finns ett object med matchande personnummer och ett konto med matchande kontonummer
 		//görs en insättning på det kontot och retunerar true annars false.
 		if((customer = this.getCustomerObject(pNo)) != null && isAccountToCustomer(pNo, accountId)) {
-			return  customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.DEPOSIT);// .changeAccountBalance(accountId, amount, Customer.TypeOfTransaction.DEPOSIT); 
+			return  customer.getAccount(accountId).changeAccountBalance(amount, TypeOfTransaction.DEPOSIT);
 		} else return false;
 	}
 	/**Gör ett uttag.
