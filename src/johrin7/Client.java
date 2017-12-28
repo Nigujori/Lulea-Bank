@@ -2,6 +2,11 @@ package johrin7;
 
 import java.util.ArrayList;
 
+/** En abstrakt klass, som med andra ord inte kan skapa några objekt. Enn klass måste
+ * ärva från denna klass vilken man sedan kan skapa specifika typer av kund-objekt. T.ex. ett customer-objekt.
+ * De olika kontoobjekten sparas i ArrayList<Account> accountList men skapas i subklasserna.
+ * @authorJohan Ringström användarnamn johrin7*/
+
 import johrin7.BankLogic.TypeOfAccount;
 
 public abstract class Client {
@@ -105,12 +110,16 @@ public abstract class Client {
 		return bankAccount;
 	}
 	
+	/**Del av factory method pattern. Skapandet av Account-objekt läggs ut på subklasserna. 
+	 * @param accountType.
+	 * @return kontonumret som en int.
+	 */
 	public int openAcount(TypeOfAccount accountType) {
 		Account account = createAccount(accountType);
 		this.accountList.add(account);
 		return account.getAccountNumber();
 	}
 	
-	
+	//Ser till så att alla subklasser implementerar denna metod. 
 	public abstract Account createAccount(TypeOfAccount accountType) ;
 }

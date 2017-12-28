@@ -9,7 +9,7 @@ import johrin7.Account.TypeOfTransaction;
 
 public class BankLogic {
 	//Array-lista med customer-objekt.
-	private ArrayList<Customer> customerObjectList = new ArrayList<>();
+	private ArrayList<Client> customerObjectList = new ArrayList<>();
 	public static  enum TypeOfAccount {SAVINGSACCOUNT, CREDITACCOUNT};
 	
 	/**Skapar ett customer-objekt
@@ -41,7 +41,7 @@ public class BankLogic {
 		//Skapar en lista som används för att lägga customer-objekten i.
 		ArrayList<String> customerStrList = new ArrayList<>();
 		//Går igenom customerObjectList och lägger namnen och personnumren i customerStrList. Retunerar sedan denna lista.
-			for(Customer c : customerObjectList)
+			for(Client c : customerObjectList)
 			{
 				customerStrList.add(c.getName()[0] + " " + c.getName()[1] + " " + c.getPersonalNumber());
 			} 
@@ -54,7 +54,7 @@ public class BankLogic {
 	 */
 	public ArrayList<String> getCustomer(String pNo)
 	{
-		Customer customer;
+		Client customer;
 		//Om det finns ett object med matchande personnummer(Samtidigt läggs detta objekt i customer variabeln.)
 		//retuneras en arrayList, som representerar detta object. Retunerar null om ingen matchnig finns.
 		if((customer = this.getCustomerObject(pNo)) != null) 
@@ -69,7 +69,7 @@ public class BankLogic {
 	 * @return kontonumret som en int.
 	 */
 	public int createSavingsAccount(String pNo) {
-		Customer customer;
+		Client customer;
 		//Om det finns ett object med matchande personnummer(Samtidigt läggs detta objekt i customer variabeln.)
 		//retuneras kontonumret annars -1;
 		if ((customer = this.getCustomerObject(pNo)) != null) {
@@ -81,7 +81,7 @@ public class BankLogic {
 	 * @return kontonumret som en int.
 	 */
 	public int createCreditAccount(String pNr) {
-		Customer customer;
+		Client customer;
 		//Om det finns ett object med matchande personnummer(Samtidigt läggs detta objekt i customer variabeln.)
 		//retuneras kontonumret annars -1;
 		if ((customer = this.getCustomerObject(pNr)) != null) {
@@ -95,7 +95,7 @@ public class BankLogic {
 	 * @return boolean.
 	 */
 	public boolean deposit(String pNo, int accountId, double amount) {
-		Customer customer;
+		Client customer;
 		//Om det finns ett object med matchande personnummer och ett konto med matchande kontonummer
 		//görs en insättning på det kontot och retunerar true annars false.
 		if((customer = this.getCustomerObject(pNo)) != null && isAccountToCustomer(pNo, accountId)) {
@@ -110,7 +110,7 @@ public class BankLogic {
 	 */
 	public boolean withdraw(String pNo, int accountId, double amount) 
 	{
-		Customer customer;
+		Client customer;
 		//Om det finns ett object med matchande personnummer och ett konto med matchande kontonummer
 		//görs ett försök till uttag från kontot om det lyckas retuneras true annars false.
 		if((customer = this.getCustomerObject(pNo)) != null && isAccountToCustomer(pNo, accountId)) 
@@ -127,7 +127,7 @@ public class BankLogic {
     	 */
 	public boolean changeCustomerName(String name, String surname, String pNo) 
 	{
-		Customer customer;
+		Client customer;
 		//Om det finns ett object med matchande personnummer ändras namnet.
 		if((customer = this.getCustomerObject(pNo)) != null) 
 		{
@@ -143,7 +143,7 @@ public class BankLogic {
 	 */
 	public ArrayList<String> deleteCustomer(String pNo)
 	{
-		Customer customer;
+		Client customer;
 		//Om det finns ett object med matchande personnummer(Samtidigt läggs detta objekt i customer variabeln.)
 		//läggs representationen av customer-objektet i en temporär variabel, som sedan manipuleras och retuneras
 		//annars retuneras null.
@@ -176,7 +176,7 @@ public class BankLogic {
 	 */
 	public String closeAccount(String pNr, int accountId) 
 	{
-		Customer customer;
+		Client customer;
 		//Om det finns ett object med matchande personnummer som har ett bankkonto med matchande id
 		//läggs informationen om detta i en temporär varaiabel som sedan retuneras, sedan tas kontot
 		//bort från denna kunds kontolista, annars retuneras null.
@@ -196,7 +196,7 @@ public class BankLogic {
 	 */
 	public String getAccount(String pNo, int accountId) 
 	{
-		Customer customer;
+		Client customer;
 		//Om det finns ett object med matchande personnummer som har ett bankkonto med matchande id
 		//hämtas information om detta konto som retuneras annars retuneras null;
 		if((customer = this.getCustomerObject(pNo)) != null && isAccountToCustomer(pNo, accountId) ) 
@@ -214,7 +214,7 @@ public class BankLogic {
 	 */
 	public ArrayList<String> getTransactions(String pNr, int accountId)
 	{
-		Customer customer;
+		Client customer;
 		//Om det finns ett object med matchande personnummer som har ett bankkonto med matchande id
 		//hämtas information om detta konto som retuneras annars retuneras null;
 		if((customer = this.getCustomerObject(pNr)) != null && isAccountToCustomer(pNr, accountId))
@@ -245,12 +245,12 @@ public class BankLogic {
 	 * @param pNo personnumret som en String.
 	 * @return Ett Customer-objekt
 	 */
-	public Customer getCustomerObject(String pNo) 
+	public Client getCustomerObject(String pNo) 
 	{
-		Customer customer = null;
+		Client customer = null;
 		//Går igenom customerObjectList och om det finns ett objekt med matchande personnummer läggs detta
 		//i customer variableln som retuneras. Om ingen matchning görs kommer objektet retuneras med ett värde av null.
-		for(Customer c : customerObjectList)
+		for(Client c : customerObjectList)
 		{
 	        if (c.getPersonalNumber().equals(pNo)) 
 	        {

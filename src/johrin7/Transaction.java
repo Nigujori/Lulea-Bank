@@ -6,13 +6,17 @@ import java.util.*;
 
 import johrin7.Account.TypeOfTransaction;
 
+/**Denna klass ansvarar för att hålla information om trasactioner som görs till eller från ett konto. Datum, transaktionssumma, saldo efter uttag
+ * , typ av transaktion och transaktionsnummer.
+* @author Johan Ringström användarnamn johrin7.*/
+
 public class Transaction {
 	//
 	private final Date date;
 	private final double transactionAmount;
 	private final double balance;
-	DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//Format för datumet och tiden
-	TypeOfTransaction transType;
+	private DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//Format för datumet och tiden
+	private TypeOfTransaction transType;
 	private static int lastTransactionNr = 10000;
 	private final int transactionNumber;
 

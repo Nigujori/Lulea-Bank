@@ -1,10 +1,8 @@
 package johrin7;
 
-import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
-import johrin7.Account.TypeOfTransaction;
-
+/** En specifik bankkonto typ som ärver av den abstrakta och mer allmänna bakkontoklassen
+ * @author Johan Ringström användarnamn johrin7.*/
 public class CreditAccount extends Account{
 	
 	private double interest;
