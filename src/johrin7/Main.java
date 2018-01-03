@@ -9,8 +9,10 @@ package johrin7;
 
 import java.io.*;
 import johrin7.Controller.BankController;
+import johrin7.Controller.BankControllerInterface;
 import johrin7.Model.BankLogic;
 import johrin7.Model.BankModelInterface;
+import johrin7.views.CustomerSearchAndDisplayView;
 
 /**Detta är den klass som håller main-metoden. Den skapar en instans av BankLogic och lägger in några
  * kunder samt konton och skapar sedan en BankController instans som skapar en instans av  huvud-viewn 
@@ -37,7 +39,7 @@ public class Main
 		bank.createSavingsAccount("8210011212");
 		bank.createCreditAccount("8210011212");
 		bank.createSavingsAccount("8210011212");
-		new BankController(bank);
+		new CustomerSearchAndDisplayView(new BankController(bank));
 	}
 }
 

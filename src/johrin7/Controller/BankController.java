@@ -15,7 +15,6 @@ import johrin7.views.CustomerSearchAndDisplayView;
  * */
 public class BankController implements BankControllerInterface {
 	BankModelInterface bankModel;
-	CustomerSearchAndDisplayView view;
 	
 	/**Konstruktorn. Skapar första viewn och uppdaterar densamma. Har en reference till modellen.
 	 * @param bankModel
@@ -23,9 +22,6 @@ public class BankController implements BankControllerInterface {
 	public BankController(BankModelInterface bankModel) 
 	{
 		this.bankModel = bankModel;
-		view = new CustomerSearchAndDisplayView(this);
-		view.createView();
-		view.updateBank(true);
 	}
 	
 	/**Se information om metoderna i BankLogic-klassen. 
@@ -112,10 +108,10 @@ public class BankController implements BankControllerInterface {
 		
 	}
 
-	@Override
+	/*@Override
 	public void notifyBankObservers(Boolean bool) 
 	{
 		bankModel.notifyBankObservers(bool);
-	}
+	}*/
 }
 

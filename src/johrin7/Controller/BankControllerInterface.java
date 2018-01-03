@@ -24,5 +24,5 @@ public interface BankControllerInterface {
 	public ArrayList<String> deleteCustomer(String pNo); 
 	public String closeAccount(String pNr, int accountId);
 	public void registerObserver(BankObserver bo);
-	public void notifyBankObservers(Boolean bool);
+	//public void notifyBankObservers(Boolean bool);
 }

@@ -11,7 +11,6 @@ import java.util.ArrayList;
 
 import johrin7.Model.Account.TypeOfTransaction;
 import johrin7.views.BankObserver;
-import johrin7.views.CustomerSearchAndDisplayView;
 
 public class BankLogic implements BankModelInterface {
 	
@@ -29,7 +28,7 @@ public class BankLogic implements BankModelInterface {
 	public boolean createCustomer(String forename, String surname, String pNo) 
 	{
 		//Om det inte finns något customer-objekt med samma personnummer så skapas ett som 
-		//läggs till customerObjectList. Retunerar därefter true annars false.
+		//läggs till customerObjectList. Retunerar därefter true annars false. 
 		if((this.getCustomerObject(pNo)) == null && !pNo.isEmpty() && pNo.matches("[0-9]+") && !forename.isEmpty() && !surname.isEmpty()) 
 		{
 			Client newCustomer = new Customer(forename, surname, pNo);

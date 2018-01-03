@@ -12,7 +12,7 @@ import johrin7.Model.BankLogic.TypeOfAccount;
  * enkelt, samtidigt som dessa kan implementera olika objektskapande logik om så behövs.
  *
  * Eftersom SavingsAccount och eventuellt andra framtida kontotyper ärver av Account klassen
- * kan man utnyttja polymorphisme och dynamic binding. Ett Account-objekt kan ta flera olika former och beroende på
+ * kan man utnyttja polymorphism och dynamic binding. Ett Account-objekt kan ta flera olika former och beroende på
  * vilken form den antagit bestäms vilken implementation som en viss metod kommer att ha. I detta fall
  * läggs alla kontoobjekt in i accountList som typen Account men flera av dess metoder är abstrakta och
  * får sin implementation i dess subklasser.

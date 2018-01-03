@@ -100,7 +100,7 @@ public class AccountView extends JFrame implements BankObserver, TableView {
 		createTable();
 		createPane();
 		setSize(FRAME_WIDTH, FRAME_HIGHT);
-		setTitle("ToraUma Bank kontofönster");
+		setTitle("ToraUma Bank Kontofönster");
 		setVisible(true);
 	}
 	

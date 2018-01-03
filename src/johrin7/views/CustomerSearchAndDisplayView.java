@@ -1,9 +1,10 @@
 package johrin7.views;
 
 import java.awt.BorderLayout;
+import java.awt.Desktop;
 import java.awt.Dimension;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -56,6 +57,8 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 	{
 		this.bankController = bankController;
 		bankController.registerObserver(this);
+		createView();
+		this.updateBank(true);
 		
 	}
 	
@@ -84,7 +87,7 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 	/**Skapar sökknappen med actionListener och tillhörande lambda uttryck.
 	 */
 	private void searchButton() {
-		searchButton = new JButton("Search");
+		searchButton = new JButton("Sök");
 		searchButton.addActionListener(e -> { 
 		String searchText = searchField.getText();
 		//Om det inte står något i sökfältet sätts rowFinder variabeln till null, d.v.s inget sökfilter skapas,
@@ -127,6 +130,7 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 					personalNumber =	 (String)customerTable.getValueAt(customerTable.getSelectedRow(), 2);
 				 	CustomerView customerView = new CustomerView(bankController, personalNumber);
 				 	tableViews.add(customerView);
+				 	customerTable.clearSelection();
 				 }
 			 }
 		 });
@@ -158,18 +162,24 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 			});
 		
 		JMenuItem saveAllCustomerItem = new JMenuItem("Spara kunder till fil");
-		createItem.addActionListener(e -> {
+		saveAllCustomerItem.addActionListener(e -> {
 			//Implementeras i uppgift 4.
 		});
 		
 		JMenuItem getAllCustomersItem = new JMenuItem("Hämta kunder från");
-		createItem.addActionListener(e -> {
+		getAllCustomersItem.addActionListener(e -> {
 			//Implementeras i uppgift 4.
 		});
-		
+		/**Öppnar en rtf fil med instruktioner för hur banksystemet fungerar.
+		 */
 		JMenuItem helpItem = new JMenuItem("Hjälp");
-		createItem.addActionListener(e -> {
-			//Implementeras i uppgift 4.
+		helpItem.addActionListener(e -> {
+			if (Desktop.isDesktopSupported()) {
+			    try {
+			        File myFile = new File("src/johrin7/Hjalp.rtf");
+			        Desktop.getDesktop().open(myFile);
+			    } catch (IOException ex) {}
+			}
 		});
 		
 		options.add(createItem);
@@ -191,7 +201,7 @@ public class CustomerSearchAndDisplayView extends JFrame implements BankObserver
 		panel.add(panelNorth, BorderLayout.NORTH);
 		JScrollPane scrollPane = new JScrollPane(customerTable, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED,
                 JScrollPane.HORIZONTAL_SCROLLBAR_NEVER);
-		scrollPane.setPreferredSize(new Dimension(500, 350));
+		//scrollPane.setPreferredSize(new Dimension(500, 350));
 		scrollPane.setBorder(new EmptyBorder(10, 10, 10, 10));
 		panel.add(scrollPane, BorderLayout.WEST);
 		panelMain.add(panel);

@@ -174,7 +174,7 @@ public abstract class Account {
 		 * få sin implementering i superklassen. Om beteende sedan behövs korrigeras lite kan man
 		 * Override:a dessa och använda superklassens redan implementerade kod samt nödvändiga förändringar.
 		 * Som jag gör med t.ex. toString() och changeAccountBalance() metoderna. På så sätt kan mer kod återvinnas.
-		 * Dessa har jag valt att göra abstrakta eftersom de har en aningens tydligare koppling till subclasserna. 
+		 * Dessa har jag valt att göra abstrakta eftersom de har en aningens tydligare koppling till subklasserna. 
 		 * @return double.
 		 */
 		public abstract double getInterest(); 

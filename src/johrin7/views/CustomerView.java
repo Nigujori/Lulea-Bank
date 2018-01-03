@@ -96,7 +96,7 @@ public class CustomerView extends JFrame implements BankObserver, TableView
 		createMenu();
 		createPane();
 		setSize(FRAME_WIDTH, FRAME_HIGHT);
-		setTitle("ToraUma Bank kundfönster");
+		setTitle("ToraUma Bank Kundfönster");
 		setVisible(true);
 	}
 	
@@ -121,7 +121,7 @@ public class CustomerView extends JFrame implements BankObserver, TableView
 	 */
 	 private void createChangeButton() 
 	 {
-		 changeCustomerButton = new JButton("Ändra kund information");
+		 changeCustomerButton = new JButton("Ändra kundinformation");
 		 changeCustomerButton.setPreferredSize(new Dimension(450, 25));
 		 changeCustomerButton.addActionListener(e -> {
 			 //Förändrar kundinformationen enligt det som skrivits in i namnfälten.
@@ -153,7 +153,8 @@ public class CustomerView extends JFrame implements BankObserver, TableView
 				 if(customerTable.getSelectedRow() != -1) {
 					accountNumberStr = (String)customerTable.getValueAt(customerTable.getSelectedRow(), 0);
 					AccountView accountView = new AccountView(bankController, Integer.parseInt(accountNumberStr), this.personalNumberStr);
-					tableViews.add(accountView);
+					this.tableViews.add(accountView);
+					customerTable.clearSelection();
 				 }
 			 	}
 			});
@@ -269,7 +270,7 @@ public class CustomerView extends JFrame implements BankObserver, TableView
 	 */
 	public void closeTableViews() 
 	{
-		if(this.optionViews.size() != 0) {
+		if(this.tableViews.size() != 0) {
 			for(AccountView tv : this.tableViews) 
 			{
 				tv.dispose();
