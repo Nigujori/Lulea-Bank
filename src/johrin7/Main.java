@@ -1,12 +1,5 @@
 package johrin7;
 
-/**
- * D0018D, Lab 2: Checks the classes Account, Customer and BankLogic 
- * This class can be updated during the course.
- * Last changes:  2017-01-27
- * @author Susanne Fahlman, susanne.fahlman@ltu.se       
- */
-
 import java.io.*;
 import johrin7.Controller.BankController;
 import johrin7.Controller.BankControllerInterface;
